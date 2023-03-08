@@ -6,6 +6,7 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         // get Ticket by its ID
+        // TODO : if customer is viewing the ticket, dont show notes section
         getTicketById: async (parent, {ticketId}) => {
         return Ticket.findOne({ticketId}),populate(comments);
       },
@@ -104,6 +105,21 @@ const resolvers = {
 
 
         //createNote
+        createNote: async (parent, {commentId,notes}, context) => {
+            if (context.user) {
+                return await Comment.findOneAndUpdate(
+                    { _id: commentId },
+                    { $addToSet: {
+                         notes: {notes}
+                    } },
+                    {
+                        new: true,
+                        runValidators: true,
+                      }
+                  );
+            } 
+            throw new AuthenticationError('You need to be logged in!');
+        },
 
 
 
