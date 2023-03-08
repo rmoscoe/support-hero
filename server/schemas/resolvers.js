@@ -10,6 +10,11 @@ const resolvers = {
         return Ticket.findOne({ticketId}),populate(comments);
       },
       //get Tickets by userId
+      getTicketsbyUserId: async (parent, {userId}) => {
+        return Ticket.find({
+            users : userId
+        });
+      },
 
 
       // get Tickets by userId and Status
@@ -25,7 +30,30 @@ const resolvers = {
 
 
     Mutation : {
-        createTicket
+        //create new ticket
+        createTicket: async (parent, {title, description,priority}, context) => {
+
+            const usersDb = User.find({type : "Agent"});
+            
+            const agentId = usersDb[Math.floor(Math.random * users.length)]._id;
+
+            const customerId = context.user._id ;
+
+            const users = [agentId, customerId]
+
+            if (context.user) {
+             const ticket = Ticket.create({title, description,priority, users});
+
+             await User.finOneAndUpdate(
+                {_id: agentId},
+                { $addToSet : { tickets : ticket._id}}
+             )
+
+             return ticket;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+
+        }
 
     }
 }
