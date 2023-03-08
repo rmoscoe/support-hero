@@ -121,15 +121,34 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
 
-
-
         //updateNote
-
-
+        updateNote: async (parent,{commentId,notes}, context) => {
+            if(context.user){
+                return Comment.findOneAndUpdate(
+                    {_id : commentId},
+                    {notes : {notes}},
+                    {
+                        new: true,
+                        runValidators: true,
+                    }
+                )
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
 
         //deleteNote
-
-
+        deleteNote: async (parent,{commentId}, context) => {
+            if(context.user){
+                return Comment.findOneAndUpdate(
+                    {_id : commentId},
+                    {$pull : {notes : {notes}}},
+                    {
+                        new: true,
+                    }
+                )
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
 
         //login
         login: async (parent, { email, password }) => {
