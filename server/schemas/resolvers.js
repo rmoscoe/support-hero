@@ -6,17 +6,25 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         // get Ticket by its ID
-        // TODO : if customer is viewing the ticket, dont show notes section
         getTicketById: async (parent, {ticketId}) => {
+            const userData = User.findOne(
+                {_id : context.user._id}
+            )
 
-            return Ticket.findOne({ticketId}).populate('comments');
+            const userType = userData.type;
+
+            if (userType == "Agent") {
+                return Ticket.findOne({ticketId}).populate('comments');
+            } else {
+                // TODO : if customer is viewing the ticket, dont show notes section
+            }
       },
 
       //get Tickets by userId
       getTicketsByUserId: async (parent, {userId}) => {
         return Ticket.find({
             users : userId
-        });
+        }).populate('tickets');
       },
 
       // get Tickets by userId and Status
@@ -24,7 +32,8 @@ const resolvers = {
         return Ticket.find({
             users : userId,
             status : status
-        });
+        }).populate('comments');
+        //TODO : dont show notes for customer
       },
 
       me: async (parent, context) => {
@@ -66,7 +75,7 @@ const resolvers = {
         updateTicketStatus: async (parent, {ticketId,status} , context) => {
             if (context.user) {
                 
-                const ticket = await  ticket.findOneAndUpdate(
+                const ticket = await Ticket.findOneAndUpdate(
                     {_id : ticketId},
                     {
                         status : status
