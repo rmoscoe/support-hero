@@ -33,6 +33,11 @@ const ticketSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Comment'
         }],
+    },
+    {
+        toJSON: {
+            getters: true,
+        }
     }
 );
 
