@@ -24,7 +24,9 @@ const resolvers = {
       getTicketsByUserId: async (parent, {userId}) => {
         return Ticket.find({
             users : userId
-        }).populate('tickets');
+        }).populate('comments');
+        //TODO : dont show notes for customer
+
       },
 
       // get Tickets by userId and Status
