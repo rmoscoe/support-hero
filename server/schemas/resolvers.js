@@ -6,18 +6,25 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         // get Ticket by its ID
-        getTicketbyId: async (parent, {ticketId}) => {
+        getTicketById: async (parent, {ticketId}) => {
         return Ticket.findOne({ticketId}),populate(comments);
       },
+
       //get Tickets by userId
-      getTicketsbyUserId: async (parent, {userId}) => {
+      getTicketsByUserId: async (parent, {userId}) => {
         return Ticket.find({
             users : userId
         });
       },
 
-
       // get Tickets by userId and Status
+      getTicketsByStatus: async (parent, {userId , status}) => {
+        return Ticket.find({
+            users : userId,
+            status : status
+        });
+      },
+
 
 
       me: async (parent, context) => {
@@ -34,7 +41,7 @@ const resolvers = {
         createTicket: async (parent, {title, description,priority}, context) => {
 
             const usersDb = User.find({type : "Agent"});
-            
+
             const agentId = usersDb[Math.floor(Math.random * users.length)]._id;
 
             const customerId = context.user._id ;
