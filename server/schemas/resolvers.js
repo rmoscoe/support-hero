@@ -17,6 +17,7 @@ const resolvers = {
                 return Ticket.findOne({ticketId}).populate('comments');
             } else {
                 // TODO : if customer is viewing the ticket, dont show notes section
+                return Ticket.findOne({ticketId}).populate('comments','-note');
             }
       },
 
