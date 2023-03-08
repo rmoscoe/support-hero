@@ -41,7 +41,7 @@ const resolvers = {
 
       me: async (parent, context) => {
         if (context.user) {
-          return User.findOne({ _id: context.user._id }).populate('thoughts');
+          return User.findOne({ _id: context.user._id }).populate('tickets');
         }
         throw new AuthenticationError('You need to be logged in!');
       },
@@ -63,7 +63,7 @@ const resolvers = {
             if (context.user) {
              const ticket = Ticket.create({title, description,priority, users});
 
-             await User.finOneAndUpdate(
+             await User.findOneAndUpdate(
                 {_id: agentId},
                 { $addToSet : { tickets : ticket._id}}
              )
@@ -85,7 +85,7 @@ const resolvers = {
                     }
                 )
                 // if ticket status is closed, remove that ticket from user's queue
-                if (ticket._id == "Closed") {
+                if (ticket.status == "Closed") {
                     await User.findOneAndUpdate(
                         { _id: context.user._id },
                         { $pull: { tickets: ticket._id } }
@@ -152,7 +152,7 @@ const resolvers = {
         //deleteNote
         deleteNote: async (parent,{commentId, notes}, context) => {
             if(context.user){
-                return Comment.findOneAndUDelete(
+                return Comment.findOneAndDelete(
                     {_id : commentId},
                     {note : {notes}},
                     {
@@ -183,6 +183,13 @@ const resolvers = {
           },
 
           //TODO : signup
+          createUser: async (parent,{firstName, lastName, password, email}) => {
+            const user = await User.create({ firstName, lastName, password, email});
+            const token = signToken(user);
+            return { token, user };
+          }
+
+        
 
     }
 }
