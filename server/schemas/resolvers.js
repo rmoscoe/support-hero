@@ -8,7 +8,8 @@ const resolvers = {
         // get Ticket by its ID
         // TODO : if customer is viewing the ticket, dont show notes section
         getTicketById: async (parent, {ticketId}) => {
-        return Ticket.findOne({ticketId}),populate(comments);
+
+            return Ticket.findOne({ticketId}).populate('comments');
       },
 
       //get Tickets by userId
@@ -98,7 +99,7 @@ const resolvers = {
                     { $addToSet: { comments: comment._id } }
                   );
           
-                  return comment;
+                return comment;
             } 
             throw new AuthenticationError('You need to be logged in!');
         },
@@ -109,9 +110,9 @@ const resolvers = {
             if (context.user) {
                 return await Comment.findOneAndUpdate(
                     { _id: commentId },
-                    { $addToSet: {
-                         notes: {notes}
-                    } },
+                    { 
+                         note : {notes}
+                    },
                     {
                         new: true,
                         runValidators: true,
@@ -126,7 +127,7 @@ const resolvers = {
             if(context.user){
                 return Comment.findOneAndUpdate(
                     {_id : commentId},
-                    {notes : {notes}},
+                    {note : {notes}},
                     {
                         new: true,
                         runValidators: true,
@@ -137,11 +138,11 @@ const resolvers = {
         },
 
         //deleteNote
-        deleteNote: async (parent,{commentId}, context) => {
+        deleteNote: async (parent,{commentId, notes}, context) => {
             if(context.user){
-                return Comment.findOneAndUpdate(
+                return Comment.findOneAndUDelete(
                     {_id : commentId},
-                    {$pull : {notes : {notes}}},
+                    {note : {notes}},
                     {
                         new: true,
                     }
@@ -168,6 +169,9 @@ const resolvers = {
       
             return { token, user };
           },
+
+          //TODO : signup
+
     }
 }
 
