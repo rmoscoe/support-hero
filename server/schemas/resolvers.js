@@ -61,6 +61,26 @@ const resolvers = {
         },
 
         //updateTicketStatus
+        updateTicketStatus: async (parent, {ticketId,status} , context) => {
+            if (context.user) {
+                
+                const ticket = await  ticket.findOneAndUpdate(
+                    {_id : ticketId},
+                    {
+                        status : status
+                    }
+                )
+                // if ticket status is closed, remove that ticket from user's queue
+                if (ticket._id == "Closed") {
+                    await User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        { $pull: { tickets: ticket._id } }
+                    )  
+                }
+                return ticket;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        }
 
 
         //createComment
@@ -75,7 +95,7 @@ const resolvers = {
 
         //deleteNote
 
-        
+
 
         //login
         login: async (parent, { email, password }) => {
