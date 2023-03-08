@@ -80,10 +80,27 @@ const resolvers = {
                 return ticket;
             }
             throw new AuthenticationError('You need to be logged in!');
-        }
+        },
 
 
         //createComment
+        createComment: async (parent, {ticketId,message, userId}, context) => {
+            if (context.user) {
+                const comment = await Comment.create(
+                    {
+                        message,
+                        creator : userId
+                    }
+                )
+                await Ticket.findOneAndUpdate(
+                    { _id: ticketId },
+                    { $addToSet: { comments: comment._id } }
+                  );
+          
+                  return comment;
+            } 
+            throw new AuthenticationError('You need to be logged in!');
+        },
 
 
         //createNote
@@ -91,6 +108,7 @@ const resolvers = {
 
 
         //updateNote
+
 
 
         //deleteNote
