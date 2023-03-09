@@ -17,8 +17,8 @@ const userSchema = new Schema({
     },
     type: {
         type: String,
-        enum: ['agent', 'customer'],
-        default: 'customer'
+        enum: ['Agent', 'Customer'],
+        default: 'Customer'
     },
     email: {
         type: String,
@@ -30,6 +30,11 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Ticket'
     }]
+}<
+{
+    toJSON: {
+        virtuals: true
+    }
 });
 
 userSchema.pre('save', async function(next) {
