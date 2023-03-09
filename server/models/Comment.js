@@ -10,21 +10,21 @@ const commentSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
-            get: dateFormat
+            get: (date) => dateFormat(date)
         },
         creator: {
             type: Schema.Types.ObjectId,
             required: true,
             ref: "User"
         },
-        note: new mongoose.Schema({
+        note: new Schema({
             notes: {
                 type: String,
                 required: true
             }, createdAt: {
                 type: Date,
                 default: Date.now(),
-                get: dateFormat
+                get: (date) => dateFormat(date)
             }
         }, {
             toJSON: {

@@ -17,7 +17,7 @@ const typeDefs = gql`
         description: String!
         priority: String!
         status: String
-        createdAt: Date!
+        createdAt: String!
         users: [User]
         comments: [Comment]
     }
@@ -25,13 +25,13 @@ const typeDefs = gql`
     type Note {
         _id: ID!
         notes: String!
-        createdAt: Date
+        createdAt: String
     }
 
     type Comment {
         _id: ID!
         message: String!
-        createdAt: Date
+        createdAt: String
         creator: User!
         note: Note
     }
