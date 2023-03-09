@@ -9,7 +9,7 @@ function createRandomUser () {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         email: email,
-        password: faker.internet.password(8),
+        password: faker.internet.password(8, false, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,32})/),
         type: type
     }
 }
