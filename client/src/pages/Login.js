@@ -41,15 +41,16 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
+    <main className="d-flex flex-row justify-center mb-4">
+      <h1>Support Hero</h1>
       <div className="col-12 col-lg-10">
         <div className="card">
           <h4 className="card-header bg-dark text-light p-2">Login</h4>
           <div className="card-body">
             {data ? (
               <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
+                Success! You are now{' '}
+                <Link to="/">logged in.</Link>
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
