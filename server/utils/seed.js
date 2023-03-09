@@ -9,6 +9,8 @@ const createUser = async (type) => {
     const password = faker.internet.password(8, false, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,32})/);
     const email = faker.internet.email().toLowerCase();
 
+    console.log(firstName, lastName, email, password);
+
     const user = new User({
         firstName,
         lastName,
