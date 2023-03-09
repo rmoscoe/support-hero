@@ -3,44 +3,6 @@ const faker = require('faker');
 const connection = require("../config/connection");
 const { Comment, Ticket, User } = require("../models");
 
-// const { createRandomUser } = require("./userData");
-
-// connection.on("error", (err) => err);
-
-// connection.once("open", async () => {
-//     await User.deleteMany({});
-//     await Ticket.deleteMany({});
-//     await Comment.deleteMany({});
-
-//     const agents = [];
-//     const customers = [];
-
-//     for (let i = 0; i < 5; i++) {
-//         const agent = await createUser('agent');
-//         agents.push(agent);
-//     }
-
-//     for (let i = 0; i < 20; i++) {
-//         const customer = await createUser('customer');
-//         customers.push(customer);
-//     }
-
-//     for (let i = 0; i < 50; i++) {
-//         const randomUsers = [agents[Math.floor(Math.random() * agents.length)]._id];
-//         const numCustomers = Math.floor(Math.random() * 4) + 1;
-
-//         for (let j = 0; j < numCustomers; j++) {
-//             const customer = customers[Math.floor(Math.random() * customers.length)];
-//             randomUsers.push(customer._id);
-//         }
-
-//         await createTicket(randomUsers);
-//   }
-
-//   connection.close();
-// };
-
-
 const createUser = async (type) => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
