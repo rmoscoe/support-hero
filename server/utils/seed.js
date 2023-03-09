@@ -90,11 +90,11 @@ const seedData = async () => {
     }
 
     for (let i = 0; i < customer.length; i++) {
-        const customerId = customer[i]._id;
+        const customerId = customers[i]._id;
         const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
 
-        randomUsers = [customerId, randomAgentId];
-        await createTicket(randomUserIds);
+        userIds = [customerId, randomAgentId];
+        await createTicket(userIds);
     }
 
     connection.close();

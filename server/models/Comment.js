@@ -17,7 +17,7 @@ const commentSchema = new Schema(
             required: true,
             ref: "User"
         },
-        note: new mongoose.Schema({
+        note: new Schema({
             notes: {
                 type: String,
                 required: true
