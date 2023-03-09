@@ -36,15 +36,20 @@ const typeDefs = gql`
         note: Note
     }
 
+    type Auth {
+        token: ID!
+        user: User
+    } 
+
     type Query {
-        getTicketById: Ticket
+        getTicketById(ticketId: ID!): Ticket
         getTicketsByUserId(userId: ID!): [Ticket]
         getTicketsByStatus(userId: ID!, status: String!): [Ticket]
         me: User
     }
 
     type Mutation {
-        createTicket(ticket: String!, description: String!, priority: String!): Ticket
+        createTicket(title: String!, description: String!, priority: String!): Ticket
         updateTicketStatus(ticketId: ID!, status: String!): Ticket
         createComment(ticketId: ID!, message: String!, userId: ID!): Comment
         createNote(commentId: ID!, notes: String!): Comment
