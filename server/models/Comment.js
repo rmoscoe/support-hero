@@ -10,7 +10,7 @@ const commentSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
-            get: dateFormat
+            get: (date) => dateFormat(date)
         },
         creator: {
             type: Schema.Types.ObjectId,
@@ -24,7 +24,7 @@ const commentSchema = new Schema(
             }, createdAt: {
                 type: Date,
                 default: Date.now(),
-                get: dateFormat
+                get: (date) => dateFormat(date)
             }
         }, {
             toJSON: {
