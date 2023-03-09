@@ -26,10 +26,6 @@ const userSchema = new Schema({
         unique: true,
         match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     },
-    tickets: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Ticket'
-    }]
 },
 {
     toJSON: {

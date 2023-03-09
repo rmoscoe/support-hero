@@ -6,12 +6,7 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         // get Ticket by its ID
-        getTicketById: async (parent, {ticketId}) => {
-            const userData = User.findOne(
-                {_id : context.user._id}
-            )
-
-            const userType = userData.type;
+        getTicketById: async (parent, {ticketId, userType}) => {
 
             if (userType == "Agent") {
                 return Ticket.findOne({ticketId}).populate('comments');
@@ -21,29 +16,12 @@ const resolvers = {
             }
       },
 
-      //get Tickets by userId
-      getTicketsByUserId: async (parent, {userId}) => {
-        return Ticket.find({
-            users : userId
-        }).populate('comments');
-        //TODO : dont show notes for customer
-
-      },
-
       // get Tickets by userId and Status
-      getTicketsByStatus: async (parent, {userId , status}) => {
+      getTicketsByUserId: async (parent, {userId , status}) => {
         return Ticket.find({
             users : userId,
             status : status
-        }).populate('comments');
-        //TODO : dont show notes for customer
-      },
-
-      me: async (parent, context) => {
-        if (context.user) {
-          return User.findOne({ _id: context.user._id }).populate('tickets');
-        }
-        throw new AuthenticationError('You need to be logged in!');
+        });
       },
     },
 
@@ -63,11 +41,6 @@ const resolvers = {
             if (context.user) {
              const ticket = Ticket.create({title, description,priority, users});
 
-             await User.findOneAndUpdate(
-                {_id: agentId},
-                { $addToSet : { tickets : ticket._id}}
-             )
-
              return ticket;
             }
             throw new AuthenticationError('You need to be logged in!');
@@ -84,13 +57,7 @@ const resolvers = {
                         status : status
                     }
                 )
-                // if ticket status is closed, remove that ticket from user's queue
-                if (ticket.status == "Closed") {
-                    await User.findOneAndUpdate(
-                        { _id: context.user._id },
-                        { $pull: { tickets: ticket._id } }
-                    )  
-                }
+             
                 return ticket;
             }
             throw new AuthenticationError('You need to be logged in!');
@@ -171,7 +138,7 @@ const resolvers = {
               throw new AuthenticationError('No user found with this email address');
             }
       
-            const correctPw = await user.isCorrectPassword(password);
+            const correctPw = await user.comparePassword(password);
       
             if (!correctPw) {
               throw new AuthenticationError('Incorrect credentials');
@@ -187,9 +154,6 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
           }
-
-        
-
     }
 }
 
