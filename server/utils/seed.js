@@ -79,25 +79,40 @@ const seedData = async () => {
     const agents = [];
     const customers = [];
 
+    // Create agents
+    console.log('Creating agents...');
     for (let i = 0; i < 5; i++) {
         const agent = await createUser('Agent');
         agents.push(agent);
     }
-
+    console.log('Agents created!');
+    
+    // Create customers
+    console.log('Creating customers...');
     for (let i = 0; i < 20; i++) {
         const customer = await createUser('Customer');
         customers.push(customer);
     }
+    console.log('Customers created!');
 
-    for (let i = 0; i < customer.length; i++) {
+    // For all customers, create tickets with comments and assign them to agents
+    console.log('Creating ticket and Comment data...');
+    for (let i = 0; i < customers.length; i++) {
         const customerId = customers[i]._id;
         const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
 
         userIds = [customerId, randomAgentId];
         await createTicket(userIds);
     }
+    console.log('Ticket and Comment data created!');
 
-    connection.close();
+    // Write agent data for reference and close db connection
+    fs.writeFile('userData.json', JSON.stringify([...agents, ...customers], 4), (err) => {
+        if (err) throw err;
+        console.log('USer data written to file!');
+        connection.close();
+    });
+
 };
 
 seedData();
