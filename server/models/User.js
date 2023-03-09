@@ -30,7 +30,7 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Ticket'
     }]
-}<
+},
 {
     toJSON: {
         virtuals: true
