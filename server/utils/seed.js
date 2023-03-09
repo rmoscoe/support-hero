@@ -1,5 +1,5 @@
 const fs = require('fs');
-const faker = require('faker');
+const faker = require('@faker-js/faker');
 const connection = require("../config/connection");
 const { Comment, Ticket, User } = require("../models");
 
