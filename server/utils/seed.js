@@ -45,8 +45,8 @@ const createTicket = async (userIds) => {
         description,
         priority,
         status,
-        users,
-        comments,
+        users: userIds,
+        comments
     });
 
     await ticket.save();
@@ -63,7 +63,7 @@ const createComment = async (userId) => {
 
     const comment = new Comment({
         message,
-        creator,
+        creator: userId,
         note,
     });
 
