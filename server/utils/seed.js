@@ -70,11 +70,15 @@ const createComment = async (userId) => {
     return await comment.save();
 };
 
-const seedData = async () => {
-    await connection();
+connection.once("open", async () => {
+  try {
+    console.log("Connected to MongoDB database...");
+    
+    console.log("Dropping existing data...");
     await User.deleteMany({});
     await Ticket.deleteMany({});
     await Comment.deleteMany({});
+    console.log("Existing data dropped.");
 
     const agents = [];
     const customers = [];
@@ -109,10 +113,13 @@ const seedData = async () => {
     // Write agent data for reference and close db connection
     fs.writeFile('userData.json', JSON.stringify([...agents, ...customers], 4), (err) => {
         if (err) throw err;
-        console.log('USer data written to file!');
+        console.log('User data written to file!');
         connection.close();
+        console.log('Connection closed.');
     });
-
-};
-
-seedData();
+  } catch (err) {
+    console.error(err);
+    connection.close();
+    console.log('Connection closed.');
+  }
+});
