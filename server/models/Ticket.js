@@ -17,7 +17,6 @@ const ticketSchema = new Schema(
         },
         status: {
             type: String,
-            requried: true,
             default: 'Open',
         },
         createdAt: {
