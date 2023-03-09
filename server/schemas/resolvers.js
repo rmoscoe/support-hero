@@ -182,7 +182,6 @@ const resolvers = {
             return { token, user };
           },
 
-          //TODO : signup
           createUser: async (parent,{firstName, lastName, password, email}) => {
             const user = await User.create({ firstName, lastName, password, email});
             const token = signToken(user);
