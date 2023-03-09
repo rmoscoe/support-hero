@@ -23,7 +23,6 @@ const typeDefs = gql`
     }
 
     type Note {
-        _id: ID!
         notes: String!
         createdAt: String
     }
