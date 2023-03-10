@@ -121,13 +121,7 @@ const Login = (props) => {
               </button>
             </div>
           </form><br></br>
-          <label>Don't have an accout? Sign Up here</label>
-          <div className="buttons is-centered">
-          <button type="submit"
-              className="button is-link   has-text-centered" 
-              style={{ cursor: 'pointer' }}>
-             <Link to="/signup">Sign Up</Link></button>
-          </div>
+          <label>Don't have an account? Sign Up <Link className="has-text-link" to="/signup">here</Link></label>
         </div>
       </div>
        {/* )} */}
