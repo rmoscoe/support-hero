@@ -1,0 +1,10 @@
+export const GET_TICKET = "GET TICKET";
+export const GET_USER_TICKETS = "GET USER TICKETS";
+export const CREATE_TICKET = "CREATE TICKET";
+export const UPDATE_TICKET_STATUS = "UPDATE TICKET STATUS";
+export const CREATE_COMMENT = "CREATE COMMENT";
+export const CREATE_NOTE = "CREATE NOTE";
+export const UPDATE_NOTE = "UPDATE NOTE";
+export const DELETE_NOTE = "DELETE NOTE";
+export const LOGIN = "LOGIN";
+export const CREATE_USER = "CREATE USER";
