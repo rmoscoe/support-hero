@@ -22,6 +22,7 @@ const resolvers = {
             return Ticket.find({
             users : userId,
             status : status
+
             }).populate('comments users');
         else 
             return Ticket.find({
