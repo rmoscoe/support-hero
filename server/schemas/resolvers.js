@@ -9,19 +9,25 @@ const resolvers = {
         getTicketById: async (parent, {ticketId, userType}) => {
 
             if (userType == "Agent") {
-                return Ticket.findOne({ticketId}).populate('comments');
+                return Ticket.findOne({_id:ticketId}).populate('comments').populate('users');
             } else {
                 // TODO : if customer is viewing the ticket, dont show notes section
-                return Ticket.findOne({ticketId}).populate('comments','-note');
+                return Ticket.findOne({_id:ticketId}).populate('comments', '-notes').populate('users');
             }
       },
 
       // get Tickets by userId and Status
       getTicketsByUserId: async (parent, {userId , status}) => {
-        return Ticket.find({
+        if(status)
+            return Ticket.find({
             users : userId,
             status : status
-        });
+            }).populate('comments users');
+        else 
+            return Ticket.find({
+            users : userId,
+            }).populate('comments users');
+
       },
     },
 
