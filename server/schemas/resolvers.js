@@ -40,16 +40,17 @@ const resolvers = {
 
             const agentId = usersDb[Math.floor(Math.random * users.length)]._id;
 
-            const customerId = context.user._id ;
+            // const customerId = context.user._id ;
+            const customerId = "640a46c9f2281cd4b39a5f2e"
 
             const users = [agentId, customerId]
 
-            if (context.user) {
+            // if (context.user) {
              const ticket = Ticket.create({title, description,priority, users});
 
              return ticket;
-            }
-            throw new AuthenticationError('You need to be logged in!');
+            // }
+            // throw new AuthenticationError('You need to be logged in!');
 
         },
 
@@ -61,6 +62,9 @@ const resolvers = {
                     {_id : ticketId},
                     {
                         status : status
+                    },
+                    {
+                        new: true,
                     }
                 )
              
