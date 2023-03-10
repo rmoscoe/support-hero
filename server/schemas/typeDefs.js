@@ -9,7 +9,6 @@ const typeDefs = gql`
         type: String
         email: String
     }
-
     type Ticket {
         _id: ID!
         title: String
@@ -20,12 +19,10 @@ const typeDefs = gql`
         users: [User]
         comments: [Comment]
     }
-
     type Note {
         notes: String
         createdAt: String
     }
-
     type Comment {
         _id: ID!
         message: String
@@ -33,17 +30,14 @@ const typeDefs = gql`
         creator: User
         note: Note
     }
-
     type Auth {
         token: ID!
         user: User
     } 
-
     type Query {
         getTicketById(ticketId: ID!, userType: String!): Ticket
         getTicketsByUserId(userId: ID!, status: String): [Ticket]
     }
-
     type Mutation {
         createTicket(title: String!, description: String!, priority: String!): Ticket
         updateTicketStatus(ticketId: ID!, status: String!): Ticket
