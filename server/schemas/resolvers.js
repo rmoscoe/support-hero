@@ -11,8 +11,7 @@ const resolvers = {
             if (userType == "Agent") {
                 return Ticket.findOne({_id:ticketId}).populate('comments').populate('users');
             } else {
-                // TODO : if customer is viewing the ticket, dont show notes section
-                return Ticket.findOne({_id:ticketId}).populate('comments', '-notes').populate('users');
+                return Ticket.findOne({_id:ticketId}).populate('comments', '-note').populate('users');
             }
       },
 
@@ -22,13 +21,11 @@ const resolvers = {
             return Ticket.find({
             users : userId,
             status : status
-
             }).populate('comments users');
         else 
             return Ticket.find({
             users : userId,
             }).populate('comments users');
-
       },
     },
 
@@ -47,9 +44,18 @@ const resolvers = {
             const users = [agentId, customerId]
 
             // if (context.user) {
-             const ticket = Ticket.create({title, description,priority, users});
+            //  const ticket = Ticket.create({title, description,priority, users});
+             const ticket = Ticket.create({title, description,priority});
 
-             return ticket;
+             return Ticket.findOneAndUpdate(
+                {_id : ticket._id},
+                
+                    { $addToSet: { users: users } },
+                
+                {
+                    new: true,
+                }
+            )
             // }
             // throw new AuthenticationError('You need to be logged in!');
 
@@ -58,7 +64,6 @@ const resolvers = {
         //updateTicketStatus
         updateTicketStatus: async (parent, {ticketId,status} , context) => {
             // if (context.user) {
-                
                 const ticket = await Ticket.findOneAndUpdate(
                     {_id : ticketId},
                     {
@@ -68,7 +73,6 @@ const resolvers = {
                         new: true,
                     }
                 )
-             
                 return ticket;
             // }
             // throw new AuthenticationError('You need to be logged in!');
@@ -88,7 +92,6 @@ const resolvers = {
                     { _id: ticketId },
                     { $addToSet: { comments: comment._id } }
                   );
-          
                 return comment;
             // } 
             // throw new AuthenticationError('You need to be logged in!');
@@ -133,9 +136,6 @@ const resolvers = {
                 return Comment.findOneAndDelete(
                     {_id : commentId},
                     {note : {notes}},
-                    {
-                        new: true,
-                    }
                 )
             // }
             // throw new AuthenticationError('You need to be logged in!');
