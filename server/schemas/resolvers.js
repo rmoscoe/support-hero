@@ -33,29 +33,17 @@ const resolvers = {
     Mutation : {
         //create new ticket
         createTicket: async (parent, {title, description,priority}, context) => {
-
-            const usersDb = User.find({type : "Agent"});
-
-            const agentId = usersDb[Math.floor(Math.random * users.length)]._id;
-
-            // const customerId = context.user._id ;
-            const customerId = "640a46c9f2281cd4b39a5f2e"
-
-            const users = [agentId, customerId]
-
             // if (context.user) {
-            //  const ticket = Ticket.create({title, description,priority, users});
-             const ticket = Ticket.create({title, description,priority});
+             const usersDb = await User.find({type : "Agent"});
 
-             return Ticket.findOneAndUpdate(
-                {_id : ticket._id},
-                
-                    { $addToSet: { users: users } },
-                
-                {
-                    new: true,
-                }
-            )
+             const agentId = usersDb[Math.floor(Math.random() * usersDb.length)]._id;
+ 
+             // const customerId = context.user._id ;
+             const customerId = "640a46c9f2281cd4b39a5f2e"
+ 
+             const users = [agentId, customerId]
+
+             return Ticket.create({title, description,priority, users});
             // }
             // throw new AuthenticationError('You need to be logged in!');
 
