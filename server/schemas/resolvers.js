@@ -55,7 +55,7 @@ const resolvers = {
 
         //updateTicketStatus
         updateTicketStatus: async (parent, {ticketId,status} , context) => {
-            if (context.user) {
+            // if (context.user) {
                 
                 const ticket = await Ticket.findOneAndUpdate(
                     {_id : ticketId},
@@ -65,14 +65,14 @@ const resolvers = {
                 )
              
                 return ticket;
-            }
-            throw new AuthenticationError('You need to be logged in!');
+            // }
+            // throw new AuthenticationError('You need to be logged in!');
         },
 
 
         //createComment
         createComment: async (parent, {ticketId,message, userId}, context) => {
-            if (context.user) {
+            // if (context.user) {
                 const comment = await Comment.create(
                     {
                         message,
@@ -85,14 +85,14 @@ const resolvers = {
                   );
           
                 return comment;
-            } 
-            throw new AuthenticationError('You need to be logged in!');
+            // } 
+            // throw new AuthenticationError('You need to be logged in!');
         },
 
 
         //createNote
         createNote: async (parent, {commentId,notes}, context) => {
-            if (context.user) {
+            // if (context.user) {
                 return await Comment.findOneAndUpdate(
                     { _id: commentId },
                     { 
@@ -103,13 +103,13 @@ const resolvers = {
                         runValidators: true,
                       }
                   );
-            } 
-            throw new AuthenticationError('You need to be logged in!');
+            // } 
+            // throw new AuthenticationError('You need to be logged in!');
         },
 
         //updateNote
         updateNote: async (parent,{commentId,notes}, context) => {
-            if(context.user){
+            // if(context.user){
                 return Comment.findOneAndUpdate(
                     {_id : commentId},
                     {note : {notes}},
@@ -118,13 +118,13 @@ const resolvers = {
                         runValidators: true,
                     }
                 )
-            }
-            throw new AuthenticationError('You need to be logged in!');
+            // }
+            // throw new AuthenticationError('You need to be logged in!');
         },
 
         //deleteNote
         deleteNote: async (parent,{commentId, notes}, context) => {
-            if(context.user){
+            // if(context.user){
                 return Comment.findOneAndDelete(
                     {_id : commentId},
                     {note : {notes}},
@@ -132,8 +132,8 @@ const resolvers = {
                         new: true,
                     }
                 )
-            }
-            throw new AuthenticationError('You need to be logged in!');
+            // }
+            // throw new AuthenticationError('You need to be logged in!');
         },
 
         //login
