@@ -1,4 +1,4 @@
-import "bootstrap/dist/css/bootstrap.min.css"
+import 'bulma/css/bulma.css'
 import './App.css';
 import React from 'react';
 import {
@@ -56,8 +56,7 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               />
-            </Routes>
-          </div>
+            </Routes>git 
           <Footer />
         </div>
       </Router>
