@@ -1,4 +1,5 @@
 import 'bulma/css/bulma.css'
+import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
 import React from 'react';
 import {
@@ -11,6 +12,8 @@ import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
+import Homepage from './pages/Homepage';
+
 
 // Construct main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -45,13 +48,13 @@ function App() {
           <div className="container">
             <Routes>
               <Route 
-                path="/login" 
+                path="/" 
                 element={<Login />} 
               />
-              {/* <Route 
-                path="/login" 
-                element={<Login />} 
-              /> */}
+              <Route 
+                path="/homepage" 
+                element={<Homepage />} 
+              />
               {/* <Route 
                 path="/signup" 
                 element={<Signup />} 

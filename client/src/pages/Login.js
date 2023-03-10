@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 // import Auth from '../utils/auth';
 
 const Login = (props) => {
-  const [formValueState, setFormValueState] = useState({ email: '', password: '' });
+  // const [formValueState, setFormValueState] = useState({ email: '', password: '' });
   // const [login, { error, data }] = useMutation(LOGIN_USER);
 
   const {
@@ -17,14 +17,14 @@ const Login = (props) => {
   } = useForm();
 
   // update state based on form input changes
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
 
-    setFormValueState({
-      ...formValueState,
-      [name]: value,
-    });
-  };
+  //   setFormValueState({
+  //     ...formValueState,
+  //     [name]: value,
+  //   });
+  // };
 
   // submit form
   const onSubmit = async (data) => {
@@ -41,36 +41,38 @@ const Login = (props) => {
     // }
 
     // clear form values
-    setFormValueState({
-      email: '',
-      password: '',
-    });
+    // setFormValueState({
+    //   email: '',
+    //   password: '',
+    // });
   };
 
   return (
-    <section className="hero is-link is-fullheight">
+    <section className="hero is-light is-fullheight is-widescreen">
     <div className="hero-body">
+
     <div className="container">
+    <h1 className="title has-text-centered">Support Hero</h1>
+
     {/* {data ? ( */}
-              <h1 className="columns is-centered">
+              {/* <h1 className="columns is-centered has-text-link">
                 Success! You may now head{' '}
-                <Link to="/Homepage">back to the HOMEPAGE.</Link>
-              </h1>
+                <Link to="/homepage">back to the HOMEPAGE.</Link>
+              </h1> */}
             {/* ) : ( */}
       <div className="columns is-centered">
         <div className="column is-5-tablet is-4-desktop is-3-widescreen">
           
-          <h3 className="title has-text-white has-text-centered">Login</h3>
           <hr className="login-hr"></hr>
          
-          <p className="subtitle has-text-white has-text-centered">Please login to access the portal</p>
-          <form onSubmit={handleSubmit(onSubmit)} className="box login-form">
+          <p className="subtitle has-text-centered">Please login to access the portal</p>
+          <form onSubmit={handleSubmit(onSubmit)} className=" login-form">
             <div className="field">
               <label className="label">Email</label>
               <div className="control has-icons-left">
                 <input 
                 type="email" 
-                value={formValueState.email}
+                // value={formValueState.email}
                 // onChange={handleChange}
                 name="email" {...register("email", {
                   required: true ,
@@ -94,7 +96,7 @@ const Login = (props) => {
               <div className="control has-icons-left">
                 <input 
                 type="password" 
-                value={formValueState.password}
+                // value={formValueState.password}
                 // onChange={handleChange}
                 name="password" {...register("password", {
                   required: true 
@@ -111,19 +113,21 @@ const Login = (props) => {
               </div>
             </div>
         
-            <div className="field">
+            <div className="buttons is-centered">
               <button type="submit"
-              className="button is-success is-centered" 
+              className="button is-success" 
               style={{ cursor: 'pointer' }}>
                 Login
               </button>
             </div>
-          </form>
-          <p>
-          Don't have an accout? Sign Up here<br></br>
-          <button type="button" className="is-centered"><Link to="/signup">SIGN UP</Link></button>
-        </p>
-            
+          </form><br></br>
+          <label>Don't have an accout? Sign Up here</label>
+          <div className="buttons is-centered">
+          <button type="submit"
+              className="button is-link   has-text-centered" 
+              style={{ cursor: 'pointer' }}>
+             <Link to="/signup">Sign Up</Link></button>
+          </div>
         </div>
       </div>
        {/* )} */}
