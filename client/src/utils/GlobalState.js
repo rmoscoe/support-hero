@@ -1,13 +1,14 @@
 import React, { createContext, useContext } from "react";
-import {} from "./reducers";
+import { useUserReducer } from "./reducers";
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
 
 const StoreProvider = ({ value = [], ...props }) => {
-    const [state, dispatch] = //useSomeReducer({
-        //properties as key-value pairs
-    // });
+    const [state, dispatch] = useUserReducer({
+        token: "",
+        user: {}
+    });
 
     return <Provider value={[state, dispatch]} {...props} />;
 };
