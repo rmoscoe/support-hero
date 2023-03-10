@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+// import { LOGIN_USER } from '../utils/mutations';
 import { useForm } from "react-hook-form";
 
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 
 const Login = (props) => {
   const [formValueState, setFormValueState] = useState({ email: '', password: '' });
-  const [login, { error, data }] = useMutation(LOGIN_USER);
+  // const [login, { error, data }] = useMutation(LOGIN_USER);
 
   const {
     register,
@@ -29,15 +29,15 @@ const Login = (props) => {
   // submit form
   const onSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const { data } = await login({
-        variables: { ...formValueState },
-      });
+    // try {
+    //   const { data } = await login({
+    //     variables: { ...formValueState },
+    //   });
 
-      Auth.login(data.login.token);
-    } catch (e) {
-      console.error(e);
-    }
+    //   Auth.login(data.login.token);
+    // } catch (e) {
+    //   console.error(e);
+    // }
 
     // clear form values
     setFormValueState({
@@ -50,12 +50,12 @@ const Login = (props) => {
     <section className="hero is-link is-fullheight">
     <div className="hero-body">
     <div className="container">
-    {data ? (
+    {/* {data ? ( */}
               <p>
                 Success! You may now head{' '}
                 <Link to="/Homepage">back to the homepage.</Link>
               </p>
-            ) : (
+            {/* ) : ( */}
       <div className="columns is-centered">
         <div className="column is-5-tablet is-4-desktop is-3-widescreen">
           
@@ -125,7 +125,7 @@ const Login = (props) => {
             
         </div>
       </div>
-       )}
+       {/* )} */}
      </div>
     </div>
     </section>
