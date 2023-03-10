@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
 // import { LOGIN_USER } from '../utils/mutations';
 import { useForm } from "react-hook-form";
 
@@ -27,8 +27,9 @@ const Login = (props) => {
   };
 
   // submit form
-  const onSubmit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async (data) => {
+    // event.preventDefault();
+    console.log(data)
     // try {
     //   const { data } = await login({
     //     variables: { ...formValueState },
@@ -51,10 +52,10 @@ const Login = (props) => {
     <div className="hero-body">
     <div className="container">
     {/* {data ? ( */}
-              <p>
+              <h1 className="columns is-centered">
                 Success! You may now head{' '}
-                <Link to="/Homepage">back to the homepage.</Link>
-              </p>
+                <Link to="/Homepage">back to the HOMEPAGE.</Link>
+              </h1>
             {/* ) : ( */}
       <div className="columns is-centered">
         <div className="column is-5-tablet is-4-desktop is-3-widescreen">
@@ -70,7 +71,7 @@ const Login = (props) => {
                 <input 
                 type="email" 
                 value={formValueState.email}
-                onChange={handleChange}
+                // onChange={handleChange}
                 name="email" {...register("email", {
                   required: true ,
                   pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
@@ -78,10 +79,10 @@ const Login = (props) => {
                 placeholder="e.g. bobsmith@gmail.com" 
                 className="input" />
                   {errors.email && errors.email.type === "required" && (
-                   <p className="has-text-danger	">Email is required.</p>
+                   <p className="has-text-danger ">Email is required.</p>
                   )}
                  {errors.email && errors.email.type === "pattern" && (
-                  <p className="has-text-danger	">Email is not valid.</p>
+                  <p className="has-text-danger  ">Email is not valid.</p>
                  )}
                 <span className="icon is-small is-left">
                   <i className="fa fa-envelope"></i>
@@ -94,15 +95,15 @@ const Login = (props) => {
                 <input 
                 type="password" 
                 value={formValueState.password}
-                onChange={handleChange}
+                // onChange={handleChange}
                 name="password" {...register("password", {
                   required: true 
                 })}
                 placeholder="*******" 
                 className="input" 
                 />
-                <span class="icon is-small is-left">
-                  <i class="fa fa-lock"></i>
+                <span className="icon is-small is-left">
+                  <i className="fa fa-lock"></i>
                 </span>
                 {errors.password && errors.password.type === "required" && (
                  <p className="has-text-danger">Password is required.</p>
@@ -112,15 +113,15 @@ const Login = (props) => {
         
             <div className="field">
               <button type="submit"
-              className="button is-success" 
+              className="button is-success is-centered" 
               style={{ cursor: 'pointer' }}>
                 Login
               </button>
             </div>
           </form>
           <p>
-          Don't have an accout? Sign Up here
-          <Link to="/signup">Sign Up</Link>
+          Don't have an accout? Sign Up here<br></br>
+          <button type="button" className="is-centered"><Link to="/signup">SIGN UP</Link></button>
         </p>
             
         </div>
