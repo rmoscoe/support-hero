@@ -131,14 +131,15 @@ export const DELETE_NOTE = gql`
 
 export const LOGIN = gql`
     mutation login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {}
-        token
-        user {
-            _id
-            firstName
-            lastName
-            type
-            email
+        login(email: $email, password: $password) {
+            token
+            user {
+                _id
+                firstName
+                lastName
+                type
+                email
+            }
         }
     }
 `;
@@ -156,4 +157,4 @@ export const CREATE_USER = gql`
             }
         }
     }
-`
+`;

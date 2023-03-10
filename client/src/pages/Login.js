@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { useMutation } from '@apollo/client';
-// import { LOGIN_USER } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+import { LOGIN } from '../utils/mutations';
 import { useForm } from "react-hook-form";
 
-// import Auth from '../utils/auth';
+import Auth from '../utils/auth';
 
 const Login = (props) => {
   // const [formValueState, setFormValueState] = useState({ email: '', password: '' });
-  // const [login, { error, data }] = useMutation(LOGIN_USER);
+  
 
   const {
     register,
@@ -27,18 +27,18 @@ const Login = (props) => {
   // };
 
   // submit form
-  const onSubmit = async (data) => {
+  const onSubmit = async (formData) => {
     // event.preventDefault();
-    console.log(data)
-    // try {
-    //   const { data } = await login({
-    //     variables: { ...formValueState },
-    //   });
-
-    //   Auth.login(data.login.token);
-    // } catch (e) {
-    //   console.error(e);
-    // }
+    try {
+      const [login, { error, userData }] = useMutation(LOGIN);
+      await login({
+        variables: { email: formData.email, password: formData.password },
+      });
+      console.log(userData);
+      Auth.login(userData.login.token);
+    } catch (e) {
+      console.error(e);
+    }
 
     // clear form values
     // setFormValueState({
