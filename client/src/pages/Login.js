@@ -2,30 +2,36 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+import { useForm } from "react-hook-form";
 
 import Auth from '../utils/auth';
 
 const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formValueState, setFormValueState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
 
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormState({
-      ...formState,
+    setFormValueState({
+      ...formValueState,
       [name]: value,
     });
   };
 
   // submit form
-  const handleFormSubmit = async (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
       const { data } = await login({
-        variables: { ...formState },
+        variables: { ...formValueState },
       });
 
       Auth.login(data.login.token);
@@ -34,61 +40,95 @@ const Login = (props) => {
     }
 
     // clear form values
-    setFormState({
+    setFormValueState({
       email: '',
       password: '',
     });
   };
 
   return (
-    <main className="d-flex flex-row justify-center mb-4">
-      <h1>Support Hero</h1>
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
-            {data ? (
+    <section className="hero is-link is-fullheight">
+    <div className="hero-body">
+    <div className="container">
+    {data ? (
               <p>
-                Success! You are now{' '}
-                <Link to="/">logged in.</Link>
+                Success! You may now head{' '}
+                <Link to="/Homepage">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
-
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
+      <div className="columns is-centered">
+        <div className="column is-5-tablet is-4-desktop is-3-widescreen">
+          
+          <h3 className="title has-text-white has-text-centered">Login</h3>
+          <hr className="login-hr"></hr>
+         
+          <p className="subtitle has-text-white has-text-centered">Please login to access the portal</p>
+          <form onSubmit={handleSubmit(onSubmit)} className="box login-form">
+            <div className="field">
+              <label className="label">Email</label>
+              <div className="control has-icons-left">
+                <input 
+                type="email" 
+                value={formValueState.email}
+                onChange={handleChange}
+                name="email" {...register("email", {
+                  required: true ,
+                  pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
+                })}
+                placeholder="e.g. bobsmith@gmail.com" 
+                className="input" />
+                  {errors.email && errors.email.type === "required" && (
+                   <p className="has-text-danger	">Email is required.</p>
+                  )}
+                 {errors.email && errors.email.type === "pattern" && (
+                  <p className="has-text-danger	">Email is not valid.</p>
+                 )}
+                <span className="icon is-small is-left">
+                  <i className="fa fa-envelope"></i>
+                </span>
               </div>
-            )}
-          </div>
+            </div>
+            <div className="field">
+              <label  className="label">Password</label>
+              <div className="control has-icons-left">
+                <input 
+                type="password" 
+                value={formValueState.password}
+                onChange={handleChange}
+                name="password" {...register("password", {
+                  required: true 
+                })}
+                placeholder="*******" 
+                className="input" 
+                />
+                <span class="icon is-small is-left">
+                  <i class="fa fa-lock"></i>
+                </span>
+                {errors.password && errors.password.type === "required" && (
+                 <p className="has-text-danger">Password is required.</p>
+                 )}
+              </div>
+            </div>
+        
+            <div className="field">
+              <button type="submit"
+              className="button is-success" 
+              style={{ cursor: 'pointer' }}>
+                Login
+              </button>
+            </div>
+          </form>
+          <p>
+          Don't have an accout? Sign Up here
+          <Link to="/signup">Sign Up</Link>
+        </p>
+            
         </div>
       </div>
-    </main>
+       )}
+     </div>
+    </div>
+    </section>
   );
 };
 
