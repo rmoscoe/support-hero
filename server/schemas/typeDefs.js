@@ -8,7 +8,6 @@ const typeDefs = gql`
         password: String!
         type: String
         email: String!
-        tickets: [Ticket]
     }
 
     type Ticket {
@@ -41,10 +40,8 @@ const typeDefs = gql`
     } 
 
     type Query {
-        getTicketById(ticketId: ID!): Ticket
-        getTicketsByUserId(userId: ID!): [Ticket]
-        getTicketsByStatus(userId: ID!, status: String!): [Ticket]
-        me: User
+        getTicketById(ticketId: ID!, userType: String!): Ticket
+        getTicketsByUserId(userId: ID!, status: String): [Ticket]
     }
 
     type Mutation {
