@@ -59,9 +59,10 @@ function App() {
             </Routes>git 
           <Footer />
         </div>
+        </div>
       </Router>
     </ApolloProvider>
-  );
+  )
 }
 
 export default App;
