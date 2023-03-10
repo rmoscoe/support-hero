@@ -57,14 +57,15 @@ const resolvers = {
         //updateTicketStatus
         updateTicketStatus: async (parent, {ticketId,status} , context) => {
             // if (context.user) {
-                
                 const ticket = await Ticket.findOneAndUpdate(
                     {_id : ticketId},
                     {
                         status : status
+                    },
+                    {
+                        new: true,
                     }
                 )
-             
                 return ticket;
             // }
             // throw new AuthenticationError('You need to be logged in!');
@@ -84,7 +85,6 @@ const resolvers = {
                     { _id: ticketId },
                     { $addToSet: { comments: comment._id } }
                   );
-          
                 return comment;
             // } 
             // throw new AuthenticationError('You need to be logged in!');
@@ -129,9 +129,6 @@ const resolvers = {
                 return await Comment.findOneAndDelete(
                     {_id : commentId},
                     {note : {notes}},
-                    {
-                        new: true,
-                    }
                 )
             // }
             // throw new AuthenticationError('You need to be logged in!');
