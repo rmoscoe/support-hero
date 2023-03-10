@@ -11,8 +11,7 @@ const resolvers = {
             if (userType == "Agent") {
                 return Ticket.findOne({_id:ticketId}).populate('comments').populate('users');
             } else {
-                // TODO : if customer is viewing the ticket, dont show notes section
-                return Ticket.findOne({_id:ticketId}).populate('comments', '-notes').populate('users');
+                return Ticket.findOne({_id:ticketId}).populate('comments', '-note').populate('users');
             }
       },
 
@@ -22,13 +21,11 @@ const resolvers = {
             return Ticket.find({
             users : userId,
             status : status
-
             }).populate('comments users');
         else 
             return Ticket.find({
             users : userId,
             }).populate('comments users');
-
       },
     },
 
@@ -36,35 +33,34 @@ const resolvers = {
     Mutation : {
         //create new ticket
         createTicket: async (parent, {title, description,priority}, context) => {
+            // if (context.user) {
+             const usersDb = await User.find({type : "Agent"});
 
-            const usersDb = User.find({type : "Agent"});
+             const agentId = usersDb[Math.floor(Math.random() * usersDb.length)]._id;
+ 
+             // const customerId = context.user._id ;
+             const customerId = "640a46c9f2281cd4b39a5f2e"
+ 
+             const users = [agentId, customerId]
 
-            const agentId = usersDb[Math.floor(Math.random * users.length)]._id;
-
-            const customerId = context.user._id ;
-
-            const users = [agentId, customerId]
-
-            if (context.user) {
-             const ticket = Ticket.create({title, description,priority, users});
-
-             return ticket;
-            }
-            throw new AuthenticationError('You need to be logged in!');
+             return Ticket.create({title, description,priority, users});
+            // }
+            // throw new AuthenticationError('You need to be logged in!');
 
         },
 
         //updateTicketStatus
         updateTicketStatus: async (parent, {ticketId,status} , context) => {
             // if (context.user) {
-                
                 const ticket = await Ticket.findOneAndUpdate(
                     {_id : ticketId},
                     {
                         status : status
+                    },
+                    {
+                        new: true,
                     }
                 )
-             
                 return ticket;
             // }
             // throw new AuthenticationError('You need to be logged in!');
@@ -84,7 +80,6 @@ const resolvers = {
                     { _id: ticketId },
                     { $addToSet: { comments: comment._id } }
                   );
-          
                 return comment;
             // } 
             // throw new AuthenticationError('You need to be logged in!');
@@ -129,9 +124,6 @@ const resolvers = {
                 return Comment.findOneAndDelete(
                     {_id : commentId},
                     {note : {notes}},
-                    {
-                        new: true,
-                    }
                 )
             // }
             // throw new AuthenticationError('You need to be logged in!');
