@@ -22,11 +22,12 @@ const resolvers = {
             return Ticket.find({
             users : userId,
             status : status
-            }).populate('comments').populate('users');
+
+            }).populate('comments users');
         else 
             return Ticket.find({
             users : userId,
-            }).populate('comments').populate('users');;
+            }).populate('comments users');
 
       },
     },
