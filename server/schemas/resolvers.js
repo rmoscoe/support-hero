@@ -9,25 +9,25 @@ const resolvers = {
         getTicketById: async (parent, {ticketId, userType}) => {
 
             if (userType == "Agent") {
-                return Ticket.findOne({_id:ticketId}).populate('comments').populate('users');
+                return await Ticket.findOne({_id:ticketId}).populate('users').populate({path: 'comments', populate: {path: 'creator'}});
             } else {
                 // TODO : if customer is viewing the ticket, dont show notes section
-                return Ticket.findOne({_id:ticketId}).populate('comments', '-notes').populate('users');
+                return await Ticket.findOne({_id:ticketId}).populate('users').populate({path: 'comments', select: ["message", "createdAt", "creator"], populate: {path: 'creator'}});
             }
       },
 
       // get Tickets by userId and Status
       getTicketsByUserId: async (parent, {userId , status}) => {
         if(status)
-            return Ticket.find({
+            return await Ticket.find({
             users : userId,
             status : status
 
-            }).populate('comments users');
+            }).populate('users').populate({path: "comments", populate: {path: "creator"}});
         else 
-            return Ticket.find({
+            return await Ticket.find({
             users : userId,
-            }).populate('comments users');
+            }).populate('users').populate({path: "comments", populate: {path: "creator"}});
 
       },
     },
@@ -37,7 +37,7 @@ const resolvers = {
         //create new ticket
         createTicket: async (parent, {title, description,priority}, context) => {
 
-            const usersDb = User.find({type : "Agent"});
+            const usersDb = await User.find({type : "Agent"});
 
             const agentId = usersDb[Math.floor(Math.random * users.length)]._id;
 
@@ -46,7 +46,7 @@ const resolvers = {
             const users = [agentId, customerId]
 
             if (context.user) {
-             const ticket = Ticket.create({title, description,priority, users});
+             const ticket = await Ticket.create({title, description,priority, users});
 
              return ticket;
             }
@@ -111,7 +111,7 @@ const resolvers = {
         //updateNote
         updateNote: async (parent,{commentId,notes}, context) => {
             // if(context.user){
-                return Comment.findOneAndUpdate(
+                return await Comment.findOneAndUpdate(
                     {_id : commentId},
                     {note : {notes}},
                     {
@@ -126,7 +126,7 @@ const resolvers = {
         //deleteNote
         deleteNote: async (parent,{commentId, notes}, context) => {
             // if(context.user){
-                return Comment.findOneAndDelete(
+                return await Comment.findOneAndDelete(
                     {_id : commentId},
                     {note : {notes}},
                     {
