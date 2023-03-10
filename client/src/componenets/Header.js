@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../../utils/auth';
 
-function Header() {
+const Header = () => {
     const logout = (event) => {
         event.preventDefault();
         Auth.logout();
@@ -37,4 +37,4 @@ function Header() {
     )
 };
 
-export function Header;
+export default Header;
