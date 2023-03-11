@@ -12,11 +12,12 @@ const Header = () => {
     const toggleClass = () => {
         setActive(!isActive);
     };
+    if(Auth.loggedIn()){
     return (
         <nav className='navbar'>
             <div className='navbar-brand'>
-                <h1>Support Hero</h1>
-                <div role="button" class={isActive ? "is-active navbar-burger" : "navbar-burger"} onClick={toggleClass} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <h1 className='is-size-1 has-text-weight-bold'>Support Hero</h1>
+                <div role="button" className={isActive ? "is-active navbar-burger" : "navbar-burger"} onClick={toggleClass} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -29,13 +30,13 @@ const Header = () => {
                         <Link to='/homepage'>Home</Link>
                     </div>
                     <div className='navbar-item'>
-                        <button onClick={logout}>Logout</button>
+                        <a onClick={logout}>Logout</a>
                     </div>
                 </div>
             </div>
         </nav>
 
-    )
+    )}
 };
 
 export default Header;
