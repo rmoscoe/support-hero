@@ -62,9 +62,9 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               />
-              {/* <Route 
+              <Route 
                 path="/tickets/:ticketId" 
-                element={<SingleTicket />}
+                element={<TicketDetails />}
               />
             </Routes> 
         </div>
