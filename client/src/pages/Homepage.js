@@ -57,15 +57,17 @@ const Home = () => {
        
         <main>
              <div>
-            <h2> My Tickets</h2>
-            <button type="button">All Tickets</button>
-            <button type="button">View Open tickets</button>
-            { Auth.getUser().data.type === "Customer" ? <button type="button">Pending Customer Response</button>
-                :  <button type="button">Pending Agent Response</button> 
+            <h2 className="has-text-centered"> My Tickets</h2>
+            <div className="buttons is-centered">
+            <button className="button  is-link">All Tickets</button>
+            <button className="button  is-link">View Open tickets</button>
+            { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Pending Customer Response</button>
+                :  <button className="button  is-link">Pending Agent Response</button> 
 
             }<br></br>
-             { Auth.getUser().data.type === "Customer" ? <button type="button">Create New ticket</button> : <label></label>
+             { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Create New ticket</button> : <label></label>
             }
+            </div>
 
         </div>
            <div className="is-flex is-flex-direction-row is-justify-content-center	">

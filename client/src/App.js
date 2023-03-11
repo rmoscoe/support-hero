@@ -14,7 +14,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
 import SingleTicket from './pages/SingleTicket';
-
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 // Construct main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -45,7 +46,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="d-flex flex-column justify-content-start min-100-vh">
-          {/* <Header /> */}
+          <Header />
           <div className="container">
             <Routes>
               <Route 
@@ -65,7 +66,7 @@ function App() {
                 element={<SingleTicket />}
               />ti
             </Routes> 
-          {/* <Footer /> */}
+          <Footer />
         </div>
         </div>
       </Router>
