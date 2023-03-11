@@ -15,6 +15,7 @@ const TicketList = ({
         <tr>
             <th>Ticket ID</th>
             <th>Title</th>
+            <th>Created On</th>
             <th>Status</th>
         </tr>
         </thead>
@@ -22,6 +23,7 @@ const TicketList = ({
         <tr>
             <th>Ticket ID</th>
             <th>Title</th>
+            <th>Created On</th>
             <th>Status</th>
         </tr>
         </tfoot>
@@ -33,6 +35,7 @@ const TicketList = ({
             <tr>
             <th>{ticket._id}</th>
             <td><Link to={`/tickets/${ticket._id}`}>{ticket.title}</Link> </td>
+            <td>{ticket.createdon} </td>
             <td>{ticket.status}</td>
             </tr>
             

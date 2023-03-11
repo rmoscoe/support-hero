@@ -25,21 +25,25 @@ const Home = () => {
         {
             _id: "1",
             title : "ticket1",
+            createdon : "mar 2023",
             status : "Open"
         },
         {
             _id: "2",
             title : "ticket12",
+            createdon : "mar 2023",
             status : "Closed"
         },
         {
             _id: "12",
             title : "ticket13",
+            createdon : "mar 2023",
             status : "Pending Agent Response"
         },
         {
             _id: "15",
             title : "ticket14",
+            createdon : "mar 2023",
             status : "Pending Customer Response"
         }
 
