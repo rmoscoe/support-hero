@@ -26,6 +26,11 @@ const CreateTicket = () => {
         }
     };
 
+    const onClose = () => {
+        const modal = document.querySelector('create-ticket-form');
+        modal.classList.remove('is-active');
+    };
+
     return (
         <>
             {/* Button to open modal: to be removed and integrated with host page */}
