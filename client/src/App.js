@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
-import SingleTicket from './pages/SingleTicket';
+// import SingleTicket from './pages/SingleTicket';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Signup from './pages/Signup';
@@ -62,10 +62,10 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               />
-              <Route 
+              {/* <Route 
                 path="/tickets/:ticketId" 
                 element={<SingleTicket />}
-              />
+              /> */}
             </Routes> 
         </div>
           <Footer />
