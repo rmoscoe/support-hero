@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
+import SingleTicket from './pages/SingleTicket';
 
 
 // Construct main GraphQL API endpoint
@@ -59,6 +60,10 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               /> */}
+              <Route 
+                path="/tickets/:ticketId" 
+                element={<SingleTicket />}
+              />ti
             </Routes> 
           {/* <Footer /> */}
         </div>

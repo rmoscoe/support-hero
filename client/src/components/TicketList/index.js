@@ -1,46 +1,51 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-// const TicketList = ({
-//   tickets,
-//   title,
-// }) => {
-//   if (!tickets.length) {
-//     return <h3>No Tickets Yet</h3>;
-//   }
+const TicketList = ({
+  tickets,
+  title,
+}) => {
+  if (!tickets.length) {
+    return <h3>No Tickets Yet</h3>;
+  }
 
-//   return (
-//     <div>
-//       {<h3>{title}</h3>}
-//       <table className="table">
-//         <thead>
-//         <tr>
-//             <th>Ticket ID</th>
-//             <th>Title</th>
-//             <th>Status</th>
-//         </tr>
-//         </thead>
-//         <tfoot>
-//         <tr>
-//             <th>Ticket ID</th>
-//             <th>Title</th>
-//             <th>Status</th>
-//         </tr>
-//         </tfoot>
+  return (
+    <div>
+      {<h3>{title}</h3>}
+      <table className="table">
+        <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Title</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Title</th>
+            <th>Status</th>
+        </tr>
+        </tfoot>
 
-//         <tbody>
-//       {/* {tickets &&
-//         tickets.map((ticket) => (
+        <tbody>
+      {tickets &&
+        tickets.map((ticket) => (
+            <>
+            <th>{ticket._id}</th>
+            <td><Link to={`{/tickets/${ticket._id}`}>{ticket.title}</Link> </td>
+            <td>{ticket.status}</td>
+
             
-        
-//         ))} */}
+            </>
+        ))}
 
-//         </tbody>
+        </tbody>
 
-//       </table>
+      </table>
       
-//     </div>
-//   );
-// };
+    </div>
+  );
+};
 
-// export default TicketList;
+export default TicketList;

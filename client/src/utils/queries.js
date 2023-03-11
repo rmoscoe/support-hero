@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_TICKET_BY_ID = gql`
-    query getTicketById($ticketId: ID!, userType: String!) {
+    query getTicketById($ticketId: ID!, $userType: String!) {
         getTicketById(ticketId: $ticketId, userType: $userType) {
             ticket {
                 _id
@@ -35,9 +35,9 @@ export const GET_TICKET_BY_ID = gql`
 `;
 
 export const GET_TICKETS_BY_USER_ID = gql`
-    query getTicketsByUserId($userId: ID!, status: String) {
-        getTicketsByUserId(userId: $userId, status: $status) {
-            ticket {
+    query getTicketsByUserId($userId: ID!, $status: String) {
+        tickets(userId: $userId, status: $status) {
+           
                 _id
                 title
                 priority
@@ -63,7 +63,7 @@ export const GET_TICKETS_BY_USER_ID = gql`
                         notes
                     }
                 }
-            } 
+             
         }
     }
 `;
