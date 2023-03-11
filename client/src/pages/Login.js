@@ -7,8 +7,7 @@ import { useForm } from "react-hook-form";
 import Auth from '../utils/auth';
 
 const Login = (props) => {
-  // const [formValueState, setFormValueState] = useState({ email: '', password: '' });
-  
+  const [login] = useMutation(LOGIN);
 
   const {
     register,
@@ -16,35 +15,18 @@ const Login = (props) => {
     formState: { errors }
   } = useForm();
 
-  // update state based on form input changes
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-
-  //   setFormValueState({
-  //     ...formValueState,
-  //     [name]: value,
-  //   });
-  // };
-
   // submit form
-  const onSubmit = async (formData) => {
-    // event.preventDefault();
+  const onSubmit = async (formData,event) => {
+    event.preventDefault();
     try {
-      const [login, { error, userData }] = useMutation(LOGIN);
-      await login({
+      const {data} = await login({
         variables: { email: formData.email, password: formData.password },
       });
-      console.log(userData);
-      Auth.login(userData.login.token);
+      console.log(data);
+      Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }
-
-    // clear form values
-    // setFormValueState({
-    //   email: '',
-    //   password: '',
-    // });
   };
 
   return (
@@ -53,13 +35,6 @@ const Login = (props) => {
 
     <div className="container">
     <h1 className="title has-text-centered">Support Hero</h1>
-
-    {/* {data ? ( */}
-              {/* <h1 className="columns is-centered has-text-link">
-                Success! You may now head{' '}
-                <Link to="/homepage">back to the HOMEPAGE.</Link>
-              </h1> */}
-            {/* ) : ( */}
       <div className="columns is-centered">
         <div className="column is-5-tablet is-4-desktop is-3-widescreen">
           
@@ -72,8 +47,6 @@ const Login = (props) => {
               <div className="control has-icons-left">
                 <input 
                 type="email" 
-                // value={formValueState.email}
-                // onChange={handleChange}
                 name="email" {...register("email", {
                   required: true ,
                   pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/
@@ -96,8 +69,6 @@ const Login = (props) => {
               <div className="control has-icons-left">
                 <input 
                 type="password" 
-                // value={formValueState.password}
-                // onChange={handleChange}
                 name="password" {...register("password", {
                   required: true 
                 })}
@@ -124,7 +95,6 @@ const Login = (props) => {
           <label>Don't have an account? Sign Up <Link className="has-text-link" to="/signup">here</Link></label>
         </div>
       </div>
-       {/* )} */}
      </div>
     </div>
     </section>
