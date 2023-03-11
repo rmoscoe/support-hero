@@ -24,45 +24,51 @@ const Home = () => {
     const ticketData = [
         {
             _id: "1",
-            title : "ticket1",
+            title : "Auth issue",
             createdon : "mar 2023",
             status : "Open"
         },
         {
             _id: "2",
-            title : "ticket12",
+            title : "Login issue",
             createdon : "mar 2023",
             status : "Closed"
         },
         {
             _id: "12",
-            title : "ticket13",
+            title : "PC issue",
             createdon : "mar 2023",
             status : "Pending Agent Response"
         },
         {
             _id: "15",
-            title : "ticket14",
+            title : "Software issue",
             createdon : "mar 2023",
             status : "Pending Customer Response"
         }
 
-
-
-
     ]
-    return (
 
-       
-       
+    const viewPCR = () => {
+        alert("in")
+
+    }
+    const viewPAR = () => {
+        alert("in agent")
+        // document.getElementsByClassName("alltickets").style.display = "none";
+
+
+
+    }
+    return (
         <main>
-             <div>
-            <h2 className="has-text-centered"> My Tickets</h2>
+            <div>
+            <h2 className="title has-text-centered"> My Tickets</h2><br></br>
             <div className="buttons is-centered">
             <button className="button  is-link">All Tickets</button>
             <button className="button  is-link">View Open tickets</button>
-            { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Pending Customer Response</button>
-                :  <button className="button  is-link">Pending Agent Response</button> 
+            { Auth.getUser().data.type === "Customer" ? <button className="button  is-link" onClick={viewPCR}>Pending Customer Response</button>
+                :  <button className="button  is-link" onClick={viewPAR}>Pending Agent Response</button> 
 
             }<br></br>
              { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Create New ticket</button> : <label></label>
@@ -70,6 +76,7 @@ const Home = () => {
             </div>
 
         </div>
+        <div className="alltickets">
            <div className="is-flex is-flex-direction-row is-justify-content-center	">
            <div className="is-6-tablet is-5-desktop is-4-widescreen is-3-fullh">
             {/* {loading ? (
@@ -80,9 +87,7 @@ const Home = () => {
             />
           {/* )} */}
         </div>
-
-
-
+            </div>
             </div>
         </main>
 

@@ -9,10 +9,10 @@ const TicketList = ({
   }
 
   return (
-    <div>
-      <table className="table">
+    <div><br></br>
+      <table className="table is-bordered is-striped is-fullwidth">
         <thead>
-        <tr>
+        <tr className="th is-selected has-text-black">
             <th>Ticket ID</th>
             <th>Title</th>
             <th>Created On</th>

@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from 'react-hot-toast';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Auth from '../utils/auth';
+
 
 const Login = (props) => {
   const [login] = useMutation(LOGIN);
 
   const {
     register,
+    resetField,
     handleSubmit,
     formState: { errors }
   } = useForm();
@@ -22,15 +26,23 @@ const Login = (props) => {
       const {data} = await login({
         variables: { email: formData.email, password: formData.password },
       });
-      console.log(data);
-      Auth.login(data.login.token);
+      console.log("token " , (typeof data.login.token));
+      console.log(data.login.token);
+      
+      if(data.login.token !== "0") {
+         Auth.login(data.login.token); }
+      else {
+        toast.error("Please enter valid credentials");
+        resetField('email');
+        resetField('password');
+      }
     } catch (e) {
       console.error(e);
     }
   };
 
   return (
-    <section className="hero is-light is-fullheight is-widescreen">
+    <section className="hero is-light is-fullheight is-widescreen bgcolor">
     <div className="hero-body">
 
     <div className="container">
@@ -89,7 +101,7 @@ const Login = (props) => {
               className="button is-success" 
               style={{ cursor: 'pointer' }}>
                 Login
-              </button>
+              </button><Toaster />
             </div>
           </form><br></br>
           <label>Don't have an account? Sign Up <Link className="has-text-link" to="/signup">here</Link></label>
