@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 const TicketList = ({
   tickets,
-  title,
 }) => {
   if (!tickets.length) {
     return <h3>No Tickets Yet</h3>;
@@ -11,7 +10,6 @@ const TicketList = ({
 
   return (
     <div>
-      {<h3>{title}</h3>}
       <table className="table">
         <thead>
         <tr>
@@ -32,10 +30,11 @@ const TicketList = ({
       {tickets &&
         tickets.map((ticket) => (
             <>
+            <tr>
             <th>{ticket._id}</th>
-            <td><Link to={`{/tickets/${ticket._id}`}>{ticket.title}</Link> </td>
+            <td><Link to={`/tickets/${ticket._id}`}>{ticket.title}</Link> </td>
             <td>{ticket.status}</td>
-
+            </tr>
             
             </>
         ))}

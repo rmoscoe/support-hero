@@ -50,19 +50,20 @@ const Home = () => {
     return (
 
        
-        // <div>
-        //     <h2> My Tickets</h2>
-        //     <button type="button">All Tickets</button>
-        //     <button type="button">View Open tickets</button>
-        //     { Auth.getUser().data.type === "Customer" ? <button type="button">Pending Customer Response</button>
-        //         :  <button type="button">Create New Ticket</button> 
-
-        //     }
-             
-
-
-        // </div>
+       
         <main>
+             <div>
+            <h2> My Tickets</h2>
+            <button type="button">All Tickets</button>
+            <button type="button">View Open tickets</button>
+            { Auth.getUser().data.type === "Customer" ? <button type="button">Pending Customer Response</button>
+                :  <button type="button">Pending Agent Response</button> 
+
+            }<br></br>
+             { Auth.getUser().data.type === "Customer" ? <button type="button">Create New ticket</button> : <label></label>
+            }
+
+        </div>
            <div className="is-flex is-flex-direction-row is-justify-content-center	">
            <div className="is-6-tablet is-5-desktop is-4-widescreen is-3-fullh">
             {/* {loading ? (
@@ -70,7 +71,6 @@ const Home = () => {
              ) : ( */}
             <TicketList
               tickets={ticketData}
-              title="Your Tickets"
             />
           {/* )} */}
         </div>
