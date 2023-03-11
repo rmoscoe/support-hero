@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { CREATE_TICKET } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 const CreateTicket = () => {
     const [createTicket, { loading }] = useMutation(CREATE_TICKET);
