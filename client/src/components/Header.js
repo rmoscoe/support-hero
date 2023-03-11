@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
+import { useLocation } from 'react-router-dom';
 
 
 const Header = () => {
@@ -12,6 +13,8 @@ const Header = () => {
     const toggleClass = () => {
         setActive(!isActive);
     };
+    let location = useLocation();
+    console.log(location.pathname)
     if(Auth.loggedIn()){
     return (
         <nav className='navbar'>
@@ -26,9 +29,10 @@ const Header = () => {
 
             <div className={isActive ? "is-active navbar-menu" : "navbar-menu"}>
                 <div className='navbar-end'>
+                    {location.pathname !== '/homepage' && 
                     <div className='navbar-item' >
                         <Link to='/homepage'>Home</Link>
-                    </div>
+                    </div> }
                     <div className='navbar-item'>
                         <a onClick={logout}>Logout</a>
                     </div>
