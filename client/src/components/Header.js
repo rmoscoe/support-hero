@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useLocation } from 'react-router-dom';
 
-
 const Header = () => {
     const logout = (event) => {
         event.preventDefault();
@@ -14,7 +13,6 @@ const Header = () => {
         setActive(!isActive);
     };
     let location = useLocation();
-    console.log(location.pathname)
     if(Auth.loggedIn()){
     return (
         <nav className='navbar'>

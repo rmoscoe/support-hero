@@ -21,8 +21,8 @@ export default function Signup() {
                     password: data.password
                 },
             });
-            console.log(userData.token);
-            const token = userData.token;
+            console.log(userData);
+            const token = userData.data.createUser.token;
             Auth.login(token);
         } catch (err) {
             console.error(err, errors);
