@@ -146,13 +146,17 @@ const resolvers = {
             const user = await User.findOne({ email });
 
             if (!user) {
-                throw new AuthenticationError('No user found with this email address');
+                const token = 0;
+                return { token, user };
+                // throw new AuthenticationError('No user found with this email address');
             }
 
             const correctPw = await user.comparePassword(password);
 
             if (!correctPw) {
-                throw new AuthenticationError('Incorrect credentials');
+                const token = 0;
+                return { token, user };
+                // throw new AuthenticationError('Incorrect credentials');
             }
 
             const token = signToken(user);
