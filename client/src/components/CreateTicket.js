@@ -27,7 +27,7 @@ const CreateTicket = () => {
 
     return (
         <>
-            {/* Button to open modal */}
+            {/* Button to open modal: to be removed and integrated with host page */}
             <button>Open Create Ticket Modal</button>
 
             {/* Modal */}
