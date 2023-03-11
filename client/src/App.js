@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
-import SingleTicket from './pages/SingleTicket';
+import TicketDetails from './pages/TicketDetails';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Signup from './pages/Signup';
@@ -64,7 +64,7 @@ function App() {
               />
               <Route 
                 path="/tickets/:ticketId" 
-                element={<SingleTicket />}
+                element={<TicketDetails />}
               />
             </Routes> 
         </div>
