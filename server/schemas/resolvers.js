@@ -141,6 +141,7 @@ const resolvers = {
 
         //login
         login: async (parent, { email, password }) => {
+            console.log("Email: ", email);
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -154,6 +155,7 @@ const resolvers = {
             }
 
             const token = signToken(user);
+            console.log(token)
 
             return { token, user };
         },
