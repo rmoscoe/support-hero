@@ -1,25 +1,25 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CREATE_TICKET } from '../utils/mutations';
-import { useHistory } from 'react-router-dom';
 
 const CreateTicket = () => {
     const [createTicket, { loading }] = useMutation(CREATE_TICKET);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const history = useHistory();
+    const navigate = useNavigate();
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (formData) => {
       try {
           await createTicket({
               variables: {
-                  title: data.title,
-                  description: data.description,
-                  priority: data.priority,
+                  title: formData.title,
+                  description: formData.description,
+                  priority: formData.priority,
+                  userId: Auth.getProfile().data._id
               },
           });
-          history.push('/tickets');
+          navigate(0);
       } catch (error) {
           console.error(error);
       }
