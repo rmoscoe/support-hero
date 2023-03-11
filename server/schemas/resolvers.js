@@ -18,6 +18,7 @@ const resolvers = {
 
         // get Tickets by userId and Status
         getTicketsByUserId: async (parent, { userId, status }) => {
+            console.log("in resolver")
             if (status)
                 return await Ticket.find({
                     users: userId,

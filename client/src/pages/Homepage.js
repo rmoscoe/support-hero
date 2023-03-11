@@ -1,33 +1,90 @@
 import React from 'react';
-// import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 
-// import TicketList from '../components/ThoughtList';
+import TicketList from '../components/TicketList';
 
-// import { QUERY_TICKETS } from '../utils/queries';
+import { GET_TICKETS_BY_USER_ID } from '../utils/queries';
+import Auth from '../utils/auth';
 
 const Home = () => {
-//     const { loading, data } = useQuery(QUERY_TICKETS);
-//     const tickets = data?.tickets || [];
+    console.log("in")
+    console.log(Auth.getUser().data._id)
 
+    // const { loading, err, ticketdata  } = useQuery(GET_TICKETS_BY_USER_ID,
+    //     {
+    //         variables : {userId : "640a46c8f2281cd4b39a5f09"}
+    //     });
+    //     console.log(err)
+    //     console.log(ticketdata)
+    // const tickets = data?.ticket || [];
+    // console.log("tickets",tickets)
+    // console.log(Auth.getUser().data._id)
+
+    // if(loading) return <p>Loading....</p>
+    const ticketData = [
+        {
+            _id: "1",
+            title : "ticket1",
+            createdon : "mar 2023",
+            status : "Open"
+        },
+        {
+            _id: "2",
+            title : "ticket12",
+            createdon : "mar 2023",
+            status : "Closed"
+        },
+        {
+            _id: "12",
+            title : "ticket13",
+            createdon : "mar 2023",
+            status : "Pending Agent Response"
+        },
+        {
+            _id: "15",
+            title : "ticket14",
+            createdon : "mar 2023",
+            status : "Pending Customer Response"
+        }
+
+
+
+
+    ]
     return (
-        <h2> welcome</h2>
-//         <main>
-//            <div className="is-flex is-flex-direction-row is-justify-content-center	">
-//            <div className="is-6-tablet is-5-desktop is-4-widescreen is-3-fullh">
-//             {loading ? (
-//             <div>Loading...</div>
-//              ) : (
-//             <TicketList
-//               tickets={tickets}
-//               title="Your Tickets"
-//             />
-//           )}
-//         </div>
+
+       
+       
+        <main>
+             <div>
+            <h2 className="has-text-centered"> My Tickets</h2>
+            <div className="buttons is-centered">
+            <button className="button  is-link">All Tickets</button>
+            <button className="button  is-link">View Open tickets</button>
+            { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Pending Customer Response</button>
+                :  <button className="button  is-link">Pending Agent Response</button> 
+
+            }<br></br>
+             { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Create New ticket</button> : <label></label>
+            }
+            </div>
+
+        </div>
+           <div className="is-flex is-flex-direction-row is-justify-content-center	">
+           <div className="is-6-tablet is-5-desktop is-4-widescreen is-3-fullh">
+            {/* {loading ? (
+            <div>Loading...</div>
+             ) : ( */}
+            <TicketList
+              tickets={ticketData}
+            />
+          {/* )} */}
+        </div>
 
 
 
-//             </div>
-//         </main>
+            </div>
+        </main>
 
 
     );
