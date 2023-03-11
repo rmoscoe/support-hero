@@ -17,7 +17,7 @@ const CreateTicket = () => {
                     title: formData.title,
                     description: formData.description,
                     priority: formData.priority,
-                    userId: Auth.getProfile().data._id
+                    userId: Auth.getUser().data._id
                 },
             });
             navigate(0);
