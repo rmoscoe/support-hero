@@ -42,6 +42,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -50,28 +51,28 @@ function App() {
           <Header />
           <div className="container">
             <Routes>
-            <Route 
-                path="/" 
-                element={<Homepage />} 
+              <Route
+                path="/"
+                element={<Homepage />}
               />
-              <Route 
-                path="/login" 
-                element={<Login />} 
+              <Route
+                path="/login"
+                element={<Login />}
               />
-              <Route 
-                path="/homepage" 
-                element={<Homepage />} 
+              <Route
+                path="/homepage"
+                element={<Homepage />}
               />
-              <Route 
-                path="/signup" 
-                element={<Signup />} 
+              <Route
+                path="/signup"
+                element={<Signup />}
               />
-              <Route 
-                path="/tickets/:ticketId" 
+              <Route
+                path="/tickets/:ticketId"
                 element={<TicketDetails />}
               />
-            </Routes> 
-        </div>
+            </Routes>
+          </div>
           <Footer />
         </div>
       </Router>
