@@ -15,6 +15,7 @@ import Auth from './utils/auth';
 
 import { useTheme } from './utils/ThemeContext';
 
+import { StoreProvider } from './utils/GlobalState';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
@@ -51,41 +52,38 @@ const client = new ApolloClient({
 function App() {
   const { theme, toggleTheme } = useTheme();
   return (
-    <div>
-
-      <ApolloProvider client={client}>
-        <Router>
-          <div className="d-flex flex-column justify-content-start min-100-vh">
-            <Header />
-            {Auth.loggedIn() &&
+    <ApolloProvider client={client}>
+      <Router>
+        <div className="d-flex flex-column justify-content-start min-100-vh">
+        <StoreProvider>
+          <Header />
+          {Auth.loggedIn() &&
               <button className={`${theme}-toggle`} onClick={toggleTheme}>{`${theme} mode`}</button>}
-            
-            <div className="container">
-              <Routes>
-                <Route
-                  path="/login"
-                  element={<Login />}
-                />
-                <Route
-                  path="/"
-                  element={<Homepage />}
-                />
-                <Route
-                  path="/signup"
-                  element={<Signup />}
-                />
-                <Route
-                  path="/tickets/:ticketId"
-                  element={<TicketDetails />}
-                />
-              </Routes>
-            </div>
-            <Footer />
-          </div>
-        </Router>
-      </ApolloProvider>
-
-    </div>
+          <div className="container">
+            <Routes>
+            <Route 
+                path="/" 
+                element={<Homepage />} 
+              />
+              <Route 
+                path="/login" 
+                element={<Login />} 
+              />
+              <Route 
+                path="/signup" 
+                element={<Signup />} 
+              />
+              <Route 
+                path="/tickets/:ticketId" 
+                element={<TicketDetails />}
+              />
+            </Routes> 
+        </div>
+        </StoreProvider>  
+          <Footer />
+        </div>
+      </Router>
+    </ApolloProvider>
   )
 }
 
