@@ -54,35 +54,31 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="d-flex flex-column justify-content-start min-100-vh">
-          <StoreProvider>
-            {Auth.loggedIn() &&
-            <Header />}
-              {/* <button className={`${theme}-toggle`} onClick={toggleTheme}>{theme === 'dark' ? 'light mode' : 'dark mode'}</button>} */}
-            <label className="switch">
-              <input type="checkbox" />
-                <span onClick={toggleTheme} className="toggle"></span>
-            </label>
-            <div className="container">
-              <Routes>
-                <Route
-                  path="/"
-                  element={<Homepage />}
-                />
-                <Route
-                  path="/login"
-                  element={<Login />}
-                />
-                <Route
-                  path="/signup"
-                  element={<Signup />}
-                />
-                <Route
-                  path="/tickets/:ticketId"
-                  element={<TicketDetails />}
-                />
-              </Routes>
-            </div>
-          </StoreProvider>
+          <Header />
+          <div className="container">
+            <Routes>
+            <Route 
+                path="/" 
+                element={<Homepage />} 
+              />
+              <Route 
+                path="/login" 
+                element={<Login />} 
+              />
+              <Route 
+                path="/homepage" 
+                element={<Homepage />} 
+              />
+              <Route 
+                path="/signup" 
+                element={<Signup />} 
+              />
+              <Route 
+                path="/tickets/:ticketId" 
+                element={<TicketDetails />}
+              />
+            </Routes> 
+        </div>
           <Footer />
         </div>
       </Router>
