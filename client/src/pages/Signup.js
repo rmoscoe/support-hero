@@ -7,7 +7,7 @@ import Auth from '../utils/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Signup() {
+export default function Signup(theme) {
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" });
 
     const [createUser] = useMutation(CREATE_USER);
@@ -34,15 +34,15 @@ export default function Signup() {
         }
     };
     return (
-        <section className="hero is-light is-fullheight is-widescreen bgcolor">
+        <section className={`${theme} hero is-light is-fullheight is-widescreen bgcolor`}>
             <div className="hero-body">
             <div className="container">
-                <h1 className="title has-text-centered">Support Hero</h1>
+                <h1 className={`${theme}title has-text-centered`}>Support Hero</h1>
                 <div className="columns is-centered">
                     <div className="column is-5-tablet is-4-desktop is-3-widescreen">
                     <hr className="login-hr"></hr>
          
-         <p className="subtitle has-text-centered">Sign Up</p>
+         <p className={`${theme}subtitle has-text-centered`}>Sign Up</p>
                     <form onSubmit={handleSubmit(onSubmit)} className=" signin-form">
                         <div className="field">
                             <label className="label">First Name</label>
@@ -59,7 +59,7 @@ export default function Signup() {
                                     <i className="fa fa-lock"></i>
                                 </span>
                                 {errors.firstName && errors.firstName.type === "required" && (
-                                    <p className="has-text-danger">firstName is required.</p>
+                                    <p className={`${theme}has-text-danger`}>firstName is required.</p>
                                 )}
                             </div>
                             <div className="field">
@@ -77,7 +77,7 @@ export default function Signup() {
                                         <i className="fa fa-lock"></i>
                                     </span>
                                     {errors.lastName && errors.lastName.type === "required" && (
-                                        <p className="has-text-danger">Last Name is required.</p>
+                                        <p className={`${theme}has-text-danger`}>Last Name is required.</p>
                                     )}
                                 </div>
                             </div>
@@ -94,10 +94,10 @@ export default function Signup() {
                                     placeholder="e.g. bobsmith@gmail.com"
                                     className="input" />
                                 {errors.email && errors.email.type === "required" && (
-                                    <p className="has-text-danger ">Email is required.</p>
+                                    <p className={`${theme}has-text-danger`}>Email is required.</p>
                                 )}
                                 {errors.email && errors.email.type === "pattern" && (
-                                    <p className="has-text-danger  ">Email is not valid.</p>
+                                    <p className={`${theme}has-text-danger`}>Email is not valid.</p>
                                 )}
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-envelope"></i>
@@ -130,13 +130,13 @@ export default function Signup() {
 
                         <div className="buttons is-centered">
                             <button type="submit"
-                                className="button is-success"
+                                className={`${theme}button is-success`}
                                 style={{ cursor: 'pointer' }}>
                                 Signup
                             </button>
                         </div>
                     </form><br></br>
-                    <label>Already have an account? Login <Link className="has-text-link" to="/login">here</Link></label>
+                    <label>Already have an account? Login <Link className={`${theme}has-text-link`} to="/login">here</Link></label>
                 </div>
                 </div>
             <Toaster 

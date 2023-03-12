@@ -5,7 +5,7 @@ import { COLUMNS } from '../components/Columns'
 import { GlobalFilter } from './GlobalFilter';
 
 const TicketList = ({
-  tickets,
+  tickets, theme
 }) => {
   const columns = useMemo(() => COLUMNS , [])
   const data = useMemo(() => tickets , [])
