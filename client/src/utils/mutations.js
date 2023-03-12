@@ -3,20 +3,18 @@ import { gql } from "@apollo/client";
 export const CREATE_TICKET = gql`
     mutation createTicket($title: String!, $description: String!, $priority: String!) {
         createTicket(title: $title, description: $description, priority: $priority) {
-            ticket {
+            _id
+            title
+            priority
+            status
+            createdAt
+            users {
                 _id
-                title
-                priority
-                status
-                createdAt
-                users {
-                    _id
-                    firstName
-                    lastName
-                    type
-                }
-                description
+                firstName
+                lastName
+                type
             }
+            description
         }
     }
 `;
