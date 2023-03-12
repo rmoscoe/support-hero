@@ -1,47 +1,107 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
 import { useStoreContext } from "../utils/GlobalState";
+import { useMutation } from '@apollo/client';
+
+import { CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE } from "../utils/mutations";
 
 function Comment(props) {
     const [state, dispatch] = useStoreContext();
     const [userType, setUserType] = useState(state.user.type);
+    const [noteForm, setNoteForm] = useState(false);
+    const [editNote, setEditNote] = useState(false);
+    const [formState, setFormState] = useState({
+        noteText: props.comment.note.notes ? props.comment.note.notes : ""
+    });
 
     const handleEditButton = () => {
-
+        setNoteForm(true);
+        setEditNote(true);
     }
 
-    const handleDeleteButton = () => {
+    const [deleteNote, { error }] = useMutation(DELETE_NOTE);
 
+    const handleDeleteButton = async (event) => {
+        try {
+            const commentId = event.target.hasAttribute('data-commentId')? event.target.getAttribute('data-commentId') : event.target.parentNode.getAttribute('data-commentId');
+            const data = await deleteNote({
+                variables: {commentId, notes: props.note.notes }
+            });
+
+            // window.location.reload(); // not sure whether this is necessary
+
+        } catch (err) {
+            console.error(err);
+        }
     }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setFormState({ [name]: value });
+      };
 
     const addNote = () => {
+        setNoteForm(true);
+    }
+
+    const handleEditNote = async (event) => {
+
+    }
+
+    const handleCreateNote = async (event) => {
 
     }
 
     return props.comment.map((comment, idx) => (
-        <div className="card" key={props.comment._id}>
+        <div className="card" key={comment._id}>
             <header className="card-header columns">
-                <p className="card-header-title column">{props.comment.creator.firstName}</p>
-                <p className="column">{props.comment.createdAt}</p>
+                <p className="card-header-title column">{comment.creator.firstName}</p>
+                <p className="column">{comment.createdAt}</p>
             </header>
             <div className="card-content">
                 <div className="content">
-                    <p>{props.comment.message}</p>
-                    {userType === "Agent" && props.comment.note &&
+                    <p>{comment.message}</p>
+                    {userType === "Agent" && comment.note && !noteForm &&
                         <div className="card-content">
                             <div className="content columns">
-                                <p className="column is-four-fifths">{props.comment.note.notes}</p>
-                                <button className="button column is-link is-small" onClick={handleEditButton}>
+                                <p className="column is-four-fifths">{comment.note.notes}</p>
+                                <button className="button column is-link is-small" data-commentId={comment._id} onClick={handleEditButton}>
                                     <i className="fa-solid fa-pencil"></i>
                                 </button>
-                                <button className="button column is-link is-small" onClick={handleDeleteButton}>
+                                <button className="button column is-link is-small" data-commentId={comment._id} onClick={handleDeleteButton}>
                                     <i className="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>
                         </div>
                     }
-                    {userType === "Agent" && !props.comment.note &&
-                        <button className="button is-link my-3 is-align-self-flex-end is-small" onClick={addNote}>Add Note</button>
+                    {userType === "Agent" && comment.note && noteForm && editNote &&
+                        <form onSubmit={handleEditNote}>
+                            <textarea
+                                name="noteText"
+                                value={formState.noteText}
+                                className="form-input w-100"
+                                placeholder="Add internal note..."
+                                onChange={handleChange}
+                            >
+                            </textarea>
+                            <input type="submit" className="button is-link is-small" value="Submit" />
+                        </form>
+                    }
+                    {userType === "Agent" && !comment.note && !noteForm &&
+                        <button className="button is-link my-3 is-align-self-flex-end is-small" data-commentId={comment._id} onClick={addNote}>Add Note</button>
+                    }
+                    {userType === "Agent" && !comment.note && noteForm && !editNote &&
+                        <form onSubmit={handleCreateNote}>
+                        <textarea
+                            name="noteText"
+                            value={formState.noteText}
+                            className="form-input w-100"
+                            placeholder="Add internal note..."
+                            onChange={handleChange}
+                        >
+                        </textarea>
+                        <input type="submit" className="button is-link is-small" value="Submit" />
+                    </form>
                     }
                 </div>
             </div>
