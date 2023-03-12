@@ -20,16 +20,16 @@ const Header = () => {
     return (
         <nav className={`${theme} navbar`}>
             <div className={`${theme} navbar-brand`}>
-                <h1 className={`is-size-1 has-text-weight-bold title-name`}>Support Hero</h1>
-                <div role="button" className={isActive ? "is-active navbar-burger" : "navbar-burger"} onClick={toggleClass} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <h1 className={`${theme}-title is-size-1 has-text-weight-bold`}>Support Hero</h1>
+                <div role="button" className={isActive ? `${theme} is-active navbar-burger` : `${theme} navbar-burger`} onClick={toggleClass} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </div>
             </div>
 
-            <div className={` ${isActive ? "is-active navbar-menu" : "navbar-menu"}`}>
-                <div className={` navbar-end`}>
+            <div className={`${theme}  ${isActive ? "is-active navbar-menu" : "navbar-menu"}`}>
+                <div className='navbar-end'>
                     {location.pathname !== '/' && 
                     <div className='navbar-item' >
                         <a><Link to='/'>Home</Link></a>
