@@ -12,23 +12,15 @@ import Auth from '../utils/auth';
 const Home = () => {
     const { theme} = useTheme();
     console.log("in")
+    console.log("in")
     // console.log(Auth.getUser().data._id)
 
     if(!Auth.loggedIn()){ window.location.replace("/login")}
 
-    const [isCreateTicket, setIsCreateTicket] = useState(false);
-    const { loading,  data  } = useQuery(GET_TICKETS_BY_USER_ID,
-        {
-            variables : {userId : Auth.getUser().data._id}
-    });
-
-    const handleCreateTicketClick = () => {
-        setIsCreateTicket(true);
-    }
-
-    const handleCloseCreateTicket = () => {
-        setIsCreateTicket(false);
-    }
+        const { loading,  data  } = useQuery(GET_TICKETS_BY_USER_ID,
+            {
+                variables : {userId : Auth.getUser().data._id}
+            });
         
     return (
         <main>
