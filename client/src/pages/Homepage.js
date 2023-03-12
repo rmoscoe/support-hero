@@ -17,12 +17,10 @@ const Home = () => {
     });
 
     const handleCreateTicketClick = () => {
-        console.log('handleCreateTicketClick');
         setIsCreateTicket(true);
     }
 
     const handleCloseCreateTicket = () => {
-        console.log('handleCloseCreateTicket');
         setIsCreateTicket(false);
     }
         
