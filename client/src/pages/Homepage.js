@@ -9,7 +9,9 @@ import Auth from '../utils/auth';
 
 const Home = () => {
     console.log("in")
-    console.log(Auth.getUser().data._id)
+    // console.log(Auth.getUser().data._id)
+
+    if(!Auth.loggedIn()){ window.location.replace("/login")}
 
         const { loading,  data  } = useQuery(GET_TICKETS_BY_USER_ID,
             {
@@ -29,7 +31,7 @@ const Home = () => {
             }<br></br> */}
              { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Create New ticket</button> : <label></label>
             }
-            </div> 
+            </div>
 
         </div>
         <div className="alltickets">

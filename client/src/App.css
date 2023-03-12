@@ -107,6 +107,9 @@
   color: black;
   background-color: white;
 }
+.hscroll {
+  overflow-x: auto; /* Horizontal */
+}
 
 .button-light {
   border: none;

@@ -1,19 +1,24 @@
+import { ColumnFilter } from "./ColumnFilter"
 export const COLUMNS = [
     {
         Header : 'Ticket ID',
-        accessor : "_id"
+        accessor : "_id",
+        Filter : ColumnFilter
     },
     {
         Header : 'Title',
-        accessor : "title"
+        accessor : "title",
+        Filter : ColumnFilter
     },
     {
         Header : 'Created On',
-        accessor : "createdAt"
+        accessor : "createdAt",
+        Filter : ColumnFilter
     },
     {
         Header : 'Status',
-        accessor : "status"
+        accessor : "status",
+        Filter : ColumnFilter
     },
 
 ]
