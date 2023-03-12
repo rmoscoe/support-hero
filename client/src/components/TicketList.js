@@ -31,15 +31,12 @@ const TicketList = ({
         <tbody>
       {tickets &&
         tickets.map((ticket) => (
-            <>
-            <tr>
+            <tr key={ticket._id}>
             <th>{ticket._id}</th>
             <td><Link to={`/tickets/${ticket._id}`}>{ticket.title}</Link> </td>
-            <td>{ticket.createdon} </td>
+            <td>{ticket.createdAt} </td>
             <td>{ticket.status}</td>
             </tr>
-            
-            </>
         ))}
 
         </tbody>
