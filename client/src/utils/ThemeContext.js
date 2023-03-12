@@ -5,19 +5,19 @@ export const ThemeContext = React.createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 export default function ThemeProvider({ children }) {
-    const [theme, setTheme] = useState('light');
+    let savedTheme = localStorage.getItem('theme') || 'light';
+    const [theme, setTheme] = useState(savedTheme);
     const toggleTheme = () => {
         if (theme === 'light') {
             setTheme('dark');
-            document.documentElement.style.backgroundColor = '#121212';
             document.body.style.backgroundColor = '#121212';
             console.log('changing to dark');
-
+            localStorage.setItem('theme', 'dark');
         } else if (theme === 'dark') {
             setTheme('light');
-            document.documentElement.style.backgroundColor = '#ffffff';
             document.body.style.backgroundColor = '#ffffff';
             console.log('changing to light');
+            localStorage.setItem('theme', 'light');
         }
     };
 
