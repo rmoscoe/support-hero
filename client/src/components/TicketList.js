@@ -47,7 +47,9 @@ const TicketList = ({
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell)=>{
-                return  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                // console.log(cell)
+                // console.log(cell.row.original._id)
+                return  <td {...cell.getCellProps()}><a href={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</a></td>
               })}
             </tr>
           )
