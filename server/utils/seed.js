@@ -6,7 +6,7 @@ const { Comment, Ticket, User } = require("../models");
 const createUser = async (type) => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
-    const password = 'Password!';  //faker.internet.password(8, false, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,32})/);
+    const password = 'Password1!';  //faker.internet.password(8, false, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,32})/);
     const email = faker.internet.email().toLowerCase();
 
     // console.log(firstName, lastName, email, password);
