@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Navigate } from 'react-router-dom';
+import { useTheme } from '../utils/ThemeContext';
 
 import TicketList from '../components/TicketList';
 
@@ -8,6 +9,7 @@ import { GET_TICKETS_BY_USER_ID } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const Home = () => {
+    const { theme} = useTheme();
     console.log("in")
     // console.log(Auth.getUser().data._id)
 
@@ -29,7 +31,7 @@ const Home = () => {
                 :  <button className="button  is-link" onClick={viewPAR}>Pending Agent Response</button> 
 
             }<br></br> */}
-             { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Create New ticket</button> : <label></label>
+             { Auth.getUser().data.type === "Customer" ? <button className={`button button-${theme}`}>Create New ticket</button> : <label></label>
             }
             </div>
 

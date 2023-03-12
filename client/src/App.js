@@ -58,7 +58,7 @@ function App() {
           <div className="d-flex flex-column justify-content-start min-100-vh">
             <Header />
             {Auth.loggedIn() &&
-              <button onClick={toggleTheme}>{`${theme} mode`}</button>}
+              <button className={`${theme}-toggle`} onClick={toggleTheme}>{`${theme} mode`}</button>}
             
             <div className="container">
               <Routes>

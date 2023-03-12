@@ -90,31 +90,42 @@
   font-size: 190px;
 }
 
-.dark {
-  color: #ffffff;
-  background-color: #121212;
-}
-
-.button-dark {
-  border: none;
-  padding: 8px 14px;
-  border-radius: 3px;
-  color: black;
-  background-color: rgb(139, 243, 238);
-}
-
-.light {
-  color: black;
-  background-color: white;
-}
 .hscroll {
   overflow-x: auto; /* Horizontal */
 }
 
-.button-light {
+.dark-toggle {
   border: none;
-  padding: 8px 14px;
+  padding: 6px 14px;
   border-radius: 3px;
+  background-color: #0E8388;
   color: white;
-  background-color: rgb(8, 156, 151);
+}
+.light-toggle {
+  border: none;
+  padding: 6px 14px;
+  border-radius: 3px;
+  background-color: #60d8dd;
+  color: black;
+}
+
+.dark {
+  color: #ffffff;
+  background-color: #121212;
+}
+.light {
+  color: black;
+  background-color: white;
+}
+
+.button-dark {
+  color: white;
+  background-color: #572780;
+  border: none;
+}
+.button-light {
+  color: black;
+  background-color: #8f41d4;
+  border: none;
+
 }
