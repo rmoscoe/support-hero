@@ -9,6 +9,7 @@ import { GET_TICKETS_BY_USER_ID } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const Home = () => {
+    if(!Auth.loggedIn()){ window.location.replace("/login")}
 
     const [isCreateTicket, setIsCreateTicket] = useState(false);
     const { loading,  data  } = useQuery(GET_TICKETS_BY_USER_ID,
@@ -53,11 +54,7 @@ const Home = () => {
             </div>
             {<CreateTicket isActive={isCreateTicket} handleCloseCreateTicket={handleCloseCreateTicket}/>}
         </main>
-
-
     );
 };
 
 export default Home;
-
-
