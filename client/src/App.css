@@ -18,6 +18,11 @@ body {
   pointer-events: none;
 }
 
+.button {
+  vertical-align: middle !important;
+  padding:0rem .75rem 0rem .75rem;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
