@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
-import CommentsList from '../components/CommentsList';
+// import CommentsList from '../components/CommentsList';
 import Auth from '../utils/auth';
 
 function TicketDetails() {
@@ -35,7 +35,7 @@ function TicketDetails() {
                 </div>
             </div>
             <div className="container comments-container">
-                <CommentsList comments={data.getTicketById.comments} />
+                {/* <CommentsList comments={data.getTicketById.comments} /> */}
             </div>
         </div>
     );
