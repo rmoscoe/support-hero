@@ -3,11 +3,15 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer className="footer">
+            <div>
+
             <div className="content has-text-centered">
                 <p>
-                Made with &#127154; by Team 2
+                Made with &hearts; by Team 2
                 </p>
             </div>
+            </div>
+
         </footer>
     )
 };

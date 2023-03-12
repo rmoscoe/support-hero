@@ -46,7 +46,7 @@ const typeDefs = gql`
         updateNote(commentId: ID!, notes: String!): Comment
         deleteNote(commentId: ID!, notes: String!): Comment
         login(email: String!, password: String!): Auth
-        createUser(firstName: String!, lastName: String!, password: String!, email: String!): Auth
+        createUser(firstName: String, lastName: String, password: String, email: String): Auth
     }
 `
 
