@@ -86,7 +86,7 @@ function Comment(props) {
         }
     }
 
-    return props.comment.map((comment, idx) => (
+    return props.comments.map((comment, idx) => (
         <div className="card" key={comment._id}>
             <header className="card-header columns">
                 <p className="card-header-title column">{comment.creator.firstName}</p>
