@@ -10,6 +10,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { StoreProvider } from './utils/GlobalState';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
@@ -47,35 +48,37 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="d-flex flex-column justify-content-start min-100-vh">
-          <Header />
-          <div className="container">
-            <Routes>
-            <Route 
-                path="/" 
-                element={<Homepage />} 
-              />
-              <Route 
-                path="/login" 
-                element={<Login />} 
-              />
-              <Route 
-                path="/homepage" 
-                element={<Homepage />} 
-              />
-              <Route 
-                path="/signup" 
-                element={<Signup />} 
-              />
-              <Route 
-                path="/tickets/:ticketId" 
-                element={<TicketDetails />}
-              />
-            </Routes> 
-        </div>
-          <Footer />
-        </div>
-      </Router>
-    </ApolloProvider>
+          <StoreProvider>
+            <Header />
+            <div className="container">
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Homepage />}
+                />
+                <Route
+                  path="/login"
+                  element={<Login />}
+                />
+                <Route
+                  path="/homepage"
+                  element={<Homepage />}
+                />
+                <Route
+                  path="/signup"
+                  element={<Signup />}
+                />
+                <Route
+                  path="/tickets/:ticketId"
+                  element={<TicketDetails />}
+                />
+              </Routes>
+              </div>
+          </StoreProvider>        
+        <Footer />
+      </div>
+    </Router>
+    </ApolloProvider >
   )
 }
 
