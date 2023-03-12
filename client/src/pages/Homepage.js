@@ -9,7 +9,9 @@ import Auth from '../utils/auth';
 
 const Home = () => {
     console.log("in")
-    console.log(Auth.getUser().data._id)
+    // console.log(Auth.getUser().data._id)
+
+    if(!Auth.loggedIn()){ window.location.replace("/login")}
 
         const { loading,  data  } = useQuery(GET_TICKETS_BY_USER_ID,
             {
@@ -20,7 +22,7 @@ const Home = () => {
         <main>
             <div>
             <h2 className="title has-text-centered m-5"> My Tickets</h2><br></br>
-            <div className="buttons is-centered">
+            <div className="buttons is-centered m-5">
             {/* <button className="button  is-link">All Tickets</button>
             <button className="button  is-link">View Open tickets</button>
             { Auth.getUser().data.type === "Customer" ? <button className="button  is-link" onClick={viewPCR}>Pending Customer Response</button>
@@ -29,7 +31,7 @@ const Home = () => {
             }<br></br> */}
              { Auth.getUser().data.type === "Customer" ? <button className="button  is-link">Create New ticket</button> : <label></label>
             }
-            </div> 
+            </div>
 
         </div>
         <div className="alltickets">
