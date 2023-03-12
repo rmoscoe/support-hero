@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { Navigate } from 'react-router-dom';
 import { useTheme } from '../utils/ThemeContext';
 
 import TicketList from '../components/TicketList';
+import CreateTicket from '../components/CreateTicket';
 
 import { GET_TICKETS_BY_USER_ID } from '../utils/queries';
 import Auth from '../utils/auth';
@@ -15,10 +16,19 @@ const Home = () => {
 
     if(!Auth.loggedIn()){ window.location.replace("/login")}
 
-        const { loading,  data  } = useQuery(GET_TICKETS_BY_USER_ID,
-            {
-                variables : {userId : Auth.getUser().data._id}
-            });
+    const [isCreateTicket, setIsCreateTicket] = useState(false);
+    const { loading,  data  } = useQuery(GET_TICKETS_BY_USER_ID,
+        {
+            variables : {userId : Auth.getUser().data._id}
+    });
+
+    const handleCreateTicketClick = () => {
+        setIsCreateTicket(true);
+    }
+
+    const handleCloseCreateTicket = () => {
+        setIsCreateTicket(false);
+    }
         
     return (
         <main>
@@ -31,7 +41,7 @@ const Home = () => {
                 :  <button className="button  is-link" onClick={viewPAR}>Pending Agent Response</button> 
 
             }<br></br> */}
-             { Auth.getUser().data.type === "Customer" ? <button className={`button button-${theme}`}>Create New ticket</button> : <label></label>
+             { Auth.getUser().data.type === "Customer" ? <button className={`button button-${theme}`} onClick={handleCreateTicketClick} data-target="create-ticket-form">Create New ticket</button> : <label></label>
             }
             </div>
 
@@ -49,12 +59,9 @@ const Home = () => {
         </div>
             </div>
             </div>
+            {<CreateTicket isActive={isCreateTicket} handleCloseCreateTicket={handleCloseCreateTicket}/>}
         </main>
-
-
     );
 };
 
 export default Home;
-
-
