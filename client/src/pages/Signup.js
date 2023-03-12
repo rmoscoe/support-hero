@@ -136,7 +136,7 @@ export default function Signup() {
                             </button>
                         </div>
                     </form><br></br>
-                    <label>Already have an account? Login <Link className="has-text-link" to="/">here</Link></label>
+                    <label>Already have an account? Login <Link className="has-text-link" to="/login">here</Link></label>
                 </div>
                 </div>
             <Toaster 
