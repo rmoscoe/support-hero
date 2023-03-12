@@ -1,9 +1,11 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../utils/mutations';
 import { useForm } from 'react-hook-form';
 import Auth from '../utils/auth';
+import toast, { Toaster } from 'react-hot-toast';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Signup() {
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" });
@@ -25,15 +27,22 @@ export default function Signup() {
             const token = userData.data.createUser.token;
             Auth.login(token);
         } catch (err) {
-            console.error(err, errors);
+            toast("This email address is already in use. Please try a different email address or proceed to login", {
+                position: 'bottom-right'
+            });
+            console.error(err);
         }
     };
     return (
-        <section className="hero is-light is-fullheight is-widescreen">
+        <section className="hero is-light is-fullheight is-widescreen bgcolor">
+            <div className="hero-body">
             <div className="container">
                 <h1 className="title has-text-centered">Support Hero</h1>
                 <div className="columns is-centered">
-                    <div className="column is-5-tablet is-4-desktop is-3-widescreen"></div>
+                    <div className="column is-5-tablet is-4-desktop is-3-widescreen">
+                    <hr className="login-hr"></hr>
+         
+         <p className="subtitle has-text-centered">Sign Up</p>
                     <form onSubmit={handleSubmit(onSubmit)} className=" signin-form">
                         <div className="field">
                             <label className="label">First Name</label>
@@ -127,7 +136,12 @@ export default function Signup() {
                             </button>
                         </div>
                     </form><br></br>
+                    <label>Already have an account? Login <Link className="has-text-link" to="/">here</Link></label>
                 </div>
+                </div>
+            <Toaster 
+               /> 
+            </div>
             </div>
         </section >
     );
