@@ -18,7 +18,9 @@ function Comment(props) {
         setEditNote(true);
     }
 
-    const [deleteNote, { error }] = useMutation(DELETE_NOTE);
+    const [deleteNote, { deleteError }] = useMutation(DELETE_NOTE);
+    const [createNote, { createError }] = useMutation(CREATE_NOTE);
+    const [updateNote, { updateError }] = useMutation(UPDATE_NOTE);
 
     const handleDeleteButton = async (event) => {
         try {
@@ -45,11 +47,43 @@ function Comment(props) {
     }
 
     const handleEditNote = async (event) => {
+        event.preventDefault();
 
+        try {
+            const notes = formState.noteText;
+            const commentId = document.querySelector(".notes-input").getAttribute("data-commentId");
+            document.querySelector(".notes-input").value = "";
+            setEditNote(false);
+            setNoteForm(false);
+
+            const data = await updateNote({
+                variables: { commentId, notes }
+            });
+
+            // window.location.reload(); // not sure whether this is necessary
+        } catch (err) { 
+            console.error(err);
+        }
     }
 
     const handleCreateNote = async (event) => {
+        event.preventDefault();
 
+        try {
+            const notes = formState.noteText;
+            const commentId = document.querySelector(".notes-input").getAttribute("data-commentId");
+            document.querySelector(".notes-input").value = "";
+            setEditNote(false);
+            setNoteForm(false);
+
+            const { data } = await createNote({
+                variables: { commentId, notes }
+            });
+
+            // window.location.reload(); // not sure whether this is necessary
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     return props.comment.map((comment, idx) => (
@@ -78,8 +112,10 @@ function Comment(props) {
                         <form onSubmit={handleEditNote}>
                             <textarea
                                 name="noteText"
+                                rows="2"
+                                data-commentId={comment._id}
                                 value={formState.noteText}
-                                className="form-input w-100"
+                                className="form-input w-100 notes-input"
                                 placeholder="Add internal note..."
                                 onChange={handleChange}
                             >
@@ -94,8 +130,10 @@ function Comment(props) {
                         <form onSubmit={handleCreateNote}>
                         <textarea
                             name="noteText"
+                            rows="2"
+                            data-commentId={comment._id}
                             value={formState.noteText}
-                            className="form-input w-100"
+                            className="form-input w-100 notes-input"
                             placeholder="Add internal note..."
                             onChange={handleChange}
                         >
