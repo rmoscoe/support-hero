@@ -11,6 +11,8 @@ import Auth from '../utils/auth';
 
 const Home = () => {
     const { theme} = useTheme();
+    console.log("in")
+    // console.log(Auth.getUser().data._id)
 
     if(!Auth.loggedIn()){ window.location.replace("/login")}
 

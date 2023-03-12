@@ -13,6 +13,7 @@ const TicketList = ({
   const columns = useMemo(() => COLUMNS , [])
   const data = useMemo(() => tickets , [])
   const { theme} = useTheme();
+  console.log(theme);
 
   const {getTableProps, 
     getTableBodyProps,

@@ -11,10 +11,12 @@ export default function ThemeProvider({ children }) {
         if (theme === 'light') {
             setTheme('dark');
             document.body.style.backgroundColor = '#121212';
+            console.log('changing to dark');
             localStorage.setItem('theme', 'dark');
         } else if (theme === 'dark') {
             setTheme('light');
             document.body.style.backgroundColor = '#ffffff';
+            console.log('changing to light');
             localStorage.setItem('theme', 'light');
         }
     };
