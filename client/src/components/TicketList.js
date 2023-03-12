@@ -7,10 +7,6 @@ import { GlobalFilter } from './GlobalFilter';
 const TicketList = ({
   tickets,
 }) => {
-  // if (!tickets.length) {
-  //   return <h3>No Tickets Yet</h3>;
-  // }
-
   const columns = useMemo(() => COLUMNS , [])
   const data = useMemo(() => tickets , [])
 
@@ -27,8 +23,15 @@ const TicketList = ({
   },useGlobalFilter)
 
   const {globalFilter} = state
+
+  if (!tickets.length) {
+    return <h3>No Tickets Yet</h3>;
+  }
+  
   return (
+    
   <>
+  
   <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
     <table {...getTableProps()} className="table is-bordered is-striped is-fullwidth is-responsive">
       <thead>
