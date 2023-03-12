@@ -6,6 +6,8 @@ import CommentList from '../components/CommentList';
 import Auth from '../utils/auth';
 
 function TicketDetails() {
+    if (!Auth.loggedIn()) window.location.assign('/login');
+    
     const { ticketId } = useParams();
 
     const { loading, error, data } = useQuery(GET_TICKET_BY_ID, {
@@ -18,7 +20,7 @@ function TicketDetails() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
     
-    return ( Auth.loggedIn() ? (
+    return (
         <div>
             <h2 className="title has-text-centered">{data.getTicketById.title}</h2>
             <div className="block">
@@ -48,8 +50,7 @@ function TicketDetails() {
                 <CommentList comments={data.getTicketById.comments} />
             </div>
         </div>
-        ) : ( window.location.assign("/login") )
     );
-}
+};
 
 export default TicketDetails;

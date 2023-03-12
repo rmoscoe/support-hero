@@ -1,5 +1,6 @@
 .env
-/server/utils/userData.json
+
+/utils/userData.json
 
 /node_modules
 /.pnp

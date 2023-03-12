@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { CREATE_TICKET } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const CreateTicket = () => {
+const CreateTicket = (props) => {
     const [createTicket, { loading }] = useMutation(CREATE_TICKET);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
@@ -27,53 +27,60 @@ const CreateTicket = () => {
     };
 
     const onClose = () => {
-        const modal = document.querySelector('create-ticket-form');
+        const modal = document.getElementById('create-ticket-form');
         modal.classList.remove('is-active');
+        props.handleCloseCreateTicket();
     };
 
     return (
-        <>
-            {/* Button to open modal: to be removed and integrated with host page */}
-            <button>Open Create Ticket Modal</button>
-
-            {/* Modal */}
-            <div className="modal create-form create-ticket-form">
-                <div className="modal-background">
-                    <div className="modal-content">
-                        <h2>Create Ticket</h2>
-                        <button className="close-button" onClick={onClose}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M6.293 6.293a1 1 0 0 1 1.414 0L12 10.586l4.293-4.293a1 1 0 1 1 1.414 1.414L13.414 12l4.293 4.293a1 1 0 0 1-1.414 1.414L12 13.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 12 6.293 7.707a1 1 0 0 1 0-1.414z"/></svg>
-                        </button>
+        <div id="create-ticket-form" className={`modal ${props.isActive ? "is-active" : ""}`}>
+            <div className="modal-background">
+                <div className="modal-content has-background-white">
+                    <header className="modal-card-head title">
+                        <p className="modal-card-title">Create Ticket</p>
+                        <button className="delete" aria-label="close" onClick={onClose}></button>
+                    </header>
+                    <section className="modal-card-body">
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <label>
-                                Title:
-                                <input type="text" {...register('title', { required: true })} />
-                                {errors.title && <span className="error">This field is required</span>}
-                            </label>
-                            <label>
-                                Description:
-                                <textarea {...register('description', { required: true })} />
-                                {errors.description && <span className="error">This field is required</span>}
-                            </label>
-                            <label>
-                                Priority:
-                                <select {...register('priority', { required: true })}>
-                                    <option value="">Select Priority</option>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
-                                </select>
-                                {errors.priority && <span className="error">Please select a priority</span>}
-                            </label>
-                            <button type="submit" disabled={loading}>
-                                {loading ? 'Creating...' : 'Create'}
-                            </button>
-                            <button type="button" onClick={onClose}>Close</button>
+                            <div className="field">
+                                <label className="label">Title:</label>
+                                <div className="control">
+                                    <input className="input" placeholder="Summary of the issue" type="text" {...register('title', { required: true })} />
+                                    {errors.title && <span className="error">This field is required</span>}
+                                </div>
+                            </div>
+                            <div className="field">
+                                <label className="label">Description:</label>
+                                <div className="control">
+                                    <textarea className="textarea" rows="10" placeholder="Detailed description of the issue" {...register('description', { required: true })} />
+                                    {errors.description && <span className="error">This field is required</span>}
+                                </div>
+                            </div>
+                            <div className="field">
+                                <label className="label">Priority:</label>
+                                <div className="control">
+                                    <div className="select is-fullwidth">
+                                        <select {...register('priority', { required: true })}>
+                                            <option value="">Select Priority</option>
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="High">High</option>
+                                        </select>
+                                        {errors.priority && <span className="error">Please select a priority</span>}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="buttons">
+                                <button className="button is-primary" type="submit" disabled={loading}>
+                                    {loading ? 'Creating...' : 'Create'}
+                                </button>
+                                <button className="button is-info" type="button" onClick={onClose}>Close</button>
+                            </div>
                         </form>
-                    </div>
+                    </section>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
