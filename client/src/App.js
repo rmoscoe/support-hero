@@ -58,11 +58,11 @@ function App() {
           <StoreProvider>
             {Auth.loggedIn() &&
             <Header />}
-            {Auth.loggedIn() &&
+              {/* <button className={`${theme}-toggle`} onClick={toggleTheme}>{theme === 'dark' ? 'light mode' : 'dark mode'}</button>} */}
             <label className="switch">
               <input type="checkbox" />
                 <span onClick={toggleTheme} className="toggle"></span>
-            </label>}
+            </label>
             <div className="container">
               <Routes>
                 <Route
