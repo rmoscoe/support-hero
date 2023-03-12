@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 
 function CommentList(props) {
-    const [state, dispatch] = useStoreContext();
+    const [state, setState] = useStoreContext();
     const [userId, setUserId] = useState(state.user._id);
     const { ticketId } = useParams();
     const [commentFormState, setCommentFormState] = useState({

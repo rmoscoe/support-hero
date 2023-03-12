@@ -10,12 +10,13 @@ function Comment(props) {
     const [noteForm, setNoteForm] = useState(false);
     const [editNote, setEditNote] = useState(false);
     const [formState, setFormState] = useState({
-        noteText: props.comment.note.notes ? props.comment.note.notes : ""
+        noteText: ""
     });
 
-    const handleEditButton = () => {
+    const handleEditButton = (notes) => {
         setNoteForm(true);
         setEditNote(true);
+        setFormState({noteText: notes});
     }
 
     const [deleteNote, { deleteError }] = useMutation(DELETE_NOTE);
@@ -44,6 +45,7 @@ function Comment(props) {
 
     const addNote = () => {
         setNoteForm(true);
+        setFormState({noteText: ""});
     }
 
     const handleEditNote = async (event) => {
@@ -99,7 +101,7 @@ function Comment(props) {
                         <div className="card-content">
                             <div className="content columns">
                                 <p className="column is-four-fifths">{comment.note.notes}</p>
-                                <button className="button column is-link is-small" data-commentId={comment._id} onClick={handleEditButton}>
+                                <button className="button column is-link is-small" data-commentId={comment._id} onClick={() => handleEditButton(comment.note.notes)}>
                                     <i className="fa-solid fa-pencil"></i>
                                 </button>
                                 <button className="button column is-link is-small" data-commentId={comment._id} onClick={handleDeleteButton}>
