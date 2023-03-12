@@ -33,12 +33,6 @@ const Home = () => {
             <div>
             <h2 className={`${theme} title has-text-centered m-5`}> My Tickets</h2><br></br>
             <div className="buttons is-centered m-5">
-            {/* <button className="button  is-link">All Tickets</button>
-            <button className="button  is-link">View Open tickets</button>
-            { Auth.getUser().data.type === "Customer" ? <button className="button  is-link" onClick={viewPCR}>Pending Customer Response</button>
-                :  <button className="button  is-link" onClick={viewPAR}>Pending Agent Response</button> 
-
-            }<br></br> */}
              { Auth.getUser().data.type === "Customer" ? <button className={`button button-${theme}`} onClick={handleCreateTicketClick} data-target="create-ticket-form">Create New ticket</button> : <label></label>
             }
             </div>
