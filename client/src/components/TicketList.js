@@ -5,6 +5,7 @@ import { COLUMNS } from '../components/Columns'
 import { GlobalFilter } from './GlobalFilter';
 import { ColumnFilter } from './ColumnFilter';
 
+
 const TicketList = ({
   tickets,
 }) => {
@@ -34,7 +35,7 @@ const TicketList = ({
   <>
   
   <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-    <table {...getTableProps()} className="table is-bordered is-striped is-fullwidth is-responsive">
+    <table {...getTableProps()} className="table is-bordered is-striped is-fullwidth is-responsive hscroll">
       <thead>
         {headerGroups.map((headerGroup) => (
             <tr className="is-selected has-text-black" {...headerGroup.getHeaderGroupProps()}>
