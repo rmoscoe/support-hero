@@ -32,7 +32,7 @@ const Header = () => {
                         <Link to='/homepage'>Home</Link>
                     </div> }
                     <div className='navbar-item'>
-                        <a href="/login" onClick={logout}>Logout</a>
+                        <a onClick={logout}>Logout</a>
                     </div>
                 </div>
             </div>
