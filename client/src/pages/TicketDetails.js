@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
-import CommentsList from '../components/CommentsList';
+import Comment from '../components/Comment';
 import Auth from '../utils/auth';
 
 function TicketDetails() {
@@ -45,7 +45,7 @@ function TicketDetails() {
             </div>
             <div className="message has-text-centered">Comments</div>
             <div className="is-centered container comments-container">
-                <CommentsList comments={data.getTicketById.comments} />
+                {/* <Comment comment={data.getTicketById.comments} /> */}
             </div>
         </div>
         ) : ( window.location.assign("/login") )
