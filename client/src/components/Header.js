@@ -29,10 +29,10 @@ const Header = () => {
                 <div className='navbar-end'>
                     {location.pathname !== '/homepage' && 
                     <div className='navbar-item' >
-                        <button class="button is-primary" ><Link to='/homepage'>Home</Link></button>
+                        <button className="button is-primary" ><Link to='/homepage'>Home</Link></button>
                     </div> }
                     <div className='navbar-item'>
-                        <button class="button is-info" onClick={logout}>Logout</button>
+                        <button className="button is-info" onClick={logout}>Logout</button>
                     </div>
                 </div>
             </div>

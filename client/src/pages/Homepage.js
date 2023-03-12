@@ -20,7 +20,7 @@ const Home = () => {
         <main>
             <div>
             <h2 className="title has-text-centered m-5"> My Tickets</h2><br></br>
-            <div className="buttons is-centered m-5">
+            <div className="buttons is-centered">
             {/* <button className="button  is-link">All Tickets</button>
             <button className="button  is-link">View Open tickets</button>
             { Auth.getUser().data.type === "Customer" ? <button className="button  is-link" onClick={viewPCR}>Pending Customer Response</button>

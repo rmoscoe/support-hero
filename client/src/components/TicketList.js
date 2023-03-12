@@ -1,8 +1,9 @@
 import React , { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useTable , useGlobalFilter } from 'react-table';
+import { useTable , useGlobalFilter, useFilters } from 'react-table';
 import { COLUMNS } from '../components/Columns'
 import { GlobalFilter } from './GlobalFilter';
+import { ColumnFilter } from './ColumnFilter';
 
 const TicketList = ({
   tickets,
@@ -20,7 +21,7 @@ const TicketList = ({
   } = useTable({
     columns,
     data,
-  },useGlobalFilter)
+  },useFilters,useGlobalFilter)
 
   const {globalFilter} = state
 
@@ -38,7 +39,9 @@ const TicketList = ({
         {headerGroups.map((headerGroup) => (
             <tr className="is-selected has-text-black" {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                <th className="has-text-centered"{...column.getHeaderProps()}>{column.render('Header')}
+                <div>{column.canFilter ? column.render('Filter') : null}</div>
+                </th>
               ))}
             </tr>
         ))}
