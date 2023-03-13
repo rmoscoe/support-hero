@@ -11,12 +11,10 @@ export default function ThemeProvider({ children }) {
         if (theme === 'light') {
             setTheme('dark');
             document.body.style.backgroundColor = '#121212';
-            console.log('changing to dark');
             localStorage.setItem('theme', 'dark');
         } else if (theme === 'dark') {
             setTheme('light');
             document.body.style.backgroundColor = '#ffffff';
-            console.log('changing to light');
             localStorage.setItem('theme', 'light');
         }
     };
@@ -24,11 +22,3 @@ export default function ThemeProvider({ children }) {
     useEffect(() => {
         document.body.className = theme;
     }, [theme]);
-
-    return (
-        // Dark theme and toggle theme are getting provided to the child components
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            {children}
-        </ThemeContext.Provider>
-    );
-}

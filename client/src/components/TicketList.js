@@ -4,16 +4,13 @@ import { useTable , useGlobalFilter, useFilters } from 'react-table';
 import { COLUMNS } from '../components/Columns'
 import { GlobalFilter } from './GlobalFilter';
 import { ColumnFilter } from './ColumnFilter';
-import { useTheme } from '../utils/ThemeContext';
 
 
 const TicketList = ({
-  tickets
+  tickets,
 }) => {
   const columns = useMemo(() => COLUMNS , [])
   const data = useMemo(() => tickets , [])
-  const { theme} = useTheme();
-  console.log(theme);
 
   const {getTableProps, 
     getTableBodyProps,
@@ -38,12 +35,12 @@ const TicketList = ({
   <>
   
   <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-    <table {...getTableProps()} className={`${theme} table is-bordered is-striped is-fullwidth is-responsive hscroll`}>
+    <table {...getTableProps()} className="table is-bordered is-striped is-fullwidth is-responsive hscroll">
       <thead>
         {headerGroups.map((headerGroup) => (
             <tr className="is-selected has-text-black" {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th className={`${theme}-header has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
+                <th className="has-text-centered"{...column.getHeaderProps()}>{column.render('Header')}
                 <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}

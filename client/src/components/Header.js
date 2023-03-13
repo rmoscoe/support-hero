@@ -2,11 +2,8 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useLocation } from 'react-router-dom';
-import { useTheme } from '../utils/ThemeContext';
 
 const Header = () => {
-    const { theme} = useTheme();
-
     const logout = (event) => {
         event.preventDefault();
         Auth.logout();
@@ -18,24 +15,24 @@ const Header = () => {
     let location = useLocation();
     if(Auth.loggedIn()){
     return (
-        <nav className={`${theme} navbar`}>
-            <div className={`${theme} navbar-brand`}>
-                <h1 className={`${theme}-title is-size-1 has-text-weight-bold`}>Support Hero</h1>
-                <div role="button" className={isActive ? `${theme} is-active navbar-burger` : `${theme} navbar-burger`} onClick={toggleClass} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <nav className='navbar'>
+            <div className='navbar-brand'>
+                <h1 className='is-size-1 has-text-weight-bold title-name'>Support Hero</h1>
+                <div role="button" className={isActive ? "is-active navbar-burger" : "navbar-burger"} onClick={toggleClass} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </div>
             </div>
 
-            <div className={`${theme}  ${isActive ? "is-active navbar-menu" : "navbar-menu"}`}>
+            <div className={isActive ? "is-active navbar-menu" : "navbar-menu"}>
                 <div className='navbar-end'>
                     {location.pathname !== '/homepage' && 
                     <div className='navbar-item' >
-                        <button class="button is-primary" ><Link to='/homepage'>Home</Link></button>
+                        <button className="button is-primary" ><Link to='/homepage'>Home</Link></button>
                     </div> }
                     <div className='navbar-item'>
-                        <button class="button is-info" onClick={logout}>Logout</button>
+                        <button className="button is-info" onClick={logout}>Logout</button>
                     </div>
                 </div>
             </div>
