@@ -17,7 +17,6 @@ const resolvers = {
 
         // get Tickets by userId and Status
         getTicketsByUserId: async (parent, { userId, status }) => {
-            console.log("in resolver")
             if (status)
                 return await Ticket.find({
                     users: userId,
@@ -57,6 +56,7 @@ const resolvers = {
 
         //updateTicketStatus
         updateTicketStatus: async (parent, { ticketId, status }, context) => {
+            console.log("in update")
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {

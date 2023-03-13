@@ -20,9 +20,8 @@ export const CREATE_TICKET = gql`
 `;
 
 export const UPDATE_TICKET_STATUS = gql`
-    mutation updateTicketStatus($_id: ID!, $status: String!) {
-        updateTicketStatus(_id: $_id, status: $status) {
-            ticket {
+    mutation updateTicketStatus($ticketId: ID!, $status: String!) {
+        updateTicketStatus(ticketId: $ticketId, status: $status) {
                 _id
                 title
                 priority
@@ -48,7 +47,7 @@ export const UPDATE_TICKET_STATUS = gql`
                         notes
                     }
                 }
-            }
+            
         }
     }
 `;
