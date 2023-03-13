@@ -70,13 +70,13 @@ function CommentList(props) {
                             name="messageText"
                             rows="3"
                             value={commentFormState.messageText}
-                            className={1`${theme} form-input w-100 column is-four-fifths mx-3`}
+                            className={`${theme} form-input w-100 column is-four-fifths mx-3`}
                             id="comment-message-textarea"
                             placeholder="Add a comment..."
                             onChange={handleCommentInput}
                         >
                         </textarea>
-                        <input type="submit" className={``${theme} button is-info column mx-3`}` value="Submit" />
+                        <input type="submit" className={`${theme} button is-info column mx-3`} value="Submit" />
                     </form>
                 }
             </section>
