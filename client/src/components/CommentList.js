@@ -45,20 +45,22 @@ function CommentList(props) {
         <section>
             <h3 className="title is-4 has-background-info-light mt-3 mb-1 p-2 has-text-info">Comment History</h3>
             < section className="section">
-                <Comment comments={props.comments} user={user} />
-                <form className="columns box is-align-items-flex-end mt-3" onSubmit={handleCreateComment}>
-                    <textarea
-                        name="messageText"
-                        rows="3"
-                        value={commentFormState.messageText}
-                        className="form-input w-100 column is-four-fifths mx-3"
-                        id="comment-message-textarea"
-                        placeholder="Add a comment..."
-                        onChange={handleCommentInput}
-                    >
-                    </textarea>
-                    <input type="submit" className="button is-info column mx-3" value="Submit" />
-                </form>
+                <Comment comments={props.comments} user={user} status={props.status} />
+                {props.status !== "Closed" &&
+                    <form className="columns box is-align-items-flex-end mt-3" onSubmit={handleCreateComment}>
+                        <textarea
+                            name="messageText"
+                            rows="3"
+                            value={commentFormState.messageText}
+                            className="form-input w-100 column is-four-fifths mx-3"
+                            id="comment-message-textarea"
+                            placeholder="Add a comment..."
+                            onChange={handleCommentInput}
+                        >
+                        </textarea>
+                        <input type="submit" className="button is-info column mx-3" value="Submit" />
+                    </form>
+                }
             </section>
         </section>
     );
