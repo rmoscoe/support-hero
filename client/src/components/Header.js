@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from '../utils/ThemeContext';
+import { useTheme } from '../utils/ThemeContext';
 
 const Header = () => {
     const { theme } = useTheme();
@@ -27,18 +28,18 @@ const Header = () => {
                     </div>
                 </div>
 
-                <div className={`${theme}  ${isActive ? "is-active navbar-menu" : "navbar-menu"}`}>
-                    <div className='navbar-end'>
-                        {location.pathname !== '/' &&
-                            <div className='navbar-item' >
-                                <button className={`button button-${theme}`}><Link to='/homepage'>Home</Link></button>
-                            </div>}
-                        <div className='navbar-item'>
+            <div className={isActive ? "is-active navbar-menu" : "navbar-menu"}>
+                <div className='navbar-end'>
+                    {location.pathname !== '/homepage' && 
+                    <div className='navbar-item' >
+                        <button className="button is-primary" ><Link to='/'>Home</Link></button>
+                    </div> }
+                    <div className='navbar-item'>
                             <button className={`button button-${theme}`} onClick={logout}>Logout</button>
-                        </div>
                     </div>
                 </div>
-            </nav>
+            </div>
+        </nav>
         )
     }
 };
