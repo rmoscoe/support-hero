@@ -56,11 +56,11 @@ function Comment(props) {
 
         try {
             const notes = formState.noteText;
-            const commentId = document.querySelector(".notes-input").getAttribute("data-commentid");
+            const commentId = event.currentTarget.getAttribute("data-commentid");
             document.querySelector(".notes-input").value = "";
             setEditNote(false);
             setNoteForm(false);
-
+            
             const data = await updateNote({
                 variables: { commentId, notes }
             });
@@ -118,36 +118,36 @@ function Comment(props) {
                         </div>
                     }
                     {userType === "Agent" && comment.note && noteForm && editNote && commentToEdit === comment._id &&
-                        <form onSubmit={handleEditNote}>
+                        <form className="columns is-align-items-flex-end" data-commentid={comment._id} onSubmit={handleEditNote}>
                             <textarea
                                 name="noteText"
                                 rows="2"
                                 data-commentid={comment._id}
                                 value={formState.noteText}
-                                className="form-input w-100 notes-input"
+                                className="form-input w-100 notes-input column is-four-fifths my-1"
                                 placeholder="Add internal note..."
                                 onChange={handleChange}
                             >
                             </textarea>
-                            <input type="submit" className="button is-info is-small" value="Submit" />
+                            <input type="submit" className="button is-info is-small column w-100 my-1 ml-2 is-align-self-flex-end" value="Submit" />
                         </form>
                     }
                     {userType === "Agent" && !comment.note && !noteForm &&
                         <button className="button is-link my-3 is-align-self-flex-end is-small" data-commentid={comment._id} onClick={addNote}>Add Note</button>
                     }
                     {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit === comment._id &&
-                        <form onSubmit={handleCreateNote}>
+                        <form className="columns is-flex is-align-items-flex-end" data-commentid={comment._id} onSubmit={handleCreateNote}>
                             <textarea
                                 name="noteText"
                                 rows="2"
                                 data-commentid={comment._id}
                                 value={formState.noteText}
-                                className="form-input w-100 notes-input"
+                                className="form-input w-100 notes-input column is-four-fifths my-1"
                                 placeholder="Add internal note..."
                                 onChange={handleChange}
                             >
                             </textarea>
-                            <input type="submit" className="button is-link is-small" value="Submit" />
+                            <input type="submit" className="button is-link is-small column w-100 my-1 ml-2 is-align-self-flex-end" value="Submit" />
                         </form>
                     }
                 </div>
