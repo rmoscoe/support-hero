@@ -14,11 +14,14 @@ function Comment(props) {
     const [formState, setFormState] = useState({
         noteText: ""
     });
+    const [commentToEdit, setCommentToEdit] = useState("");
 
-    const handleEditButton = (notes) => {
+    const handleEditButton = (event, notes, id) => {
+        const dataId = event.currentTarget.getAttribute("data-commentid");
+        setCommentToEdit(dataId);
         setNoteForm(true);
         setEditNote(true);
-        setFormState({noteText: notes});
+        setFormState({ noteText: notes });
     }
 
     const [deleteNote, { deleteError }] = useMutation(DELETE_NOTE);
@@ -27,9 +30,9 @@ function Comment(props) {
 
     const handleDeleteButton = async (event) => {
         try {
-            const commentId = event.target.hasAttribute('data-commentid')? event.target.getAttribute('data-commentid') : event.target.parentNode.getAttribute('data-commentid');
+            const commentId = event.target.hasAttribute('data-commentid') ? event.target.getAttribute('data-commentid') : event.target.parentNode.getAttribute('data-commentid');
             const data = await deleteNote({
-                variables: {commentId, notes: props.note.notes }
+                variables: { commentId, notes: props.note.notes }
             });
 
             // window.location.reload(); // not sure whether this is necessary
@@ -43,11 +46,11 @@ function Comment(props) {
         const { name, value } = event.target;
 
         setFormState({ [name]: value });
-      };
+    };
 
     const addNote = () => {
         setNoteForm(true);
-        setFormState({noteText: ""});
+        setFormState({ noteText: "" });
     }
 
     const handleEditNote = async (event) => {
@@ -55,17 +58,17 @@ function Comment(props) {
 
         try {
             const notes = formState.noteText;
-            const commentId = document.querySelector(".notes-input").getAttribute("data-commentid");
+            const commentId = event.currentTarget.getAttribute("data-commentid");
             document.querySelector(".notes-input").value = "";
             setEditNote(false);
             setNoteForm(false);
-
+            
             const data = await updateNote({
                 variables: { commentId, notes }
             });
 
             // window.location.reload(); // not sure whether this is necessary
-        } catch (err) { 
+        } catch (err) {
             console.error(err);
         }
     }
@@ -103,49 +106,51 @@ function Comment(props) {
                         <div className="card-content has-background-info-light">
                             <div className="content columns is-align-items-baseline">
                                 <p className="column is-four-fifths">{comment.note.notes}</p>
-                                <div className="column columns is-mobile">
-                                <button className="button column is-info is-small mr-1" data-commentid={comment._id} onClick={() => handleEditButton(comment.note.notes)}>
-                                    <i className="fa-solid fa-pencil"></i>
-                                </button>
-                                <button className="button column ml-1 is-info is-small" data-commentid={comment._id} onClick={handleDeleteButton}>
-                                    <i className="fa-solid fa-trash-can"></i>
-                                </button>
-                                </div>
+                                {props.status !== "Closed" &&
+                                    <div className="column columns is-mobile">
+                                        <button className="button column is-info is-small mr-1" data-commentid={comment._id} onClick={(event) => handleEditButton(event, comment.note.notes, comment._id)}>
+                                            <i className="fa-solid fa-pencil"></i>
+                                        </button>
+                                        <button className="button column ml-1 is-info is-small" data-commentid={comment._id} onClick={handleDeleteButton}>
+                                            <i className="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }
-                    {userType === "Agent" && comment.note && noteForm && editNote &&
-                        <form onSubmit={handleEditNote}>
+                    {userType === "Agent" && comment.note && noteForm && editNote && commentToEdit === comment._id &&
+                        <form className="columns is-align-items-flex-end" data-commentid={comment._id} onSubmit={handleEditNote}>
                             <textarea
                                 name="noteText"
                                 rows="2"
                                 data-commentid={comment._id}
                                 value={formState.noteText}
-                                className="form-input w-100 notes-input"
+                                className="form-input w-100 notes-input column is-four-fifths my-1"
                                 placeholder="Add internal note..."
                                 onChange={handleChange}
                             >
                             </textarea>
-                            <input type="submit" className="button is-info is-small" value="Submit" />
+                            <input type="submit" className="button is-info is-small column w-100 my-1 ml-2 is-align-self-flex-end" value="Submit" />
                         </form>
                     }
                     {userType === "Agent" && !comment.note && !noteForm &&
                         <button className="button is-link my-3 is-align-self-flex-end is-small" data-commentid={comment._id} onClick={addNote}>Add Note</button>
                     }
-                    {userType === "Agent" && !comment.note && noteForm && !editNote &&
-                        <form onSubmit={handleCreateNote}>
-                        <textarea
-                            name="noteText"
-                            rows="2"
-                            data-commentid={comment._id}
-                            value={formState.noteText}
-                            className="form-input w-100 notes-input"
-                            placeholder="Add internal note..."
-                            onChange={handleChange}
-                        >
-                        </textarea>
-                        <input type="submit" className="button is-link is-small" value="Submit" />
-                    </form>
+                    {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit === comment._id &&
+                        <form className="columns is-flex is-align-items-flex-end" data-commentid={comment._id} onSubmit={handleCreateNote}>
+                            <textarea
+                                name="noteText"
+                                rows="2"
+                                data-commentid={comment._id}
+                                value={formState.noteText}
+                                className="form-input w-100 notes-input column is-four-fifths my-1"
+                                placeholder="Add internal note..."
+                                onChange={handleChange}
+                            >
+                            </textarea>
+                            <input type="submit" className="button is-link is-small column w-100 my-1 ml-2 is-align-self-flex-end" value="Submit" />
+                        </form>
                     }
                 </div>
             </div>

@@ -17,7 +17,6 @@ const resolvers = {
 
         // get Tickets by userId and Status
         getTicketsByUserId: async (parent, { userId, status }) => {
-            console.log("in resolver")
             if (status)
                 return await Ticket.find({
                     users: userId,
@@ -57,6 +56,7 @@ const resolvers = {
 
         //updateTicketStatus
         updateTicketStatus: async (parent, { ticketId, status }, context) => {
+            console.log("in update")
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
@@ -70,8 +70,9 @@ const resolvers = {
         },
 
 
-        //createComment
+        // createComment
         createComment: async (parent, { ticketId, message, userId }, context) => {
+            console.log("Made it here!");
             const comment = await Comment.create(
                 {
                     message,
@@ -87,7 +88,7 @@ const resolvers = {
 
 
         //createNote
-        createNote: async (parent, { commentId, notes }, context) => {
+        createNote: async (parent, { commentId, notes }) => {
             return await Comment.findOneAndUpdate(
                 { _id: commentId },
                 {
@@ -97,7 +98,7 @@ const resolvers = {
                     new: true,
                     runValidators: true,
                 }
-            );
+            ).populate("creator");
         },
 
         //updateNote
@@ -109,7 +110,7 @@ const resolvers = {
                     new: true,
                     runValidators: true,
                 }
-            )
+            ).populate("creator");
         },
 
         //deleteNote
@@ -117,7 +118,7 @@ const resolvers = {
             return await Comment.findOneAndDelete(
                 { _id: commentId },
                 { note: { notes } },
-            )
+            ).populate("creator");
         },
 
         //login

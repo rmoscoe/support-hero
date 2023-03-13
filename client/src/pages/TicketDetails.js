@@ -1,7 +1,8 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
+import { UPDATE_TICKET_STATUS } from '../utils/mutations';
 import CommentList from '../components/CommentList';
 import Auth from '../utils/auth';
 import { useTheme } from '../utils/ThemeContext';
@@ -16,8 +17,19 @@ function TicketDetails() {
         variables: { ticketId , userType: Auth.getUser().data.type }
     });
 
+    const [updateTicket , {status}] = useMutation(UPDATE_TICKET_STATUS);
+
     if (Auth.getUser().data.type === 'Agent') {
         
+    }
+
+    const updateTicketStatus = () => {
+        updateTicket({
+            variables: {
+                ticketId : ticketId,
+                status : "Closed"
+            }
+        })
     }
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -37,6 +49,7 @@ function TicketDetails() {
                             <p className={`${theme}-secondary message-body is-size-5`}>Priority: <strong>{data.getTicketById.priority}</strong></p>
                         </div>
                     </div>
+                    { Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className='button is-danger' onClick={updateTicketStatus}>Close Ticket</button> : <label></label> }
                 </div>
                 <div className={`${theme} message`}>
                     <div className={`message-header ${theme}-primary`}>
@@ -49,7 +62,7 @@ function TicketDetails() {
             </div>
             {/* <div className="message has-text-centered">Comments</div> */}
             <div className="is-centered container comments-container">
-                <CommentList comments={data.getTicketById.comments} />
+                <CommentList comments={data.getTicketById.comments} status={data.getTicketById.status} />
             </div>
         </div>
     );
