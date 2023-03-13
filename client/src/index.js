@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-// import App from './App';
-import Container from './Container';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Container />
+    <App />
   </React.StrictMode>
 );
 
