@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { CREATE_TICKET } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { useTheme } from "../utils/ThemeContext";
 
 const CreateTicket = (props) => {
     const [createTicket, { loading }] = useMutation(CREATE_TICKET);
@@ -31,33 +32,34 @@ const CreateTicket = (props) => {
         modal.classList.remove('is-active');
         props.handleCloseCreateTicket();
     };
+    const { theme } = useTheme();
 
     return (
-        <div id="create-ticket-form" className={`modal ${props.isActive ? "is-active" : ""}`}>
+        <div id="create-ticket-form" className={`modal   ${props.isActive ? "is-active" : ""}`}>
             <div className="modal-background">
-                <div className="modal-content has-background-white">
-                    <header className="modal-card-head title">
-                        <p className="modal-card-title">Create Ticket</p>
+                <div className={`modal-content ${theme}`}>
+                    <header className={`${theme} modal-card-head title`}>
+                        <p className={`${theme} modal-card-title`}>Create Ticket</p>
                         <button className="delete" aria-label="close" onClick={onClose}></button>
                     </header>
-                    <section className="modal-card-body">
+                    <section className={`${theme} modal-card-body`}>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="field">
-                                <label className="label">Title:</label>
+                                <label className={`${theme} label`}>Title:</label>
                                 <div className="control">
-                                    <input className="input" placeholder="Summary of the issue" type="text" {...register('title', { required: true })} />
+                                    <input className={`${theme} input`} placeholder="Summary of the issue" type="text" {...register('title', { required: true })} />
                                     {errors.title && <span className="error">This field is required</span>}
                                 </div>
                             </div>
                             <div className="field">
-                                <label className="label">Description:</label>
+                                <label className={`${theme} label`}>Description:</label>
                                 <div className="control">
-                                    <textarea className="textarea" rows="10" placeholder="Detailed description of the issue" {...register('description', { required: true })} />
+                                    <textarea className={`${theme} textarea`} rows="10" placeholder="Detailed description of the issue" {...register('description', { required: true })} />
                                     {errors.description && <span className="error">This field is required</span>}
                                 </div>
                             </div>
                             <div className="field">
-                                <label className="label">Priority:</label>
+                                <label className={`${theme} label`}>Priority:</label>
                                 <div className="control">
                                     <div className="select is-fullwidth">
                                         <select {...register('priority', { required: true })}>

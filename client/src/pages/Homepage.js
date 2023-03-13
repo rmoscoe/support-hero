@@ -29,7 +29,7 @@ const Home = () => {
             <div>
             <h2 className={`${theme} title has-text-centered`}> My Tickets</h2><br></br>
             <div className="buttons is-centered">
-            {Auth.getUser().data.type === "Customer" ? <button className={`button button-${theme}`} onClick={handleCreateTicketClick} data-target="create-ticket-form">Create New ticket</button> : <label></label>
+            {Auth.getUser().data.type === "Customer" ? <button className={`button ${theme}-quaternary`} onClick={handleCreateTicketClick} data-target="create-ticket-form">Create New ticket</button> : <label></label>
                     }
             </div>
 

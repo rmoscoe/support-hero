@@ -5,8 +5,10 @@ import { CREATE_COMMENT } from "../utils/mutations";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 import Auth from "../utils/auth";
+import { useTheme } from "../utils/ThemeContext";
 
 function CommentList(props) {
+    const { theme } = useTheme();
     const userData = Auth.getUser();
     const user = userData.data;
     const [userId, setUserId] = useState(user._id);
@@ -43,21 +45,21 @@ function CommentList(props) {
 
     return (
         <section>
-            <h3 className="title is-4 has-background-info-light mt-3 mb-1 p-2 has-text-info">Comment History</h3>
+            <h3 className={`${theme}-primary title is-4  mt-3 mb-1 p-2 `}>Comment History</h3>
             < section className="section">
                 <Comment comments={props.comments} user={user} />
-                <form className="columns box is-align-items-flex-end mt-3" onSubmit={handleCreateComment}>
+                <form className={`${theme} columns box is-align-items-flex-end mt-3`} onSubmit={handleCreateComment}>
                     <textarea
                         name="messageText"
                         rows="3"
                         value={commentFormState.messageText}
-                        className="form-input w-100 column is-four-fifths mx-3"
+                        className={`${theme}-bg form-input w-100 column is-four-fifths mx-3`}
                         id="comment-message-textarea"
                         placeholder="Add a comment..."
                         onChange={handleCommentInput}
                     >
                     </textarea>
-                    <input type="submit" className="button is-info column mx-3" value="Submit" />
+                    <input type="submit" className={`${theme}-quaternary button column mx-3`} value="Submit" />
                 </form>
             </section>
         </section>

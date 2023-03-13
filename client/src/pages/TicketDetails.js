@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
 import CommentList from '../components/CommentList';
 import Auth from '../utils/auth';
+import { useTheme } from '../utils/ThemeContext';
 
 function TicketDetails() {
+    const { theme } = useTheme();
     if (!Auth.loggedIn()) window.location.assign('/login');
     
     const { ticketId } = useParams();
@@ -22,26 +24,26 @@ function TicketDetails() {
     
     return (
         <div>
-            <h2 className="title has-text-centered">{data.getTicketById.title}</h2>
+            <h2 className={`${theme} title has-text-centered`}>{data.getTicketById.title}</h2>
             <div className="block">
                 <div className="columns is-multiline is-centered">
                     <div className="column">
-                        <div className="message is-info has-text-centered is-half-tablet is-mobile">
-                            <p className="message-body">Status: <strong>{data.getTicketById.status}</strong></p>
+                        <div className="message  has-text-centered is-half-tablet is-mobile">
+                            <p className={`${theme}-primary message-body is-size-5`}>Status: <strong>{data.getTicketById.status}</strong></p>
                         </div>
                     </div>
                     <div className="column">
-                        <div className="message is-success has-text-centered is-half-tablet is-mobile">
-                            <p className="message-body">Priority: <strong>{data.getTicketById.priority}</strong></p>
+                        <div className="message has-text-centered is-half-tablet is-mobile">
+                            <p className={`${theme}-secondary message-body is-size-5`}>Priority: <strong>{data.getTicketById.priority}</strong></p>
                         </div>
                     </div>
                 </div>
-                <div className="message is-info">
-                    <div className="message-header">
+                <div className={`${theme} message`}>
+                    <div className={`message-header ${theme}-primary`}>
                         <p>Description</p>
                     </div>
-                    <div className="message-body">
-                        <p>{data.getTicketById.description}</p>
+                    <div className={`${theme}-primary-bg message-body`}>
+                        <p className={`${theme}-primary-bg`}>{data.getTicketById.description}</p>
                     </div>
                 </div>
             </div>

@@ -29,7 +29,7 @@ const TicketList = ({
   const {globalFilter} = state
 
   if (!tickets.length) {
-    return <h3>No Tickets Yet</h3>;
+    return <h3 className={theme}>No Tickets Yet</h3>;
   }
   
   return (
@@ -37,12 +37,12 @@ const TicketList = ({
   <>
   
   <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-  <table {...getTableProps()} className={`${theme} table is-bordered is-striped is-fullwidth is-responsive hscroll`}>
+  <table {...getTableProps()} className={`${theme}-bg table is-bordered is-striped is-fullwidth is-responsive hscroll`}>
       <thead>
         {headerGroups.map((headerGroup) => (
             <tr className="is-selected has-text-black" {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th className={`${theme}-header has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
+                <th className={`${theme}-primary is-size-4 has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
                 <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}

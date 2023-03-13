@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useStoreContext } from "../utils/GlobalState";
 import { useMutation } from '@apollo/client';
+import { useTheme } from '../utils/ThemeContext';
 
 import { CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE } from "../utils/mutations";
 
 function Comment(props) {
+    const { theme } = useTheme();
     const user = props.user;
     const userType = user.type;
     const [noteForm, setNoteForm] = useState(false);
@@ -89,12 +91,12 @@ function Comment(props) {
     }
 
     return props.comments.map((comment, idx) => (
-        <div className="card my-5" key={comment._id}>
-            <header className="has-background-info-light columns px-3">
-                <p className="card-header-title is-size-5 column">{comment.creator.firstName}</p>
+        <div className={`${theme}-tertiary-complement card my-5`} key={comment._id}>
+            <header className={`${theme}-tertiary columns px-3`}>
+                <p className={`${theme}-tertiary card-header-title is-size-5 column`}>{comment.creator.firstName}</p>
                 <p className="column has-text-right-tablet">{comment.createdAt}</p>
             </header>
-            <div className="card-content">
+            <div className={`${theme}-tertiary-complement card-content`}>
                 <div className="content px-3">
                     <p>{comment.message}</p>
                     {userType === "Agent" && comment.note && !noteForm &&

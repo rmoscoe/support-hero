@@ -53,7 +53,6 @@ body {
   }
 }
 
-
 .bgcolor {
   background: linear-gradient(-45deg, #ee7752, #91526a, #23a6d5, #23d5ab);
   background-size: 400% 400%;
@@ -140,38 +139,76 @@ body {
   font-size: 190px;
 }
 
-.dark-header {
-  border: none;
-  /* padding: 6px 14px; */
-  border-radius: 3px;
-  background-color: #bc6d1f;
-  color: white;
-}
-.light-header {
-  border: none;
-  /* padding: 6px 14px; */
-  border-radius: 3px;
-  background-color: #e28547;
-  color: black;
-}
-
 .dark {
   color: #ffffff;
-  background-color: #121212;
+  background-color: #313536;
 }
+
+.dark-bg {
+  color: #000000;
+  background-color: #bcbbbb;
+}
+
 .light {
   color: black;
   background-color: white;
 }
 
-.button-dark {
+.dark-primary {
   color: white;
-  background-color: #572780;
+  background-color: #2e4eb7;
+  border-radius: 3px;
+}
+.dark-primary-bg {
+  color: white;
+  background-color: #262b3e;
+  border-radius: 3px;
+}
+.dark-secondary {
+  color: white;
+  background-color: #2a816c;
+}
+
+.dark-tertiary {
+ background-color: #5e2798;
+ color: white;
+}
+.dark-tertiary-complement {
+background-color: #453156;
+color: white;
+}
+.light-comment-header {
+  background-color: #9159cd;
+ }
+ .light-comment-body {
+  background-color: #ece2f4;
+  color: black;
+ }
+
+.light-primary {
+  color: #ffffff;
+  background-color: #5471d0;
+  border-radius: 3px;
+}
+.light-primary-bg {
+  color: black;
+  background-color: #dbdfee;
+  border-radius: 3px;
+}
+
+.light-secondary {
+  color: rgb(255, 255, 255);
+  background-color: #23d5ab;
+}
+
+.dark-quaternary {
+  color: white;
+  background-color: #bc6d1f;
   border: none;
 }
-.button-light {
+.light-quaternary {
   color: black;
-  background-color: #8f41d4;
+  background-color: #e28547;
   border: none;
 
 }

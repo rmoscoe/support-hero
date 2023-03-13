@@ -27,14 +27,14 @@ const Header = () => {
                     </div>
                 </div>
 
-            <div className={isActive ? "is-active navbar-menu" : "navbar-menu"}>
+            <div className={`${isActive ? "is-active navbar-menu" : "navbar-menu"} ${theme}`}>
                 <div className='navbar-end'>
-                    {location.pathname !== '/homepage' && 
+                    {location.pathname !== '/' && 
                     <div className='navbar-item' >
                         <button className="button is-primary" ><Link to='/'>Home</Link></button>
                     </div> }
                     <div className='navbar-item'>
-                            <button className={`button button-${theme}`} onClick={logout}>Logout</button>
+                            <button className={`button ${theme}-quaternary`} onClick={logout}>Logout</button>
                     </div>
                 </div>
             </div>

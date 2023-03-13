@@ -10,7 +10,7 @@ export default function ThemeProvider({ children }) {
     const toggleTheme = () => {
         if (theme === 'light') {
             setTheme('dark');
-            document.body.style.backgroundColor = '#121212';
+            document.body.style.backgroundColor = '#313536'; //#36454f
             localStorage.setItem('theme', 'dark');
         } else if (theme === 'dark') {
             setTheme('light');
