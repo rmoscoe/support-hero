@@ -11,14 +11,12 @@ const resolvers = {
             if (userType == "Agent") {
                 return await Ticket.findOne({ _id: ticketId }).populate('users').populate({ path: 'comments', populate: { path: 'creator' } });
             } else {
-                // TODO : if customer is viewing the ticket, dont show notes section
                 return await Ticket.findOne({ _id: ticketId }).populate('users').populate({ path: 'comments', select: ["message", "createdAt", "creator"], populate: { path: 'creator' } });
             }
         },
 
         // get Tickets by userId and Status
         getTicketsByUserId: async (parent, { userId, status }) => {
-            console.log("in resolver")
             if (status)
                 return await Ticket.find({
                     users: userId,
@@ -54,15 +52,11 @@ const resolvers = {
             const ticket = await (await Ticket.create({ title, description, priority, users })).populate("users");
 
             return ticket;
-            // return Ticket.create({title, description, priority, users});
-            // }
-            // throw new AuthenticationError('You need to be logged in!');
-
         },
 
         //updateTicketStatus
         updateTicketStatus: async (parent, { ticketId, status }, context) => {
-            // if (context.user) {
+            console.log("in update")
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
@@ -73,14 +67,12 @@ const resolvers = {
                 }
             ).populate("users").populate({ path: "comments", populate: { path: "creator" } });
             return ticket;
-            // }
-            // throw new AuthenticationError('You need to be logged in!');
         },
 
 
-        //createComment
+        // createComment
         createComment: async (parent, { ticketId, message, userId }, context) => {
-            // if (context.user) {
+            console.log("Made it here!");
             const comment = await Comment.create(
                 {
                     message,
@@ -92,14 +84,11 @@ const resolvers = {
                 { $addToSet: { comments: comment._id } }
             );
             return comment;
-            // } 
-            // throw new AuthenticationError('You need to be logged in!');
         },
 
 
         //createNote
-        createNote: async (parent, { commentId, notes }, context) => {
-            // if (context.user) {
+        createNote: async (parent, { commentId, notes }) => {
             return await Comment.findOneAndUpdate(
                 { _id: commentId },
                 {
@@ -109,14 +98,11 @@ const resolvers = {
                     new: true,
                     runValidators: true,
                 }
-            );
-            // } 
-            // throw new AuthenticationError('You need to be logged in!');
+            ).populate("creator");
         },
 
         //updateNote
         updateNote: async (parent, { commentId, notes }, context) => {
-            // if(context.user){
             return await Comment.findOneAndUpdate(
                 { _id: commentId },
                 { note: { notes } },
@@ -124,20 +110,15 @@ const resolvers = {
                     new: true,
                     runValidators: true,
                 }
-            )
-            // }
-            // throw new AuthenticationError('You need to be logged in!');
+            ).populate("creator");
         },
 
         //deleteNote
         deleteNote: async (parent, { commentId, notes }, context) => {
-            // if(context.user){
             return await Comment.findOneAndDelete(
                 { _id: commentId },
                 { note: { notes } },
-            )
-            // }
-            // throw new AuthenticationError('You need to be logged in!');
+            ).populate("creator");
         },
 
         //login
@@ -148,7 +129,6 @@ const resolvers = {
             if (!user) {
                 const token = 0;
                 return { token, user };
-                // throw new AuthenticationError('No user found with this email address');
             }
 
             const correctPw = await user.comparePassword(password);
@@ -156,7 +136,6 @@ const resolvers = {
             if (!correctPw) {
                 const token = 0;
                 return { token, user };
-                // throw new AuthenticationError('Incorrect credentials');
             }
 
             const token = signToken(user);

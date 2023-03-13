@@ -22,3 +22,10 @@ export default function ThemeProvider({ children }) {
     useEffect(() => {
         document.body.className = theme;
     }, [theme]);
+
+    return (
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            {children}
+        </ThemeContext.Provider>
+    );
+}

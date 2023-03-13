@@ -20,9 +20,8 @@ export const CREATE_TICKET = gql`
 `;
 
 export const UPDATE_TICKET_STATUS = gql`
-    mutation updateTicketStatus($_id: ID!, $status: String!) {
-        updateTicketStatus(_id: $_id, status: $status) {
-            ticket {
+    mutation updateTicketStatus($ticketId: ID!, $status: String!) {
+        updateTicketStatus(ticketId: $ticketId, status: $status) {
                 _id
                 title
                 priority
@@ -48,7 +47,7 @@ export const UPDATE_TICKET_STATUS = gql`
                         notes
                     }
                 }
-            }
+            
         }
     }
 `;
@@ -56,16 +55,14 @@ export const UPDATE_TICKET_STATUS = gql`
 export const CREATE_COMMENT = gql`
     mutation createComment($ticketId: ID!, $message: String!, $userId: ID!) {
         createComment(ticketId: $ticketId, message: $message, userId: $userId) {
-            comment {
+            _id
+            createdAt
+            creator {
                 _id
-                createdAt
-                creator {
-                    _id
-                    firstName
-                    type
-                }
-                message
+                firstName
+                type
             }
+            message
         }
     }
 `;
@@ -73,38 +70,34 @@ export const CREATE_COMMENT = gql`
 export const CREATE_NOTE = gql`
     mutation createNote($commentId: ID!, $notes: String!) {
         createNote(commentId: $commentId, notes: $notes) {
-            comment {
+            _id
+            createdAt
+            creator {
                 _id
-                createdAt
-                creator {
-                    _id
-                    firstName
-                    type
-                }
-                message
-                note {
-                    notes
-                }
+                firstName
+                type
+            }
+            message
+            note {
+                notes
             }
         }
     }
 `;
 
 export const UPDATE_NOTE = gql`
-    mutation updateNote($commendId: ID!, $notes: String!) {
-        updateNote(commendId: $commendId, notes: $notes) {
-            comment {
+    mutation updateNote($commentId: ID!, $notes: String!) {
+        updateNote(commentId: $commentId, notes: $notes) {
+            _id
+            createdAt
+            creator {
                 _id
-                createdAt
-                creator {
-                    _id
-                    firstName
-                    type
-                }
-                message
-                note {
-                    notes
-                }
+                firstName
+                type
+            }
+            message
+            note {
+                notes
             }
         }
     }
@@ -113,16 +106,14 @@ export const UPDATE_NOTE = gql`
 export const DELETE_NOTE = gql`
     mutation deleteNote($commendId: ID!, $notes: String!) {
         deleteNote(commendId: $commendId, notes: $notes) {
-            comment {
+            _id
+            createdAt
+            creator {
                 _id
-                createdAt
-                creator {
-                    _id
-                    firstName
-                    type
-                }
-                message
+                firstName
+                type
             }
+            message
         }
     }
 `;
