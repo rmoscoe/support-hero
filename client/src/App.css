@@ -8,7 +8,7 @@ html {
 
 .button {
   vertical-align: middle !important;
-  padding:0rem .75rem 0rem .75rem;
+  padding: 0rem .75rem 0rem .75rem;
 }
 
 body {
@@ -76,6 +76,7 @@ body {
   100% {
     background-position: 0% 50%;
   }
+
   0% {
     background-position: 0% 50%;
   }
@@ -123,10 +124,10 @@ body {
   text-align: center;
   text-transform: uppercase;
   background-image: linear-gradient(-225deg,
-  #fff800 0%,
-  #ff1361 29%,
-  #44107a 67%,
-  #002cb0 100%);
+      #fff800 0%,
+      #ff1361 29%,
+      #44107a 67%,
+      #002cb0 100%);
   background-size: auto auto;
   background-clip: border-box;
   background-size: 200% auto;
@@ -157,39 +158,48 @@ body {
 .dark-primary {
   color: white;
   background-color: #2e4eb7;
+  border: 2px solid #2e4eb7;
   border-radius: 3px;
 }
+
 .dark-primary-bg {
   color: white;
   background-color: #262b3e;
   border-radius: 3px;
 }
+
 .dark-secondary {
   color: white;
   background-color: #2a816c;
 }
 
 .dark-tertiary {
- background-color: #5e2798;
- color: white;
+  background-color: #5e2798;
+  color: rgb(212, 211, 211);
 }
+
 .dark-tertiary-complement {
-background-color: #453156;
-color: white;
+  background-color: #3e314b;
+  color: rgb(223, 222, 222);
 }
-.light-comment-header {
+
+.light-tertiary {
   background-color: #9159cd;
- }
- .light-comment-body {
+  color: white;
+}
+
+.light-tertiary-complement {
   background-color: #ece2f4;
   color: black;
- }
+}
 
 .light-primary {
   color: #ffffff;
   background-color: #5471d0;
+  border: 2px solid #5471d0;
   border-radius: 3px;
 }
+
 .light-primary-bg {
   color: black;
   background-color: #dbdfee;
@@ -203,9 +213,10 @@ color: white;
 
 .dark-quaternary {
   color: white;
-  background-color: #bc6d1f;
+  background-color: #c26a2f;
   border: none;
 }
+
 .light-quaternary {
   color: black;
   background-color: #e28547;
@@ -254,15 +265,15 @@ color: white;
   border-radius: 50%;
 }
 
-input:checked + .toggle {
-  background-color:  #bc0d47;
+input:checked+.toggle {
+  background-color: #bc0d47;
 }
 
-input:focus + .toggle {
+input:focus+.toggle {
   box-shadow: 0 0 1px #60d8dd;
 }
 
-input:checked + .toggle:before {
+input:checked+.toggle:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);

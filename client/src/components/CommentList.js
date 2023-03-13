@@ -65,18 +65,18 @@ function CommentList(props) {
             < section className="section">
                 <Comment comments={props.comments} user={user} status={props.status} />
                 {props.status !== "Closed" &&
-                    <form className={`${theme} columns box is-align-items-flex-end mt-3`} onSubmit={handleCreateComment}>
+                    <form className={`${theme}-bg columns box is-align-items-flex-end mt-3`} onSubmit={handleCreateComment}>
                         <textarea
                             name="messageText"
                             rows="3"
                             value={commentFormState.messageText}
-                            className={`${theme} form-input w-100 column is-four-fifths mx-3`}
+                            className={`${theme}-bg form-input w-100 column is-four-fifths mx-3`}
                             id="comment-message-textarea"
                             placeholder="Add a comment..."
                             onChange={handleCommentInput}
                         >
                         </textarea>
-                        <input type="submit" className={`${theme} button is-info column mx-3`} value="Submit" />
+                        <input type="submit" className={`${theme}-primary button column mx-3`} value="Submit" />
                     </form>
                 }
             </section>

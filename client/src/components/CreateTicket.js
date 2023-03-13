@@ -35,7 +35,7 @@ const CreateTicket = (props) => {
     const { theme } = useTheme();
 
     return (
-        <div id="create-ticket-form" className={`modal   ${props.isActive ? "is-active" : ""}`}>
+        <div id="create-ticket-form" className={`modal ${props.isActive ? "is-active" : ""}`}>
             <div className="modal-background">
                 <div className={`modal-content ${theme}`}>
                     <header className={`${theme} modal-card-head title`}>
