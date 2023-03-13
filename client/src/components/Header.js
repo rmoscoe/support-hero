@@ -32,10 +32,10 @@ const Header = () => {
                 <div className='navbar-end'>
                     {location.pathname !== '/' && 
                     <div className='navbar-item' >
-                        <a><Link to='/'>Home</Link></a>
+                        <Link to='/'><button className="button is-primary">Home</button></Link>
                     </div> }
                     <div className='navbar-item'>
-                        <a onClick={logout}>Logout</a>
+                        <button className="button is-info" onClick={logout}>Logout</button>
                     </div>
                 </div>
             </div>

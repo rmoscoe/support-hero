@@ -46,13 +46,13 @@ const Login = (props) => {
     <div className="hero-body">
 
     <div className="container">
-    <h1 className="title has-text-centered">Support Hero</h1>
+    <h1 className="title has-text-centered has-text-white">Support Hero</h1>
       <div className="columns is-centered">
         <div className="column is-5-tablet is-4-desktop is-3-widescreen">
           
           <hr className="login-hr"></hr>
          
-          <p className="subtitle has-text-centered">Please login to access the portal</p>
+          <p className="subtitle has-text-centered has-text-white">Please login to access the portal</p>
           <form onSubmit={handleSubmit(onSubmit)} className=" login-form">
             <div className="field">
               <label className="label">Email</label>
