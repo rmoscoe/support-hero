@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from '../utils/ThemeContext';
-import { useTheme } from '../utils/ThemeContext';
 
 const Header = () => {
     const { theme } = useTheme();

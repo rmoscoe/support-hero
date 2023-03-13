@@ -14,10 +14,7 @@ import Auth from './utils/auth';
 
 
 import { useTheme } from './utils/ThemeContext';
-
 import { StoreProvider } from './utils/GlobalState';
-import Auth from './utils/auth';
-import { useTheme } from './utils/ThemeContext';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
@@ -62,7 +59,7 @@ function App() {
               <Header />}
             {Auth.loggedIn() &&
               <label className="switch">
-                <input type="checkbox" />
+                <input type="checkbox" checked={theme === 'dark'}/>
                 <span onClick={toggleTheme} className="toggle"></span>
               </label>}
             <div className="container">
