@@ -47,7 +47,7 @@ function TicketDetails() {
             </div>
             {/* <div className="message has-text-centered">Comments</div> */}
             <div className="is-centered container comments-container">
-                <CommentList comments={data.getTicketById.comments} />
+                <CommentList comments={data.getTicketById.comments} ticketStatus={data.getTicketById.status} />
             </div>
         </div>
     );
