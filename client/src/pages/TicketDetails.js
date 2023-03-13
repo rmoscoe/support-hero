@@ -22,7 +22,6 @@ function TicketDetails() {
     }
 
     const updateTicketStatus = () => {
-        alert("in")
         updateTicket({
             variables: {
                 ticketId : ticketId,
@@ -48,7 +47,7 @@ function TicketDetails() {
                             <p className="message-body">Priority: <strong>{data.getTicketById.priority}</strong></p>
                         </div>
                     </div>
-                    <button className='button is-danger' onClick={updateTicketStatus}>Close Ticket</button>
+                    { Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className='button is-danger' onClick={updateTicketStatus}>Close Ticket</button> : <label></label> }
                 </div>
                 <div className="message is-info">
                     <div className="message-header">
@@ -61,7 +60,7 @@ function TicketDetails() {
             </div>
             {/* <div className="message has-text-centered">Comments</div> */}
             <div className="is-centered container comments-container">
-                <CommentList comments={data.getTicketById.comments} />
+                <CommentList comments={data.getTicketById.comments} status={data.getTicketById.status} />
             </div>
         </div>
     );
