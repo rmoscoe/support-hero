@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useStoreContext } from "../utils/GlobalState";
 import { CREATE_COMMENT } from "../utils/mutations";
+import { UPDATE_TICKET_STATUS } from "../utils/mutations";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 import Auth from "../utils/auth";
@@ -16,6 +17,7 @@ function CommentList(props) {
     });
 
     const [createComment, { error }] = useMutation(CREATE_COMMENT);
+    const [updateTicketStatus, { statusError }] = useMutation(UPDATE_TICKET_STATUS);
 
     const handleCommentInput = (event) => {
         const { name, value } = event.target;
@@ -34,8 +36,22 @@ function CommentList(props) {
             const { commentData } = await createComment({
                 variables: { ticketId, message, userId }
             });
-            console.log(commentData);
-            window.location.reload(); // not sure whether this is necessary
+
+            // Update ticket if customer is adding comment
+            if(Auth.getUser().data.type === "Customer") {
+                await updateTicketStatus({
+                    variables: { ticketId, status: "Pending Agent Response" }
+                });
+            }
+            
+            // Update ticket if agent is adding comment
+            if(Auth.getUser().data.type === "Agent") {
+                await updateTicketStatus({
+                    variables: { ticketId, status: "Pending Customer Response" }
+                });
+            }
+
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }
