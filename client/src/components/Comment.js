@@ -104,14 +104,16 @@ function Comment(props) {
                         <div className="card-content has-background-info-light">
                             <div className="content columns is-align-items-baseline">
                                 <p className="column is-four-fifths">{comment.note.notes}</p>
-                                <div className="column columns is-mobile">
-                                    <button className="button column is-info is-small mr-1" data-commentid={comment._id} onClick={(event) => handleEditButton(event, comment.note.notes, comment._id)}>
-                                        <i className="fa-solid fa-pencil"></i>
-                                    </button>
-                                    <button className="button column ml-1 is-info is-small" data-commentid={comment._id} onClick={handleDeleteButton}>
-                                        <i className="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </div>
+                                {props.status !== "Closed" &&
+                                    <div className="column columns is-mobile">
+                                        <button className="button column is-info is-small mr-1" data-commentid={comment._id} onClick={(event) => handleEditButton(event, comment.note.notes, comment._id)}>
+                                            <i className="fa-solid fa-pencil"></i>
+                                        </button>
+                                        <button className="button column ml-1 is-info is-small" data-commentid={comment._id} onClick={handleDeleteButton}>
+                                            <i className="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }
