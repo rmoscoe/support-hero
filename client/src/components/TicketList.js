@@ -37,12 +37,12 @@ const TicketList = ({
   <>
   
   <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-    <table {...getTableProps()} className={`table is-bordered is-striped is-fullwidth is-responsive hscroll`}>
+    <table {...getTableProps()} className={`${theme} table is-bordered is-striped is-fullwidth is-responsive hscroll`}>
       <thead>
         {headerGroups.map((headerGroup) => (
             <tr className="is-selected has-text-black" {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th className={`is-primary has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
+                <th className={`${theme}-header has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
                 <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}
