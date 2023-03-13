@@ -1,15 +1,13 @@
 import React, { createContext, useContext } from "react";
 import { useUserReducer } from "./reducers";
-import Auth from "./auth";
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
-const user = Auth.getUser();
 
 const StoreProvider = ({ value = [], ...props }) => {
     const [state, dispatch] = useUserReducer({
         // token: "",
-        user: user.data
+        user: {}
     });
 
     return <Provider value={[state, dispatch]} {...props} />;
