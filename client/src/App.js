@@ -11,6 +11,8 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { StoreProvider } from './utils/GlobalState';
+import Auth from './utils/auth';
+import { useTheme } from './utils/ThemeContext';
 
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
@@ -44,12 +46,19 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const { theme, toggleTheme } = useTheme();
   return (
     <ApolloProvider client={client}>
       <Router>
         <div className="d-flex flex-column justify-content-start min-100-vh">
           <StoreProvider>
-            <Header />
+            {Auth.loggedIn() &&
+              <Header />}
+            {Auth.loggedIn() &&
+              <label className="switch">
+                <input type="checkbox" />
+                <span onClick={toggleTheme} className="toggle"></span>
+              </label>}
             <div className="container">
               <Routes>
                 <Route
@@ -61,10 +70,6 @@ function App() {
                   element={<Login />}
                 />
                 <Route
-                  path="/homepage"
-                  element={<Homepage />}
-                />
-                <Route
                   path="/signup"
                   element={<Signup />}
                 />
@@ -73,11 +78,11 @@ function App() {
                   element={<TicketDetails />}
                 />
               </Routes>
-              </div>
-          </StoreProvider>        
-        <Footer />
-      </div>
-    </Router>
+            </div>
+          </StoreProvider>
+          <Footer />
+        </div>
+      </Router>
     </ApolloProvider >
   )
 }
