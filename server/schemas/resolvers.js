@@ -70,8 +70,9 @@ const resolvers = {
         },
 
 
-        //createComment
+        // createComment
         createComment: async (parent, { ticketId, message, userId }, context) => {
+            console.log("Made it here!");
             const comment = await Comment.create(
                 {
                     message,
