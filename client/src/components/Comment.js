@@ -89,8 +89,8 @@ function Comment(props) {
     }
 
     return props.comments.map((comment, idx) => (
-        <div className="card my-4" key={comment._id}>
-            <header className="has-background-secondary columns px-3">
+        <div className="card my-5" key={comment._id}>
+            <header className="has-background-info-light columns px-3">
                 <p className="card-header-title is-size-5 column">{comment.creator.firstName}</p>
                 <p className="column has-text-right-tablet">{comment.createdAt}</p>
             </header>
@@ -98,15 +98,17 @@ function Comment(props) {
                 <div className="content px-3">
                     <p>{comment.message}</p>
                     {userType === "Agent" && comment.note && !noteForm &&
-                        <div className="card-content">
-                            <div className="content columns">
+                        <div className="card-content has-background-info-light">
+                            <div className="content columns is-align-items-baseline">
                                 <p className="column is-four-fifths">{comment.note.notes}</p>
-                                <button className="button column is-link is-small" data-commentid={comment._id} onClick={() => handleEditButton(comment.note.notes)}>
+                                <div className="column columns is-mobile">
+                                <button className="button column is-info is-small mr-1" data-commentid={comment._id} onClick={() => handleEditButton(comment.note.notes)}>
                                     <i className="fa-solid fa-pencil"></i>
                                 </button>
-                                <button className="button column is-link is-small" data-commentid={comment._id} onClick={handleDeleteButton}>
+                                <button className="button column ml-1 is-info is-small" data-commentid={comment._id} onClick={handleDeleteButton}>
                                     <i className="fa-solid fa-trash-can"></i>
                                 </button>
+                                </div>
                             </div>
                         </div>
                     }
@@ -122,7 +124,7 @@ function Comment(props) {
                                 onChange={handleChange}
                             >
                             </textarea>
-                            <input type="submit" className="button is-link is-small" value="Submit" />
+                            <input type="submit" className="button is-info is-small" value="Submit" />
                         </form>
                     }
                     {userType === "Agent" && !comment.note && !noteForm &&
