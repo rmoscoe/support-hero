@@ -56,16 +56,14 @@ export const UPDATE_TICKET_STATUS = gql`
 export const CREATE_COMMENT = gql`
     mutation createComment($ticketId: ID!, $message: String!, $userId: ID!) {
         createComment(ticketId: $ticketId, message: $message, userId: $userId) {
-            comment {
+            _id
+            createdAt
+            creator {
                 _id
-                createdAt
-                creator {
-                    _id
-                    firstName
-                    type
-                }
-                message
+                firstName
+                type
             }
+            message
         }
     }
 `;
