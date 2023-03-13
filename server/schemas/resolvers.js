@@ -88,7 +88,7 @@ const resolvers = {
 
 
         //createNote
-        createNote: async (parent, { commentId, notes }, context) => {
+        createNote: async (parent, { commentId, notes }) => {
             return await Comment.findOneAndUpdate(
                 { _id: commentId },
                 {
@@ -98,7 +98,7 @@ const resolvers = {
                     new: true,
                     runValidators: true,
                 }
-            );
+            ).populate("creator");
         },
 
         //updateNote
@@ -110,7 +110,7 @@ const resolvers = {
                     new: true,
                     runValidators: true,
                 }
-            )
+            ).populate("creator");
         },
 
         //deleteNote
@@ -118,7 +118,7 @@ const resolvers = {
             return await Comment.findOneAndDelete(
                 { _id: commentId },
                 { note: { notes } },
-            )
+            ).populate("creator");
         },
 
         //login

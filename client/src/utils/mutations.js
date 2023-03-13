@@ -70,38 +70,34 @@ export const CREATE_COMMENT = gql`
 export const CREATE_NOTE = gql`
     mutation createNote($commentId: ID!, $notes: String!) {
         createNote(commentId: $commentId, notes: $notes) {
-            comment {
+            _id
+            createdAt
+            creator {
                 _id
-                createdAt
-                creator {
-                    _id
-                    firstName
-                    type
-                }
-                message
-                note {
-                    notes
-                }
+                firstName
+                type
+            }
+            message
+            note {
+                notes
             }
         }
     }
 `;
 
 export const UPDATE_NOTE = gql`
-    mutation updateNote($commendId: ID!, $notes: String!) {
-        updateNote(commendId: $commendId, notes: $notes) {
-            comment {
+    mutation updateNote($commentId: ID!, $notes: String!) {
+        updateNote(commentId: $commentId, notes: $notes) {
+            _id
+            createdAt
+            creator {
                 _id
-                createdAt
-                creator {
-                    _id
-                    firstName
-                    type
-                }
-                message
-                note {
-                    notes
-                }
+                firstName
+                type
+            }
+            message
+            note {
+                notes
             }
         }
     }
@@ -110,16 +106,14 @@ export const UPDATE_NOTE = gql`
 export const DELETE_NOTE = gql`
     mutation deleteNote($commendId: ID!, $notes: String!) {
         deleteNote(commendId: $commendId, notes: $notes) {
-            comment {
+            _id
+            createdAt
+            creator {
                 _id
-                createdAt
-                creator {
-                    _id
-                    firstName
-                    type
-                }
-                message
+                firstName
+                type
             }
+            message
         }
     }
 `;
