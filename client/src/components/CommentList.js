@@ -34,8 +34,8 @@ function CommentList(props) {
             const { commentData } = await createComment({
                 variables: { ticketId, message, userId }
             });
-
-            // window.location.reload(); // not sure whether this is necessary
+            console.log(commentData);
+            window.location.reload(); // not sure whether this is necessary
         } catch (error) {
             console.error(error);
         }
