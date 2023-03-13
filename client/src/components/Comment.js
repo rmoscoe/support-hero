@@ -5,8 +5,8 @@ import { useMutation } from '@apollo/client';
 import { CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE } from "../utils/mutations";
 
 function Comment(props) {
-    const [state, dispatch] = useStoreContext();
-    const [userType, setUserType] = useState(state.user.type);
+    const user = props.user;
+    const userType = user.type;
     const [noteForm, setNoteForm] = useState(false);
     const [editNote, setEditNote] = useState(false);
     const [formState, setFormState] = useState({
@@ -25,7 +25,7 @@ function Comment(props) {
 
     const handleDeleteButton = async (event) => {
         try {
-            const commentId = event.target.hasAttribute('data-commentId')? event.target.getAttribute('data-commentId') : event.target.parentNode.getAttribute('data-commentId');
+            const commentId = event.target.hasAttribute('data-commentid')? event.target.getAttribute('data-commentid') : event.target.parentNode.getAttribute('data-commentid');
             const data = await deleteNote({
                 variables: {commentId, notes: props.note.notes }
             });
@@ -53,7 +53,7 @@ function Comment(props) {
 
         try {
             const notes = formState.noteText;
-            const commentId = document.querySelector(".notes-input").getAttribute("data-commentId");
+            const commentId = document.querySelector(".notes-input").getAttribute("data-commentid");
             document.querySelector(".notes-input").value = "";
             setEditNote(false);
             setNoteForm(false);
@@ -73,7 +73,7 @@ function Comment(props) {
 
         try {
             const notes = formState.noteText;
-            const commentId = document.querySelector(".notes-input").getAttribute("data-commentId");
+            const commentId = document.querySelector(".notes-input").getAttribute("data-commentid");
             document.querySelector(".notes-input").value = "";
             setEditNote(false);
             setNoteForm(false);
@@ -89,22 +89,22 @@ function Comment(props) {
     }
 
     return props.comments.map((comment, idx) => (
-        <div className="card" key={comment._id}>
-            <header className="card-header columns">
-                <p className="card-header-title column">{comment.creator.firstName}</p>
-                <p className="column">{comment.createdAt}</p>
+        <div className="card my-4" key={comment._id}>
+            <header className="has-background-secondary columns px-3">
+                <p className="card-header-title is-size-5 column">{comment.creator.firstName}</p>
+                <p className="column has-text-right-tablet">{comment.createdAt}</p>
             </header>
             <div className="card-content">
-                <div className="content">
+                <div className="content px-3">
                     <p>{comment.message}</p>
                     {userType === "Agent" && comment.note && !noteForm &&
                         <div className="card-content">
                             <div className="content columns">
                                 <p className="column is-four-fifths">{comment.note.notes}</p>
-                                <button className="button column is-link is-small" data-commentId={comment._id} onClick={() => handleEditButton(comment.note.notes)}>
+                                <button className="button column is-link is-small" data-commentid={comment._id} onClick={() => handleEditButton(comment.note.notes)}>
                                     <i className="fa-solid fa-pencil"></i>
                                 </button>
-                                <button className="button column is-link is-small" data-commentId={comment._id} onClick={handleDeleteButton}>
+                                <button className="button column is-link is-small" data-commentid={comment._id} onClick={handleDeleteButton}>
                                     <i className="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>
@@ -115,7 +115,7 @@ function Comment(props) {
                             <textarea
                                 name="noteText"
                                 rows="2"
-                                data-commentId={comment._id}
+                                data-commentid={comment._id}
                                 value={formState.noteText}
                                 className="form-input w-100 notes-input"
                                 placeholder="Add internal note..."
@@ -126,14 +126,14 @@ function Comment(props) {
                         </form>
                     }
                     {userType === "Agent" && !comment.note && !noteForm &&
-                        <button className="button is-link my-3 is-align-self-flex-end is-small" data-commentId={comment._id} onClick={addNote}>Add Note</button>
+                        <button className="button is-link my-3 is-align-self-flex-end is-small" data-commentid={comment._id} onClick={addNote}>Add Note</button>
                     }
                     {userType === "Agent" && !comment.note && noteForm && !editNote &&
                         <form onSubmit={handleCreateNote}>
                         <textarea
                             name="noteText"
                             rows="2"
-                            data-commentId={comment._id}
+                            data-commentid={comment._id}
                             value={formState.noteText}
                             className="form-input w-100 notes-input"
                             placeholder="Add internal note..."
