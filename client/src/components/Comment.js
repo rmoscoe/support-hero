@@ -66,7 +66,7 @@ function Comment(props) {
             document.querySelector(".notes-input").value = "";
             setEditNote(false);
             setNoteForm(false);
-            
+
             const data = await updateNote({
                 variables: { commentId, notes }
             });
@@ -92,7 +92,7 @@ function Comment(props) {
                 variables: { commentId, notes }
             });
             console.log(data);
-            
+
 
             window.location.reload();
         } catch (err) {
