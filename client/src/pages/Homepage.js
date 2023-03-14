@@ -5,22 +5,23 @@ import TicketList from '../components/TicketList';
 import CreateTicket from '../components/CreateTicket';
 import { GET_TICKETS_BY_USER_ID } from '../utils/queries';
 import Auth from '../utils/auth';
-import { redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const Home = () => {
-    // const navigate = useNavigate();
-    const { theme } = useTheme();
-    if (!Auth.loggedIn()) {
-        console.log("pre-navigate");
-        redirect("/login");
-        console.log("post-navigate");
-     }
-
-    const [isCreateTicket, setIsCreateTicket] = useState(false);
+   const [isCreateTicket, setIsCreateTicket] = useState(false);
     const { loading, data } = useQuery(GET_TICKETS_BY_USER_ID,
         {
             variables: { userId: Auth.getUser().data._id }
         });
+   
+    // const navigate = useNavigate();
+    const { theme } = useTheme();
+    if (!Auth.loggedIn()) {
+        // console.log("pre-navigate");
+        // redirect("/login");
+        // console.log("post-navigate");
+        return (<Navigate to="/login" />)
+     }
 
     const handleCreateTicketClick = () => {
         setIsCreateTicket(true);
