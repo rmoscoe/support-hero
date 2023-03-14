@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useStoreContext } from "../utils/GlobalState";
 import { useMutation } from '@apollo/client';
+import { useTheme } from '../utils/ThemeContext';
 
 import { CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE } from "../utils/mutations";
 
 function Comment(props) {
+    const { theme } = useTheme();
     const user = props.user;
     const userType = user.type;
     const [noteForm, setNoteForm] = useState(false);
@@ -92,24 +94,24 @@ function Comment(props) {
     }
 
     return props.comments.map((comment, idx) => (
-        <div className="card my-5" key={comment._id}>
-            <header className="has-background-info-light columns px-3">
-                <p className="card-header-title is-size-5 column">{comment.creator.firstName}</p>
+        <div className={`${theme}-primary-bg card my-5`} key={comment._id}>
+            <header className={`${theme}-primary columns px-3`}>
+                <p className={`${theme}-text card-header-title is-size-5 column`}>{comment.creator.firstName}</p>
                 <p className="column has-text-right-tablet">{comment.createdAt}</p>
             </header>
-            <div className="card-content">
+            <div className='card-content'>
                 <div className="content px-3">
                     <p>{comment.message}</p>
                     {userType === "Agent" && comment.note && !noteForm &&
-                        <div className="card-content has-background-info-light">
-                            <div className="content columns is-align-items-baseline">
+                        <div className={`${theme}-tertiary-bg card-content `}>
+                            <div className={`content columns ${theme}-secondary-bg is-align-items-baseline`}>
                                 <p className="column is-four-fifths">{comment.note.notes}</p>
                                 {props.status !== "Closed" &&
                                     <div className="column columns is-mobile">
-                                        <button className="button column is-info is-small mr-1" data-commentid={comment._id} onClick={(event) => handleEditButton(event, comment.note.notes, comment._id)}>
+                                        <button className={`${theme}-secondary button column is-small mr-1`} data-commentid={comment._id} onClick={(event) => handleEditButton(event, comment.note.notes, comment._id)}>
                                             <i className="fa-solid fa-pencil"></i>
                                         </button>
-                                        <button className="button column ml-1 is-info is-small" data-commentid={comment._id} onClick={handleDeleteButton}>
+                                        <button className={`${theme}-secondary button column is-small mr-1`} data-commentid={comment._id} onClick={handleDeleteButton}>
                                             <i className="fa-solid fa-trash-can"></i>
                                         </button>
                                     </div>
@@ -129,11 +131,11 @@ function Comment(props) {
                                 onChange={handleChange}
                             >
                             </textarea>
-                            <input type="submit" className="button is-info is-small column w-100 my-1 ml-2 is-align-self-flex-end" value="Submit" />
+                            <input type="submit" className={`${theme}-secondary button is-small column w-100 my-1 ml-2 is-align-self-flex-end`} value="Submit" />
                         </form>
                     }
                     {userType === "Agent" && !comment.note && !noteForm &&
-                        <button className="button is-link my-3 is-align-self-flex-end is-small" data-commentid={comment._id} onClick={addNote}>Add Note</button>
+                        <button className={`${theme}-secondary button  my-3 is-align-self-flex-end is-small`} data-commentid={comment._id} onClick={addNote}>Add Note</button>
                     }
                     {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit === comment._id &&
                         <form className="columns is-flex is-align-items-flex-end" data-commentid={comment._id} onSubmit={handleCreateNote}>
@@ -147,7 +149,7 @@ function Comment(props) {
                                 onChange={handleChange}
                             >
                             </textarea>
-                            <input type="submit" className="button is-link is-small column w-100 my-1 ml-2 is-align-self-flex-end" value="Submit" />
+                            <input type="submit" className={`${theme}-secondary button is-small column w-100 my-1 ml-2 is-align-self-flex-end`} value="Submit" />
                         </form>
                     }
                 </div>

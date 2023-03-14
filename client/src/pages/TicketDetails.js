@@ -5,8 +5,10 @@ import { GET_TICKET_BY_ID } from '../utils/queries';
 import { UPDATE_TICKET_STATUS } from '../utils/mutations';
 import CommentList from '../components/CommentList';
 import Auth from '../utils/auth';
+import { useTheme } from '../utils/ThemeContext';
 
 function TicketDetails() {
+    const { theme } = useTheme();
     if (!Auth.loggedIn()) window.location.assign('/login');
     
     const { ticketId } = useParams();
@@ -34,31 +36,30 @@ function TicketDetails() {
     
     return (
         <div>
-            <h2 className="title has-text-centered">{data.getTicketById.title}</h2>
+            <h2 className={`${theme} title has-text-centered`}>{data.getTicketById.title}</h2>
             <div className="block">
                 <div className="columns is-multiline is-centered">
                     <div className="column">
-                        <div className="message is-info has-text-centered is-half-tablet is-mobile">
-                            <p className="message-body">Status: <strong>{data.getTicketById.status}</strong></p>
+                        <div className="message  has-text-centered is-half-tablet is-mobile">
+                            <p className={`${theme}-secondary message-body is-size-5`}>Status: <strong>{data.getTicketById.status}</strong></p>
                         </div>
                     </div>
                     <div className="column">
-                        <div className="message is-success has-text-centered is-half-tablet is-mobile">
-                            <p className="message-body">Priority: <strong>{data.getTicketById.priority}</strong></p>
+                        <div className="message has-text-centered is-half-tablet is-mobile">
+                            <p className={`${theme}-secondary message-body is-size-5`}>Priority: <strong>{data.getTicketById.priority}</strong></p>
                         </div>
                     </div>
-                    { Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className='button is-danger' onClick={updateTicketStatus}>Close Ticket</button> : <label></label> }
+                    { Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className={`${theme}-tertiary button`} onClick={updateTicketStatus}>Close Ticket</button> : <label></label> }
                 </div>
-                <div className="message is-info">
-                    <div className="message-header">
+                <div className={`${theme} message`}>
+                    <div className={`message-header ${theme}-primary`}>
                         <p>Description</p>
                     </div>
-                    <div className="message-body">
+                    <div className={`${theme}-primary-bg message-body`}>
                         <p>{data.getTicketById.description}</p>
                     </div>
                 </div>
             </div>
-            {/* <div className="message has-text-centered">Comments</div> */}
             <div className="is-centered container comments-container">
                 <CommentList comments={data.getTicketById.comments} status={data.getTicketById.status} />
             </div>

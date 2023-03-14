@@ -14,7 +14,6 @@ import Auth from './utils/auth';
 
 
 import { useTheme } from './utils/ThemeContext';
-
 import { StoreProvider } from './utils/GlobalState';
 
 import Login from './pages/Login';
@@ -57,12 +56,12 @@ function App() {
         <div className="d-flex flex-column justify-content-start min-100-vh">
           <StoreProvider>
             {Auth.loggedIn() &&
-            <Header />}
+              <Header />}
             {Auth.loggedIn() &&
-            <label className="switch">
-              <input type="checkbox" />
+              <label className="switch">
+                <input type="checkbox" checked={theme === 'dark'}/>
                 <span onClick={toggleTheme} className="toggle"></span>
-            </label>}
+              </label>}
             <div className="container">
               <Routes>
                 <Route
@@ -87,7 +86,7 @@ function App() {
           <Footer />
         </div>
       </Router>
-    </ApolloProvider>
+    </ApolloProvider >
   )
 }
 

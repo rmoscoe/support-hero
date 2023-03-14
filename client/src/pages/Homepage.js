@@ -7,15 +7,14 @@ import { GET_TICKETS_BY_USER_ID } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const Home = () => {
-    const { theme} = useTheme();
-
-    if(!Auth.loggedIn()){ window.location.replace("/login")}
+    const { theme } = useTheme();
+    if (!Auth.loggedIn()) { window.location.replace("/login") }
 
     const [isCreateTicket, setIsCreateTicket] = useState(false);
-    const { loading,  data  } = useQuery(GET_TICKETS_BY_USER_ID,
+    const { loading, data } = useQuery(GET_TICKETS_BY_USER_ID,
         {
-            variables : {userId : Auth.getUser().data._id}
-    });
+            variables: { userId: Auth.getUser().data._id }
+        });
 
     const handleCreateTicketClick = () => {
         setIsCreateTicket(true);
@@ -24,14 +23,14 @@ const Home = () => {
     const handleCloseCreateTicket = () => {
         setIsCreateTicket(false);
     }
-        
+
     return (
         <main>
             <div>
             <h2 className={`${theme} title has-text-centered`}> My Tickets</h2><br></br>
             <div className="buttons is-centered">
-             { Auth.getUser().data.type === "Customer" ? <button className={`button is-link mb-5`} onClick={handleCreateTicketClick} data-target="create-ticket-form">Create New ticket</button> : <label></label>
-            }
+            {Auth.getUser().data.type === "Customer" ? <button className={`button ${theme}-tertiary`} onClick={handleCreateTicketClick} data-target="create-ticket-form">Create New ticket</button> : <label></label>
+                    }
             </div>
 
         </div>
@@ -48,7 +47,7 @@ const Home = () => {
         </div>
             </div>
             </div>
-            {<CreateTicket isActive={isCreateTicket} handleCloseCreateTicket={handleCloseCreateTicket}/>}
+            {<CreateTicket isActive={isCreateTicket} handleCloseCreateTicket={handleCloseCreateTicket} />}
         </main>
     );
 };
