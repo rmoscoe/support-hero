@@ -27,24 +27,24 @@ const userSchema = new Schema({
         match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     },
 },
-{
-    toJSON: {
-        virtuals: true
+    {
+        toJSON: {
+            virtuals: true
+        }
+    });
+
+userSchema.pre('save', async function (next) {
+    const user = this;
+
+    if (!user.isModified('password')) {
+        return next();
     }
-});
 
-userSchema.pre('save', async function(next) {
-  const user = this;
+    const salt = 10;  // Alternatively: await bcrypt.genSalt();
+    const hash = await bcrypt.hash(user.password, salt);
 
-  if (!user.isModified('password')) {
-    return next();
-  }
-
-  const salt = 10;  // Alternatively: await bcrypt.genSalt();
-  const hash = await bcrypt.hash(user.password, salt);
-
-  user.password = hash;
-  next();
+    user.password = hash;
+    next();
 });
 
 // Create a virtual property `fullName` that gets user's full name
@@ -52,7 +52,7 @@ userSchema.virtual('fullName').get(function () {
     return `${this.first} ${this.last}`;
 });
 
-userSchema.methods.comparePassword = async function(candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
     const user = this;
 
     return bcrypt.compare(candidatePassword, user.password);
