@@ -31,11 +31,13 @@ function Comment(props) {
     const handleDeleteButton = async (event) => {
         try {
             const commentId = event.target.hasAttribute('data-commentid') ? event.target.getAttribute('data-commentid') : event.target.parentNode.getAttribute('data-commentid');
+            const comment = props.comments.find((comment) => comment._id === commentId);
+
             const data = await deleteNote({
-                variables: { commentId, notes: props.note.notes }
+                variables: { commentId, notes: comment.note.notes }
             });
 
-            // window.location.reload(); // not sure whether this is necessary
+            window.location.reload();
 
         } catch (err) {
             console.error(err);
@@ -48,7 +50,9 @@ function Comment(props) {
         setFormState({ [name]: value });
     };
 
-    const addNote = () => {
+    const addNote = (commentId) => {
+        setCommentToEdit(""); // reset the commentToEdit state
+        setCommentToEdit(commentId);
         setNoteForm(true);
         setFormState({ noteText: "" });
     }
@@ -58,7 +62,7 @@ function Comment(props) {
 
         try {
             const notes = formState.noteText;
-            const commentId = event.currentTarget.getAttribute("data-commentid");
+            const commentId = event.currentTarget.dataset.commentid;
             document.querySelector(".notes-input").value = "";
             setEditNote(false);
             setNoteForm(false);
@@ -67,7 +71,7 @@ function Comment(props) {
                 variables: { commentId, notes }
             });
 
-            // window.location.reload(); // not sure whether this is necessary
+            window.location.reload();
         } catch (err) {
             console.error(err);
         }
@@ -78,7 +82,8 @@ function Comment(props) {
 
         try {
             const notes = formState.noteText;
-            const commentId = document.querySelector(".notes-input").getAttribute("data-commentid");
+            const commentId = document.querySelector(".notes-input").dataset.commentid;
+            console.log(commentId);
             document.querySelector(".notes-input").value = "";
             setEditNote(false);
             setNoteForm(false);
@@ -86,8 +91,10 @@ function Comment(props) {
             const { data } = await createNote({
                 variables: { commentId, notes }
             });
+            console.log(data);
+            
 
-            // window.location.reload(); // not sure whether this is necessary
+            window.location.reload();
         } catch (err) {
             console.error(err);
         }
@@ -137,7 +144,7 @@ function Comment(props) {
                     {userType === "Agent" && !comment.note && !noteForm &&
                         <button className={`${theme}-secondary button  my-3 is-align-self-flex-end is-small`} data-commentid={comment._id} onClick={addNote}>Add Note</button>
                     }
-                    {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit === comment._id &&
+                    {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit &&
                         <form className="columns is-flex is-align-items-flex-end" data-commentid={comment._id} onSubmit={handleCreateNote}>
                             <textarea
                                 name="noteText"

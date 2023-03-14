@@ -115,10 +115,22 @@ const resolvers = {
 
         //deleteNote
         deleteNote: async (parent, { commentId, notes }, context) => {
-            return await Comment.findOneAndDelete(
-                { _id: commentId },
-                { note: { notes } },
-            ).populate("creator");
+            try {
+                const comment = await Comment.findById(commentId).populate("creator");
+                
+                if (!comment) {
+                    throw new Error("Comment not found");
+                }
+                comment.note = undefined;
+                await comment.save();
+                return comment;
+            } catch (err) {
+                console.log(err);
+            }
+            // return await Comment.findOneAndDelete(
+            //     { _id: commentId },
+            //     { note: { notes } },
+            // ).populate("creator");
         },
 
         //login
