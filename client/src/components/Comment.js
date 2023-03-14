@@ -31,13 +31,13 @@ function Comment(props) {
     const handleDeleteButton = async (event) => {
         try {
             const commentId = event.target.hasAttribute('data-commentid') ? event.target.getAttribute('data-commentid') : event.target.parentNode.getAttribute('data-commentid');
-            const notes = event.target.hasAttribute('data-note') ? event.target.getAttribute('data-note') : event.target.parentNode.getAttribute('data-note');
-            console.log(commentId, notes);
+            const note = event.target.hasAttribute('data-note') ? event.target.getAttribute('data-note') : event.target.parentNode.getAttribute('data-note');
+            
             const data = await deleteNote({
-                variables: { commentId, notes }
+                variables: { commentId, note }
             });
 
-            // window.location.reload(); // not sure whether this is necessary
+            window.location.reload();
 
         } catch (err) {
             console.error(err);
@@ -113,7 +113,7 @@ function Comment(props) {
                                         <button className={`${theme}-secondary button column is-small mr-1`} data-commentid={comment._id} onClick={(event) => handleEditButton(event, comment.note.notes, comment._id)}>
                                             <i className="fa-solid fa-pencil"></i>
                                         </button>
-                                        <button className={`${theme}-secondary button column is-small mr-1`} data-commentid={comment._id} data-note={comment.note.notes} onClick={handleDeleteButton}>
+                                        <button className={`${theme}-secondary button column is-small mr-1`} data-commentid={comment._id} data-note={comment.note._id} onClick={handleDeleteButton}>
                                             <i className="fa-solid fa-trash-can"></i>
                                         </button>
                                     </div>

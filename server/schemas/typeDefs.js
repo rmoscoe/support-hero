@@ -22,6 +22,7 @@ const typeDefs = gql`
     type Note {
         notes: String
         createdAt: String
+        _id: ID!
     }
     type Comment {
         _id: ID!
@@ -44,7 +45,7 @@ const typeDefs = gql`
         createComment(ticketId: ID!, message: String!, userId: ID!): Comment
         createNote(commentId: ID!, notes: String!): Comment
         updateNote(commentId: ID!, notes: String!): Comment
-        deleteNote(commentId: ID!, notes: String!): Comment
+        deleteNote(commentId: ID!, note: ID!): Comment
         login(email: String!, password: String!): Auth
         createUser(firstName: String, lastName: String, password: String, email: String): Auth
     }

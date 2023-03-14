@@ -114,11 +114,12 @@ const resolvers = {
         },
 
         //deleteNote
-        deleteNote: async (parent, { commentId, notes }, context) => {
+        deleteNote: async (parent, { commentId, note }, context) => {
+            console.log(commentId, note);
             return await Comment.findOneAndUpdate(
                 { _id: commentId },
-                { note: undefined },
-            ).populate("creator");
+                { $unset: { note: { _id: note } }}
+            );
         },
 
         //login

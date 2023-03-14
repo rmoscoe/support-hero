@@ -26,6 +26,7 @@ export const GET_TICKET_BY_ID = gql`
                 message
                 note {
                     notes
+                    _id
                 }
             }
         }
@@ -59,6 +60,7 @@ export const GET_TICKETS_BY_USER_ID = gql`
                     message
                     note {
                         notes
+                        _id
                     }
                 }
              

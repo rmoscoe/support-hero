@@ -104,8 +104,8 @@ export const UPDATE_NOTE = gql`
 `;
 
 export const DELETE_NOTE = gql`
-    mutation deleteNote($commentId: ID!, $notes: String!) {
-        deleteNote(commentId: $commentId, notes: $notes) {
+    mutation deleteNote($commentId: ID!, $note: ID!) {
+        deleteNote(commentId: $commentId, note: $note) {
             _id
             createdAt
             creator {
