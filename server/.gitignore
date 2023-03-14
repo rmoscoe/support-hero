@@ -1,7 +1,6 @@
 .env
 
 /utils/userData.json
-
 /node_modules
 /.pnp
 .pnp.js
