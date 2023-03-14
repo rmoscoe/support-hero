@@ -59,7 +59,7 @@ function App() {
                             <Header />}
                         {Auth.loggedIn() &&
                             <label className="switch">
-                                <input type="checkbox" checked={theme === 'dark'} />
+                                <input type="checkbox" onChange={e => {}} checked={theme === 'dark'} />
                                 <span onClick={toggleTheme} className="toggle"></span>
                             </label>}
                         <div className="container">
