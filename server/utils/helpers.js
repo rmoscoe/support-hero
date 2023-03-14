@@ -1,4 +1,4 @@
-function dateFormat (date) {
+function dateFormat(date) {
     return new Date(date).toLocaleString("en-us", {
         localeMatcher: "best fit",
         weekday: undefined,

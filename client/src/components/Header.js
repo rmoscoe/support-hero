@@ -27,18 +27,18 @@ const Header = () => {
                     </div>
                 </div>
 
-            <div className={`${isActive ? "is-active navbar-menu" : "navbar-menu"} ${theme}`}>
-                <div className='navbar-end'>
-                    {location.pathname !== '/' && 
-                    <div className='navbar-item' >
-                        <button className={`${theme}-tertiary button`} ><Link to='/'>Home</Link></button>
-                    </div> }
-                    <div className='navbar-item'>
+                <div className={`${isActive ? "is-active navbar-menu" : "navbar-menu"} ${theme}`}>
+                    <div className='navbar-end'>
+                        {location.pathname !== '/' &&
+                            <div className='navbar-item' >
+                                <button className={`${theme}-tertiary button`} ><Link to='/'>Home</Link></button>
+                            </div>}
+                        <div className='navbar-item'>
                             <button className={`button ${theme}-tertiary`} onClick={logout}>Logout</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
         )
     }
 };

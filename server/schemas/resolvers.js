@@ -117,7 +117,7 @@ const resolvers = {
         deleteNote: async (parent, { commentId, notes }, context) => {
             try {
                 const comment = await Comment.findById(commentId).populate("creator");
-                
+
                 if (!comment) {
                     throw new Error("Comment not found");
                 }

@@ -39,7 +39,7 @@ const createTicket = async (userIds) => {
     const comments = [];
 
     for (let i = 0; i < 3; i++) {
-        const comment = await createComment(userIds[ i % 2 ]);
+        const comment = await createComment(userIds[i % 2]);
         comments.push(comment._id);
     }
 
@@ -74,55 +74,55 @@ const createComment = async (userId) => {
 };
 
 connection.once("open", async () => {
-  try {
-    console.log("\n--------------------\n\nConnected to MongoDB database...");
-    
-    console.log("Dropping existing data...");
-    await User.deleteMany({});
-    await Ticket.deleteMany({});
-    await Comment.deleteMany({});
-    console.log("Existing data dropped.\n--------------------\n");
+    try {
+        console.log("\n--------------------\n\nConnected to MongoDB database...");
 
-    const agents = [];
-    const customers = [];
+        console.log("Dropping existing data...");
+        await User.deleteMany({});
+        await Ticket.deleteMany({});
+        await Comment.deleteMany({});
+        console.log("Existing data dropped.\n--------------------\n");
 
-    // Create agents
-    console.log('Creating agents...');
-    for (let i = 0; i < 5; i++) {
-        const agent = await createUser('Agent');
-        agents.push(agent);
-    }
-    console.log('Agents created!\n--------------------\n');
-    
-    // Create customers
-    console.log('Creating customers...');
-    for (let i = 0; i < 20; i++) {
-        const customer = await createUser('Customer');
-        customers.push(customer);
-    }
-    console.log('Customers created!\n--------------------\n');
+        const agents = [];
+        const customers = [];
 
-    // For all customers, create tickets with comments and assign them to agents
-    console.log('Creating ticket and Comment data...');
-    for (let i = 0; i < customers.length; i++) {
-        const customerId = customers[i]._id;
-        const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
+        // Create agents
+        console.log('Creating agents...');
+        for (let i = 0; i < 5; i++) {
+            const agent = await createUser('Agent');
+            agents.push(agent);
+        }
+        console.log('Agents created!\n--------------------\n');
 
-        userIds = [customerId, randomAgentId];
-        await createTicket(userIds);
-    }
-    console.log('Ticket and Comment data created!\n--------------------\n');
+        // Create customers
+        console.log('Creating customers...');
+        for (let i = 0; i < 20; i++) {
+            const customer = await createUser('Customer');
+            customers.push(customer);
+        }
+        console.log('Customers created!\n--------------------\n');
 
-    // Write agent data for reference and close db connection
-    fs.writeFile('userData.json', JSON.stringify([...agents, ...customers], null, 4), (err) => {
-        if (err) throw err;
-        console.log('User data written to file!');
+        // For all customers, create tickets with comments and assign them to agents
+        console.log('Creating ticket and Comment data...');
+        for (let i = 0; i < customers.length; i++) {
+            const customerId = customers[i]._id;
+            const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
+
+            userIds = [customerId, randomAgentId];
+            await createTicket(userIds);
+        }
+        console.log('Ticket and Comment data created!\n--------------------\n');
+
+        // Write agent data for reference and close db connection
+        fs.writeFile('userData.json', JSON.stringify([...agents, ...customers], null, 4), (err) => {
+            if (err) throw err;
+            console.log('User data written to file!');
+            connection.close();
+            console.log('Connection closed.\n--------------------\n');
+        });
+    } catch (err) {
+        console.error(err);
         connection.close();
-        console.log('Connection closed.\n--------------------\n');
-    });
-  } catch (err) {
-    console.error(err);
-    connection.close();
-    console.log('Connection closed on error.');
-  }
+        console.log('Connection closed on error.');
+    }
 });
