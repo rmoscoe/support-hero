@@ -10,7 +10,11 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
     const navigate = useNavigate();
     const { theme } = useTheme();
-    if (!Auth.loggedIn()) { navigate("/login") }
+    if (!Auth.loggedIn()) {
+        console.log("pre-navigate");
+        navigate("/login");
+        console.log("post-navigate");
+     }
 
     const [isCreateTicket, setIsCreateTicket] = useState(false);
     const { loading, data } = useQuery(GET_TICKETS_BY_USER_ID,
