@@ -1,6 +1,6 @@
 import faker from "@faker-js/faker";
 
-function createRandomUser () {
+function createRandomUser() {
     const email = faker.helpers.unique(faker.internet.email);
     const userTypes = ["Agent", "Customer"];
     const type = userTypes[Math.floor(Math.random() * userTypes.length)];
