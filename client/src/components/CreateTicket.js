@@ -73,10 +73,10 @@ const CreateTicket = (props) => {
                                 </div>
                             </div>
                             <div className="buttons">
-                                <button className="button is-primary" type="submit" disabled={loading}>
+                                <button className={`button ${theme}-primary`} type="submit" disabled={loading}>
                                     {loading ? 'Creating...' : 'Create'}
                                 </button>
-                                <button className="button is-info" type="button" onClick={onClose}>Close</button>
+                                <button className={`button ${theme}-secondary`} type="button" onClick={onClose}>Close</button>
                             </div>
                         </form>
                     </section>

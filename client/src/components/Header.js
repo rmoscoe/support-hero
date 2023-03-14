@@ -31,10 +31,10 @@ const Header = () => {
                 <div className='navbar-end'>
                     {location.pathname !== '/' && 
                     <div className='navbar-item' >
-                        <button className="button is-primary" ><Link to='/'>Home</Link></button>
+                        <button className={`${theme}-tertiary button`} ><Link to='/'>Home</Link></button>
                     </div> }
                     <div className='navbar-item'>
-                            <button className={`button ${theme}-quaternary`} onClick={logout}>Logout</button>
+                            <button className={`button ${theme}-tertiary`} onClick={logout}>Logout</button>
                     </div>
                 </div>
             </div>

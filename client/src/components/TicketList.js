@@ -37,12 +37,12 @@ const TicketList = ({
   <>
   
   <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-  <table {...getTableProps()} className={`${theme}-bg table is-bordered is-striped is-fullwidth is-responsive hscroll`}>
+  <table {...getTableProps()} className={` table ${theme === 'dark' && 'dark-bg'} is-fullwidth is-responsive hscroll`}>
       <thead>
         {headerGroups.map((headerGroup) => (
-            <tr className="is-selected has-text-black" {...headerGroup.getHeaderGroupProps()}>
+            <tr className="is-selected" {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th className={`${theme}-primary is-size-4 has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
+                <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
                 <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
               ))}
@@ -56,7 +56,7 @@ const TicketList = ({
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell)=>{
-                return  <td {...cell.getCellProps()}><a href={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</a></td>
+                return  <td {...cell.getCellProps()}><a style={{color: 'black'}} href={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</a></td>
               })}
             </tr>
           )
