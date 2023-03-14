@@ -5,14 +5,14 @@ import TicketList from '../components/TicketList';
 import CreateTicket from '../components/CreateTicket';
 import { GET_TICKETS_BY_USER_ID } from '../utils/queries';
 import Auth from '../utils/auth';
-import { useNavigate } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 
 const Home = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { theme } = useTheme();
     if (!Auth.loggedIn()) {
         console.log("pre-navigate");
-        navigate("/login");
+        redirect("/login");
         console.log("post-navigate");
      }
 
