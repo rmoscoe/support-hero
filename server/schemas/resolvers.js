@@ -115,9 +115,9 @@ const resolvers = {
 
         //deleteNote
         deleteNote: async (parent, { commentId, notes }, context) => {
-            return await Comment.findOneAndDelete(
+            return await Comment.findOneAndUpdate(
                 { _id: commentId },
-                { note: { notes } },
+                { note: undefined },
             ).populate("creator");
         },
 
