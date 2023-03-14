@@ -2,12 +2,12 @@ import React from 'react';
 import { useTheme } from '../utils/ThemeContext';
 
 const Footer = () => {
-    const { theme} = useTheme();
+    const { theme } = useTheme();
     return (
         <div className={`${theme}-bg footer-pin`}>
-                <p>
+            <p>
                 Made with &hearts; by Team 2
-                </p>
+            </p>
         </div>
     )
 };
