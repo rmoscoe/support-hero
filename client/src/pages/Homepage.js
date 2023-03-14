@@ -11,7 +11,7 @@ const Home = () => {
    const [isCreateTicket, setIsCreateTicket] = useState(false);
     const { loading, data } = useQuery(GET_TICKETS_BY_USER_ID,
         {
-            variables: { userId: Auth.getUser().data._id }
+            variables: { userId: Auth.getUser()?.data._id }
         });
    
     // const navigate = useNavigate();
