@@ -36,7 +36,7 @@ const typeDefs = gql`
     } 
     type Query {
         getTicketById(ticketId: ID!, userType: String!): Ticket
-        getTicketsByUserId(userId: ID!, status: String): [Ticket]
+        getTicketsByUserId(userId: ID, status: String): [Ticket]
     }
     type Mutation {
         createTicket(title: String!, description: String!, priority: String!): Ticket
