@@ -8,7 +8,14 @@ import Auth from '../utils/auth';
 import { Navigate } from 'react-router-dom';
 
 const Home = () => {
-   const [isCreateTicket, setIsCreateTicket] = useState(false);
+    if (!Auth.loggedIn()) {
+        // console.log("pre-navigate");
+        // redirect("/login");
+        // console.log("post-navigate");
+        (<Navigate to="/login" />)
+     }
+   
+    const [isCreateTicket, setIsCreateTicket] = useState(false);
     const { loading, data } = useQuery(GET_TICKETS_BY_USER_ID,
         {
             variables: { userId: Auth.getUser()?.data._id }
