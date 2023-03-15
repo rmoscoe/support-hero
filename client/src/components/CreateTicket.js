@@ -12,6 +12,7 @@ const CreateTicket = (props) => {
     const navigate = useNavigate();
 
     const onSubmit = async (formData) => {
+        console.log(Auth.getUser().data);
         try {
             await createTicket({
                 variables: {
