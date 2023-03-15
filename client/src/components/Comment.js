@@ -82,15 +82,13 @@ function Comment(props) {
         try {
             const notes = formState.noteText;
             const commentId = document.querySelector(".notes-input").dataset.commentid;
-            console.log(commentId);
             document.querySelector(".notes-input").value = "";
             setEditNote(false);
             setNoteForm(false);
 
-            const { data } = await createNote({
+            await createNote({
                 variables: { commentId, notes }
             });
-            console.log(data);
 
 
             window.location.reload();

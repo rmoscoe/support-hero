@@ -56,7 +56,6 @@ const resolvers = {
 
         //updateTicketStatus
         updateTicketStatus: async (parent, { ticketId, status }, context) => {
-            console.log("in update")
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
@@ -72,7 +71,6 @@ const resolvers = {
 
         // createComment
         createComment: async (parent, { ticketId, message, userId }, context) => {
-            console.log("Made it here!");
             const comment = await Comment.create(
                 {
                     message,
@@ -125,17 +123,11 @@ const resolvers = {
                 await comment.save();
                 return comment;
             } catch (err) {
-                console.log(err);
             }
-            // return await Comment.findOneAndDelete(
-            //     { _id: commentId },
-            //     { note: { notes } },
-            // ).populate("creator");
         },
 
         //login
         login: async (parent, { email, password }) => {
-            console.log("Email: ", email);
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -151,7 +143,6 @@ const resolvers = {
             }
 
             const token = signToken(user);
-            console.log(token)
 
             return { token, user };
         },
