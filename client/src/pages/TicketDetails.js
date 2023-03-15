@@ -14,12 +14,12 @@ function TicketDetails() {
     const { ticketId } = useParams();
 
     const { loading, error, data } = useQuery(GET_TICKET_BY_ID, {
-        variables: { ticketId, userType: Auth.getUser().data.type }
+        variables: { ticketId, userType: Auth.getUser()?.data.type }
     });
 
     const [updateTicket, { status }] = useMutation(UPDATE_TICKET_STATUS);
 
-    if (Auth.getUser().data.type === 'Agent') {
+    if (Auth.getUser()?.data.type === 'Agent') {
 
     }
 
