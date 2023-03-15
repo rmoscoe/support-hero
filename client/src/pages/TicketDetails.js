@@ -19,10 +19,6 @@ function TicketDetails() {
 
     const [updateTicket, { status }] = useMutation(UPDATE_TICKET_STATUS);
 
-    if (Auth.getUser()?.data.type === 'Agent') {
-
-    }
-
     const updateTicketStatus = () => {
         updateTicket({
             variables: {

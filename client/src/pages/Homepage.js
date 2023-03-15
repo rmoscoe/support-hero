@@ -23,12 +23,12 @@ const Home = () => {
    
     // const navigate = useNavigate();
     const { theme } = useTheme();
-    if (!Auth.loggedIn()) {
-        // console.log("pre-navigate");
-        // redirect("/login");
-        // console.log("post-navigate");
-        return (<Navigate to="/login" />)
-     }
+    // if (!Auth.loggedIn()) {
+    //     // console.log("pre-navigate");
+    //     // redirect("/login");
+    //     // console.log("post-navigate");
+    //     return (<Navigate to="/login" />)
+    //  }
 
     const handleCreateTicketClick = () => {
         setIsCreateTicket(true);
