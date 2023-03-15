@@ -23,6 +23,8 @@ function TicketDetails() {
         return < Navigate to = "/login" />;
     };
 
+    const userId = Auth.getUser()?.data?.id;
+
     const updateTicketStatus = () => {
         updateTicket({
             variables: {
@@ -61,7 +63,7 @@ function TicketDetails() {
                 </div>
             </div>
             <div className="is-centered container comments-container">
-                <CommentList comments={data.getTicketById.comments} status={data.getTicketById.status} />
+                <CommentList comments={data.getTicketById.comments} status={data.getTicketById.status} userId={userId}/>
             </div>
         </div>
     );
