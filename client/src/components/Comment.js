@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useStoreContext } from "../utils/GlobalState";
 import { useMutation } from '@apollo/client';
 import { useTheme } from '../utils/ThemeContext';
 
@@ -33,7 +32,7 @@ function Comment(props) {
             const commentId = event.target.hasAttribute('data-commentid') ? event.target.getAttribute('data-commentid') : event.target.parentNode.getAttribute('data-commentid');
             const comment = props.comments.find((comment) => comment._id === commentId);
 
-            const data = await deleteNote({
+            await deleteNote({
                 variables: { commentId, notes: comment.note.notes }
             });
 
@@ -67,7 +66,7 @@ function Comment(props) {
             setEditNote(false);
             setNoteForm(false);
 
-            const data = await updateNote({
+            await updateNote({
                 variables: { commentId, notes }
             });
 
@@ -99,6 +98,12 @@ function Comment(props) {
             console.error(err);
         }
     }
+
+    if (deleteError) {<p>Error please refresh page...</p>}
+    if (updateError) {<p>Error please refresh page...</p>}
+    if (createError) {<p>Error please refresh page...</p>}
+    if (createError) {<p>Error please refresh page...</p>}
+
 
     return props.comments.map((comment, idx) => (
         <div className={`${theme}-primary-bg card my-5`} key={comment._id}>
