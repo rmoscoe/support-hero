@@ -10,7 +10,7 @@ const CreateTicket = (props) => {
     const [createTicket, { loading }] = useMutation(CREATE_TICKET);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-
+    
     const onSubmit = async (formData) => {
         try {
             await createTicket({
@@ -18,7 +18,7 @@ const CreateTicket = (props) => {
                     title: formData.title,
                     description: formData.description,
                     priority: formData.priority,
-                    userId: Auth.getUser().data._id
+                    userId: props.userId
                 },
             });
             navigate(0);
