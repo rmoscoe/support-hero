@@ -13,7 +13,6 @@ export default function Signup() {
     const [createUser] = useMutation(CREATE_USER);
 
     const onSubmit = async (data) => {
-        console.log(data)
         try {
             const userData = await createUser({
                 variables: {
@@ -23,7 +22,6 @@ export default function Signup() {
                     password: data.password
                 },
             });
-            console.log(userData);
             const token = userData.data.createUser.token;
             Auth.login(token);
         } catch (err) {

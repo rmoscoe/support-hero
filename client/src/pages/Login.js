@@ -26,8 +26,6 @@ const Login = (props) => {
             const { data } = await login({
                 variables: { email: formData.email, password: formData.password },
             });
-            console.log("token ", (typeof data.login.token));
-            console.log(data.login.token);
 
             if (data.login.token !== "0") {
                 Auth.login(data.login.token);
