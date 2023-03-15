@@ -1,15 +1,13 @@
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { useTable, useGlobalFilter, useFilters } from 'react-table';
 import { COLUMNS } from '../components/Columns'
 import { GlobalFilter } from './GlobalFilter';
-import { ColumnFilter } from './ColumnFilter';
 import { useTheme } from '../utils/ThemeContext';
 
 
 const TicketList = ({ tickets }) => {
-    const columns = useMemo(() => COLUMNS, [])
-    const data = useMemo(() => tickets, [])
+    const columns = useMemo(() => COLUMNS, []);
+    const data = useMemo(() => tickets, [tickets]);
     const { theme } = useTheme();
 
     const { getTableProps,
