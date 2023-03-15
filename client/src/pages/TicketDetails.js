@@ -1,15 +1,15 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
 import { UPDATE_TICKET_STATUS } from '../utils/mutations';
 import CommentList from '../components/CommentList';
 import Auth from '../utils/auth';
 import { useTheme } from '../utils/ThemeContext';
 
+
 function TicketDetails() {
     const { theme } = useTheme();
-    if (!Auth.loggedIn()) window.location.assign('/login');
 
     const { ticketId } = useParams();
 
@@ -18,6 +18,10 @@ function TicketDetails() {
     });
 
     const [updateTicket, { status }] = useMutation(UPDATE_TICKET_STATUS);
+
+    if (!Auth.loggedIn()) {
+        return < Navigate to = "/login" />;
+    };
 
     const updateTicketStatus = () => {
         updateTicket({
