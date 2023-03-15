@@ -8,17 +8,20 @@ import Auth from '../utils/auth';
 import { Navigate } from 'react-router-dom';
 
 function Home() {
-    if (!Auth.loggedIn()) window.location.assign('/login');
-
     const [isCreateTicket, setIsCreateTicket] = useState(false);
     const { loading, error, data } = useQuery(GET_TICKETS_BY_USER_ID,
         {
             variables: { userId: Auth.getUser()?.data._id }
         });
-   
-    // const navigate = useNavigate();
-    const { theme } = useTheme();
 
+    const { theme } = useTheme();
+   
+    if (!Auth.loggedIn()) {
+        return (<Navigate to="/login" />)
+    };
+
+    
+    // const navigate = useNavigate();
 
     const handleCreateTicketClick = () => {
         setIsCreateTicket(true);
