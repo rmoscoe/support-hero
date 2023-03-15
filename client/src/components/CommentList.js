@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useStoreContext } from "../utils/GlobalState";
 import { CREATE_COMMENT } from "../utils/mutations";
 import { UPDATE_TICKET_STATUS } from "../utils/mutations";
 import { useParams } from "react-router-dom";
@@ -12,7 +11,6 @@ function CommentList(props) {
     const { theme } = useTheme();
     const userData = Auth.getUser();
     const user = userData.data;
-    const [userId, setUserId] = useState(user._id);
     const { ticketId } = useParams();
     const [commentFormState, setCommentFormState] = useState({
         messageText: ""
@@ -34,9 +32,8 @@ function CommentList(props) {
             const message = commentFormState.messageText;
 
             document.getElementById("comment-message-textarea").value = "";
-            console.log(ticketId, message, userId);
-            const { commentData } = await createComment({
-                variables: { ticketId, message, userId }
+            await createComment({
+                variables: { ticketId, message, userId: user._id }
             });
 
             // Update ticket if customer is adding comment
@@ -59,6 +56,9 @@ function CommentList(props) {
         }
     }
 
+    if (error) {<p>Error creating comment. Please reload...</p>}
+    if (statusError) {<p>Error. Please reload...</p>}
+    if (error) {<p>Error creating comment. Please reload...</p>}
     return (
         <section>
             <h3 className={`${theme}-primary title is-4  mt-3 mb-1 p-2 `}>Comment History</h3>

@@ -5,7 +5,6 @@ class AuthService {
         try {
             return decode(this.getToken());
         } catch (err) {
-            console.log("Not logged in");
         }
     }
 
