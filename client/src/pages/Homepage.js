@@ -7,28 +7,18 @@ import { GET_TICKETS_BY_USER_ID } from '../utils/queries';
 import Auth from '../utils/auth';
 import { Navigate } from 'react-router-dom';
 
-const Home = () => {
-    if (!Auth.loggedIn()) {
-        // console.log("pre-navigate");
-        // redirect("/login");
-        // console.log("post-navigate");
-        (<Navigate to="/login" />)
-     }
-   
+function Home() {
+    if (!Auth.loggedIn()) window.location.assign('/login');
+
     const [isCreateTicket, setIsCreateTicket] = useState(false);
-    const { loading, data } = useQuery(GET_TICKETS_BY_USER_ID,
+    const { loading, error, data } = useQuery(GET_TICKETS_BY_USER_ID,
         {
             variables: { userId: Auth.getUser()?.data._id }
         });
    
     // const navigate = useNavigate();
     const { theme } = useTheme();
-    // if (!Auth.loggedIn()) {
-    //     // console.log("pre-navigate");
-    //     // redirect("/login");
-    //     // console.log("post-navigate");
-    //     return (<Navigate to="/login" />)
-    //  }
+
 
     const handleCreateTicketClick = () => {
         setIsCreateTicket(true);
@@ -37,6 +27,8 @@ const Home = () => {
     const handleCloseCreateTicket = () => {
         setIsCreateTicket(false);
     }
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
 
     return (
         <main>
