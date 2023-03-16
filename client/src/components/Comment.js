@@ -38,7 +38,7 @@ function Comment(props) {
                 variables: { commentId, notes: comment.note.notes }
             });
 
-            navigate(0);
+            window.location.reload();
 
         } catch (err) {
             console.error(err);
