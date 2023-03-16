@@ -1,14 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
 import { CREATE_TICKET } from '../utils/mutations';
 import { useTheme } from "../utils/ThemeContext";
 
 const CreateTicket = (props) => {
+    const defaultValues = {
+        title: "",
+        description: "",
+        priority: "",
+        userId: ""
+    }
     const [createTicket, { loading }] = useMutation(CREATE_TICKET);
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const navigate = useNavigate();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({ defaultValues });
     
     const onSubmit = async (formData) => {
         try {
@@ -20,6 +24,7 @@ const CreateTicket = (props) => {
                     userId: props.userId
                 },
             });
+            reset(defaultValues)
             props.handleCloseCreateTicket();
             props.refetchTicketData()
         } catch (error) {
