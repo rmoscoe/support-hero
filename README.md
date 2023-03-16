@@ -57,6 +57,11 @@ Support Hero is a customer support ticketing system. Customers are able to sign 
 
 ![Homepage](/assets/images/homepage.png)
 
+To explore this application, you may use the following credentials:
+* Agent Email: ```lillian.ferry@yahoo.com```
+* Customer Email: ```rosalyn_kassulke92@gmail.com```
+* Password (same for all users): ```Password1!```
+
 Once a user signs or logs in, they are directed to the Homepage. At the top of the Homepage is a navbar with a button to log out of the application. This navbar is present throughout the application. 
 
 Below the navbar is a table with the user's tickets. The table contains columns for ticket ID, title, created on date, and status. When a user clicks on a ticket, they are taken to the Detailed Ticket view for the given ticket. 
