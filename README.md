@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Support Hero
+## Table of Contents
+- [Support Hero](#support-hero)
+  - [Table of Contents](#table-of-contents)
+  - [Technology Used](#technology-used)
+  - [Description](#description)
+  - [Usage](#usage)
+  - [Learning Points](#learning-points)
+  - [Author Info](#author-info)
+    - [Ryan Moscoe](#ryan-moscoe)
+    - [Megan Ellman](#megan-ellman)
+    - [Brandon Haskell](#brandon-haskell)
+    - [Srinithi Ravichandra](#srinithi-ravichandra)
+  - [License](#license)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br />
 
-## Available Scripts
+## Technology Used
 
-In the project directory, you can run:
+| Technology Used         | Resource URL           | 
+| ------------- |:-------------:| 
+| CSS     | [https://developer.mozilla.org/en-US/docs/Web/CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)      |   
+| JavaScript | [https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)     |    
+| Node.js | [https://nodejs.org/en/](https://nodejs.org/en/) |
+| Sequelize | [https://sequelize.org/](https://sequelize.org/)
+| Path | [https://nodejs.org/docs/latest/api/path.html](https://nodejs.org/docs/latest/api/path.html)
+| Express-Session | [https://www.npmjs.com/package/express-session](https://www.npmjs.com/package/express-session)
+| Dotenv | [https://www.npmjs.com/package/dotenv](https://www.npmjs.com/package/dotenv)
+| Bulma | [https://bulma.io/](https://bulma.io/)
+| Google Fonts | [https://fonts.google.com/](https://fonts.google.com/)
+| Font Awesome | [https://fontawesome.com/](https://fontawesome.com/)
+| Bcrypt | [https://www.npmjs.com/package/bcrypt](https://www.npmjs.com/package/bcrypt)
+<br />
 
-### `npm start`
+## Description 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[Visit the Deployed Site](https://dry-fjord-88699.herokuapp.com/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Site Langing Page]()
 
-### `npm run build`
+<br/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Homepage]()
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Once a user signs or logs in, they are directed to the Homepage. At the top of the Homepage is a navbar with a button to log out of the application. This navbar is present throughout the application. 
 
-### `npm run eject`
+Below the navbar is a table with the user's tickets. The table contains columns for ticket ID, title, created on date, and status. When a user clicks on a ticket, they are taken to the Detailed Ticket view for the given ticket. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If a user is a customer, they will also have a "Create Ticket" button on their homepage. When this button is clicked, a ticket form modal appears where the customer can input information about their issue. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Webpage with a green banner, a button, and another green banner with text](assets/images/journal.jpg)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br />
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Learning Points 
 
-## Learn More
+*
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Author Info
 
-### Code Splitting
+### Ryan Moscoe 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* [Portfolio](https://rmoscoe.github.io/portfolio/)
+* [LinkedIn](https://www.linkedin.com/in/ryan-moscoe-8652973/)
+* [Github](https://github.com/rmoscoe)
 
-### Analyzing the Bundle Size
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Megan Ellman
+* [LinkedIn](https://www.linkedin.com/in/megan-ellman/)
+* [GitHub](https://github.com/megellman)
+* [Portfolio](https://megellman.github.io/portfolio/)
 
-### Making a Progressive Web App
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Brandon Haskell
+* [LinkedIn](https://www.linkedin.com/in/megan-ellman/)
+* [GitHub](https://github.com/megellman)
+* [Portfolio](https://megellman.github.io/portfolio/)
 
-### Advanced Configuration
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Srinithi Ravichandra
+* [LinkedIn](https://www.linkedin.com/in/megan-ellman/)
+* [GitHub](https://github.com/megellman)
+* [Portfolio](https://megellman.github.io/portfolio/)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<br />
 
-### `npm run build` fails to minify
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[MIT License](https://choosealicense.com/licenses/mit/)
