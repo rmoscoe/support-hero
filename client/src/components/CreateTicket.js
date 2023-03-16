@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { CREATE_TICKET } from '../utils/mutations';
-import Auth from '../utils/auth';
 import { useTheme } from "../utils/ThemeContext";
 
 const CreateTicket = (props) => {
@@ -21,6 +20,7 @@ const CreateTicket = (props) => {
                     userId: props.userId
                 },
             });
+            props.handleCloseCreateTicket();
             navigate(0);
         } catch (error) {
             console.error(error);
