@@ -21,7 +21,7 @@ const CreateTicket = (props) => {
                 },
             });
             props.handleCloseCreateTicket();
-            navigate(0);
+            props.refetchTicketData()
         } catch (error) {
             console.error(error);
         }
