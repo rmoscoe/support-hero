@@ -38,7 +38,7 @@ function Comment(props) {
                 variables: { commentId, notes: comment.note.notes }
             });
 
-            navigate(0);
+            // navigate(0);
 
         } catch (err) {
             console.error(err);
@@ -72,7 +72,7 @@ function Comment(props) {
                 variables: { commentId, notes }
             });
 
-            navigate(0);
+            // navigate(0);
         } catch (err) {
             console.error(err);
         }
@@ -93,7 +93,7 @@ function Comment(props) {
             });
 
 
-            navigate(0);
+            // navigate(0);
         } catch (err) {
             console.error(err);
         }
