@@ -3,6 +3,7 @@ import { useTable, useGlobalFilter, useFilters } from 'react-table';
 import { COLUMNS } from '../components/Columns'
 import { GlobalFilter } from './GlobalFilter';
 import { useTheme } from '../utils/ThemeContext';
+import { Link } from "react-router-dom";
 
 
 const TicketList = ({ tickets }) => {
@@ -49,7 +50,7 @@ const TicketList = ({ tickets }) => {
                         return (
                             <tr {...row.getRowProps()}>
                                 {row.cells.map((cell) => {
-                                    return <td {...cell.getCellProps()}><a style={{ color: 'black' }} href={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</a></td>
+                                    return <td {...cell.getCellProps()}><Link style={{ color: 'black' }} href={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</Link></td>
                                 })}
                             </tr>
                         )
