@@ -24,7 +24,6 @@ const CreateTicket = (props) => {
                     userId: props.userId
                 },
             });
-            reset(defaultValues)
             props.handleCloseCreateTicket();
             props.refetchTicketData()
         } catch (error) {
@@ -35,6 +34,7 @@ const CreateTicket = (props) => {
     const onClose = () => {
         const modal = document.getElementById('create-ticket-form');
         modal.classList.remove('is-active');
+        reset(defaultValues);
         props.handleCloseCreateTicket();
     };
     const { theme } = useTheme();
