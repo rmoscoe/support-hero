@@ -9,7 +9,7 @@ import { Navigate } from 'react-router-dom';
 
 function Home() {
     const [isCreateTicket, setIsCreateTicket] = useState(false);
-    const { loading, error, data } = useQuery(GET_TICKETS_BY_USER_ID,
+    const { loading, error, data, refetch } = useQuery(GET_TICKETS_BY_USER_ID,
         {
             variables: { userId: Auth.getUser()?.data._id }
         });
@@ -58,7 +58,7 @@ function Home() {
                     </div>
                 </div>
             </div>
-            {<CreateTicket isActive={isCreateTicket} handleCloseCreateTicket={handleCloseCreateTicket} />}
+            {<CreateTicket isActive={isCreateTicket} handleCloseCreateTicket={handleCloseCreateTicket} refetchTicketData={refetch} />}
         </main>
     );
 };
