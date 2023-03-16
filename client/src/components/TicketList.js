@@ -50,7 +50,7 @@ const TicketList = ({ tickets }) => {
                         return (
                             <tr {...row.getRowProps()}>
                                 {row.cells.map((cell) => {
-                                    return <td {...cell.getCellProps()}><Link style={{ color: 'black' }} href={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</Link></td>
+                                    return <td style={{color:'black'}} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</Link></td>
                                 })}
                             </tr>
                         )
