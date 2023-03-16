@@ -77,6 +77,7 @@ function CommentList(props) {
                             id="comment-message-textarea"
                             placeholder="Add a comment..."
                             onChange={handleCommentInput}
+                            required
                         >
                         </textarea>
                         <input type="submit" className={`${theme}-secondary button column mx-3`} value="Submit" />
