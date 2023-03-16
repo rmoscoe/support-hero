@@ -66,7 +66,7 @@ function CommentList(props) {
         <section>
             <h3 className={`${theme}-primary title is-4  mt-3 mb-1 p-2 `}>Comment History</h3>
             < section className="section">
-                <Comment comments={props.comments} user={user} status={props.status} />
+                <Comment comments={props.comments} user={user} status={props.status} refetchTicket={props.refetchTicket} />
                 {props.status !== "Closed" &&
                     <form className={`${theme}-primary-bg columns box is-align-items-flex-end mt-3`} onSubmit={handleCreateComment}>
                         <textarea
