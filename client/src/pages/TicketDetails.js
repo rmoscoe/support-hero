@@ -1,4 +1,4 @@
-import React from 'react';
+// import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Navigate, useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
@@ -13,7 +13,7 @@ function TicketDetails() {
 
     const { ticketId } = useParams();
 
-    const { loading, error, data } = useQuery(GET_TICKET_BY_ID, {
+    const { loading, error, data, refetch } = useQuery(GET_TICKET_BY_ID, {
         variables: { ticketId, userType: Auth.getUser()?.data.type }
     });
 
@@ -63,7 +63,7 @@ function TicketDetails() {
                 </div>
             </div>
             <div className="is-centered container comments-container">
-                <CommentList comments={data.getTicketById.comments} status={data.getTicketById.status} userId={userId}/>
+                <CommentList comments={data.getTicketById.comments} status={data.getTicketById.status} userId={userId} refetchTicket={refetch} />
             </div>
         </div>
     );

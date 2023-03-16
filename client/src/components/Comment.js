@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useTheme } from '../utils/ThemeContext';
-import { useNavigate } from 'react-router-dom';
 
 import { CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE } from "../utils/mutations";
 
@@ -9,7 +8,6 @@ function Comment(props) {
     const { theme } = useTheme();
     const user = props.user;
     const userType = user.type;
-    const navigate = useNavigate();
     const [noteForm, setNoteForm] = useState(false);
     const [editNote, setEditNote] = useState(false);
     const [formState, setFormState] = useState({
@@ -38,7 +36,7 @@ function Comment(props) {
                 variables: { commentId, notes: comment.note.notes }
             });
 
-            window.location.reload();
+            props.refetchTicket();
 
         } catch (err) {
             console.error(err);
@@ -72,7 +70,6 @@ function Comment(props) {
                 variables: { commentId, notes }
             });
 
-            // navigate(0);
         } catch (err) {
             console.error(err);
         }
@@ -92,8 +89,6 @@ function Comment(props) {
                 variables: { commentId, notes }
             });
 
-
-            // navigate(0);
         } catch (err) {
             console.error(err);
         }
