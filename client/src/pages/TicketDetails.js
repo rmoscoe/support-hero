@@ -17,7 +17,7 @@ function TicketDetails() {
         variables: { ticketId, userType: Auth.getUser()?.data.type }
     });
 
-    const [updateTicket, { status }] = useMutation(UPDATE_TICKET_STATUS);
+    const [updateTicket] = useMutation(UPDATE_TICKET_STATUS);
 
     if (!Auth.loggedIn()) {
         return < Navigate to = "/login" />;
