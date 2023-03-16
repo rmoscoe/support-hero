@@ -6,10 +6,12 @@ import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 import Auth from "../utils/auth";
 import { useTheme } from "../utils/ThemeContext";
+import { useNavigate } from 'react-router-dom';
 
 function CommentList(props) {
     const { theme } = useTheme();
     const userData = Auth.getUser();
+    const navigate = useNavigate();
     const user = userData.data;
     const { ticketId } = useParams();
     const [commentFormState, setCommentFormState] = useState({
@@ -50,7 +52,7 @@ function CommentList(props) {
                 });
             }
 
-            window.location.reload();
+            navigate(0);
         } catch (error) {
             console.error(error);
         }
