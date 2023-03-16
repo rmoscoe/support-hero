@@ -37,7 +37,6 @@ const resolvers = {
         createTicket: async (parent, { title, description, priority }, context) => {
 
             const usersDb = await User.find({ type: "Agent" });
-            console.log(usersDb);
 
             const agentId = usersDb[Math.floor(Math.random() * usersDb.length)]._id;
 
