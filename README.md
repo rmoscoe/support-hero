@@ -1,17 +1,16 @@
 # Support Hero
 ## Table of Contents
-- [Support Hero](#support-hero)
-  - [Table of Contents](#table-of-contents)
-  - [Technology Used](#technology-used)
-  - [Description](#description)
-  - [Usage](#usage)
-  - [Learning Points](#learning-points)
-  - [Author Info](#author-info)
-    - [Ryan Moscoe](#ryan-moscoe)
-    - [Megan Ellman](#megan-ellman)
-    - [Brandon Haskell](#brandon-haskell)
-    - [Srinithi Ravichandra](#srinithi-ravichandra)
-  - [License](#license)
+- [Table of Contents](#table-of-contents)
+- [Technology Used](#technology-used)
+- [Description](#description)
+- [Usage](#usage)
+- [Learning Points](#learning-points)
+- [Author Info](#author-info)
+  - [Ryan Moscoe](#ryan-moscoe)
+  - [Megan Ellman](#megan-ellman)
+  - [Brandon Haskell](#brandon-haskell)
+  - [Srinithi Ravichandran](#srinithi-ravichandran)
+- [License](#license)
 
 <br />
 
@@ -22,26 +21,25 @@
 | CSS     | [https://developer.mozilla.org/en-US/docs/Web/CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)      |   
 | JavaScript | [https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)     |    
 | Node.js | [https://nodejs.org/en/](https://nodejs.org/en/) |
-| Sequelize | [https://sequelize.org/](https://sequelize.org/)
-| Path | [https://nodejs.org/docs/latest/api/path.html](https://nodejs.org/docs/latest/api/path.html)
-| Dotenv | [https://www.npmjs.com/package/dotenv](https://www.npmjs.com/package/dotenv)
-| Bulma | [https://bulma.io/](https://bulma.io/)
-| Google Fonts | [https://fonts.google.com/](https://fonts.google.com/)
-| Font Awesome | [https://fontawesome.com/](https://fontawesome.com/)
-| Bcrypt | [https://www.npmjs.com/package/bcrypt](https://www.npmjs.com/package/bcrypt)
-| ReactJS | [https://reactjs.org/](https://reactjs.org/docs/getting-started.html)
-| React Router Dom | [https://reactrouter.com/](https://reactrouter.com/en/main)
-| Javascript Web Token (JWT) | [https://jwt.io/](https://jwt.io/introduction)
-| GraphQL | [https://graphql.org/](https://graphql.org/learn/)
-| Express Web Server | [https://expressjs.com/](https://expressjs.com/en/starter/installing.html)
-| MongoDB | [https://www.mongodb.com/](https://www.mongodb.com/docs/)
-| Mongoose ODM | [https://mongoosejs.com/](https://mongoosejs.com/docs/guide.html)
-| Apollo Server | [https://www.apollographql.com/](https://www.apollographql.com/docs/apollo-server/)
-| Nodemon | [https://www.npmjs.com/package/nodemon](https://www.npmjs.com/package/nodemon)
-| React Hook Form | [https://react-hook-form.com/get-started/](https://react-hook-form.com/)
-| React Toastify | [https://fkhadra.github.io/react-toastify/](https://fkhadra.github.io/react-toastify/introduction/)
-| React Table | [https://react-table-v7.tanstack.com/](https://react-table-v7.tanstack.com/)
-| Faker | [https://fakerjs.dev/guide/](https://fakerjs.dev/guide/)
+| Path | [https://nodejs.org/docs/latest/api/path.html](https://nodejs.org/docs/latest/api/path.html) |
+| Dotenv | [https://www.npmjs.com/package/dotenv](https://www.npmjs.com/package/dotenv) |
+| Bulma | [https://bulma.io/](https://bulma.io/) |
+| Google Fonts | [https://fonts.google.com/](https://fonts.google.com/) |
+| Font Awesome | [https://fontawesome.com/](https://fontawesome.com/) |
+| Bcrypt | [https://www.npmjs.com/package/bcrypt](https://www.npmjs.com/package/bcrypt) |
+| ReactJS | [https://reactjs.org/](https://reactjs.org/docs/getting-started.html) |
+| React Router Dom | [https://reactrouter.com/](https://reactrouter.com/en/main) |
+| Javascript Web Token (JWT) | [https://jwt.io/](https://jwt.io/introduction) |
+| GraphQL | [https://graphql.org/](https://graphql.org/learn/) |
+| Express Web Server | [https://expressjs.com/](https://expressjs.com/en/starter/installing.html) |
+| MongoDB | [https://www.mongodb.com/](https://www.mongodb.com/docs/) |
+| Mongoose ODM | [https://mongoosejs.com/](https://mongoosejs.com/docs/guide.html) |
+| Apollo Server | [https://www.apollographql.com/](https://www.apollographql.com/docs/apollo-server/) |
+| Nodemon | [https://www.npmjs.com/package/nodemon](https://www.npmjs.com/package/nodemon) |
+| React Hook Form | [https://react-hook-form.com/get-started/](https://react-hook-form.com/) |
+| React Toastify | [https://fkhadra.github.io/react-toastify/](https://fkhadra.github.io/react-toastify/introduction/) |
+| React Table | [https://react-table-v7.tanstack.com/](https://react-table-v7.tanstack.com/) |
+| Faker | [https://fakerjs.dev/guide/](https://fakerjs.dev/guide/) |
 
 <br />
 
@@ -58,6 +56,11 @@ Support Hero is a customer support ticketing system. Customers are able to sign 
 ## Usage 
 
 ![Homepage](/assets/images/homepage.png)
+
+To explore this application, you may use the following credentials:
+* Agent Email: ```lillian.ferry@yahoo.com```
+* Customer Email: ```rosalyn_kassulke92@gmail.com```
+* Password (same for all users): ```Password1!```
 
 Once a user signs or logs in, they are directed to the Homepage. At the top of the Homepage is a navbar with a button to log out of the application. This navbar is present throughout the application. 
 
@@ -112,7 +115,7 @@ While a user is logged in, a toggle is accessible at the top of the page. When a
 
 <br />
 
-### Srinithi Ravichandra
+### Srinithi Ravichandran
 * [LinkedIn](https://www.linkedin.com/in/srinithi-ravichandran-18891243/)
 * [GitHub](https://github.com/srinithi19)
 * [Portfolio](https://srinithi19.github.io/react-portfolio/)
