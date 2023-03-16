@@ -17,7 +17,7 @@ function Comment(props) {
     });
     const [commentToEdit, setCommentToEdit] = useState("");
 
-    const handleEditButton = (event, notes, id) => {
+    const handleEditButton = (event, notes) => {
         const dataId = event.currentTarget.getAttribute("data-commentid");
         setCommentToEdit(dataId);
         setNoteForm(true);
@@ -51,9 +51,9 @@ function Comment(props) {
         setFormState({ [name]: value });
     };
 
-    const addNote = (commentId) => {
-        setCommentToEdit(""); // reset the commentToEdit state
-        setCommentToEdit(commentId);
+    const addNote = (event) => {
+        const dataId = event.currentTarget.getAttribute("data-commentid");
+        setCommentToEdit(dataId);
         setNoteForm(true);
         setFormState({ noteText: "" });
     }
@@ -120,7 +120,7 @@ function Comment(props) {
                                 <p className="column is-four-fifths">{comment.note.notes}</p>
                                 {props.status !== "Closed" &&
                                     <div className="column columns is-mobile">
-                                        <button className={`${theme}-secondary button column is-small mr-1`} data-commentid={comment._id} onClick={(event) => handleEditButton(event, comment.note.notes, comment._id)}>
+                                        <button className={`${theme}-secondary button column is-small mr-1`} data-commentid={comment._id} onClick={(event) => handleEditButton(event, comment.note.notes)}>
                                             <i className="fa-solid fa-pencil"></i>
                                         </button>
                                         <button className={`${theme}-secondary button column is-small mr-1`} data-commentid={comment._id} onClick={handleDeleteButton}>
@@ -149,7 +149,7 @@ function Comment(props) {
                     {userType === "Agent" && !comment.note && !noteForm &&
                         <button className={`${theme}-secondary button  my-3 is-align-self-flex-end is-small`} data-commentid={comment._id} onClick={addNote}>Add Note</button>
                     }
-                    {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit &&
+                    {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit === comment._id &&
                         <form className="columns is-flex is-align-items-flex-end" data-commentid={comment._id} onSubmit={handleCreateNote}>
                             <textarea
                                 name="noteText"
