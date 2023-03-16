@@ -51,6 +51,7 @@ function CommentList(props) {
                     variables: { ticketId, status: "Pending Customer Response" }
                 });
             }
+            setCommentFormState({messageText: ""});
 
             // navigate(0);
         } catch (error) {
