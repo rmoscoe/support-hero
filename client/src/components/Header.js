@@ -31,7 +31,7 @@ const Header = () => {
                     <div className='navbar-end'>
                         {location.pathname !== '/' &&
                             <div className='navbar-item' >
-                                <button className={`${theme}-tertiary button`} ><Link to='/'>Home</Link></button>
+                                <button style={{color:'white'}} className={`${theme}-tertiary button`} ><Link to='/'>Home</Link></button>
                             </div>}
                         <div className='navbar-item'>
                             <button className={`button ${theme}-tertiary`} onClick={logout}>Logout</button>
