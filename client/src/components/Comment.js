@@ -146,7 +146,7 @@ function Comment(props) {
                             <input type="submit" className={`${theme}-secondary button is-small column w-100 my-1 ml-2 is-align-self-flex-end`} value="Submit" />
                         </form>
                     }
-                    {userType === "Agent" && !comment.note && !noteForm &&
+                    {userType === "Agent" && !comment.note && (!noteForm || commentToEdit !== comment._id) &&
                         <button className={`${theme}-secondary button  my-3 is-align-self-flex-end is-small`} data-commentid={comment._id} onClick={addNote}>Add Note</button>
                     }
                     {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit === comment._id &&
