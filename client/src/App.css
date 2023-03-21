@@ -183,7 +183,7 @@ body {
 
 .dark-secondary-bg {
     color: white;
-    background-color: #313536;
+    background-color: #595d5f;
     border-radius: 5px;
 }
 
@@ -232,7 +232,8 @@ body {
 
 .light-secondary-bg {
     color: black;
-    background-color: white;
+    background-color: rgb(242, 242, 244);
+    /* box-shadow: 1px 1px 3px rgb(84, 84, 84); */
     border-radius: 5px;
 }
 
@@ -334,4 +335,11 @@ span {
 
 table {
     box-shadow: 3px 3px 10px #000000;
+}
+
+.link-item a {
+    color: white;
+}
+.link-item a:hover {
+    color: black;
 }
