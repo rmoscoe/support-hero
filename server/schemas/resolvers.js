@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Ticket, Comment } = require('../models');
+const { User, Ticket, Comment, Feedback } = require('../models');
 const { signToken } = require('../utils/auth');
 require('dotenv').config({ path: __dirname + '/../.env' });
 
@@ -151,7 +151,15 @@ const resolvers = {
             const user = await User.create({ firstName, lastName, password, email });
             const token = signToken(user);
             return { token, user };
+        },
+
+        //submit feedback
+        createFeedback: async (parent, { ticketId , feedbackText, rating })  => {
+            const responseStatus = "Submitted";
+            const feedback = await Feedback.create({ticketId , feedbackText, rating, responseStatus })
+            return feedback;
         }
+
     }
 }
 
