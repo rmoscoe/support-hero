@@ -2,6 +2,7 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
+const { createTransporter } = require("./config/transporter");
 require("dotenv").config();
 
 const { typeDefs, resolvers } = require('./schemas');
@@ -26,6 +27,18 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+async function verifyTransporter() {
+    let transporter = await createTransporter();
+    transporter.verify(function (error, success) {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log('Server is ready to transport messages');
+        }
+    });
+}
+
+verifyTransporter();
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
