@@ -11,14 +11,14 @@ const SubmitFeedback = (props) => {
         rating: "",
         feedbackText: "",
     }
-    const [SubmitFeedback, { loading }] = useMutation(CREATE_FEEDBACK);
+    const [createFeedback, { loading }] = useMutation(CREATE_FEEDBACK);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ defaultValues });
     const { ticketId } = useParams();
 
     const onSubmit = async (formData) => {
         try {
             console.log(formData, ticketId);
-            await SubmitFeedback({
+            await createFeedback({
                 variables: {
                     ticketId,
                     rating: formData.rating,
@@ -64,14 +64,14 @@ const SubmitFeedback = (props) => {
                                             <option value="Very Dissatisfied">Very Dissatisfied</option>
                                         </select>
                                     </div>
-                                    {errors.priority && <span className="error">Please select a rating</span>}
+                                    {errors.rating && <span className="error">Please select a rating</span>}
                                 </div>
                             </div>
                             <div className="field">
                                 <label className={`${theme} label`}>Do you have any suggestions to improve our product/service?</label>
                                 <div className="control">
                                     <textarea className={`${theme} textarea`} rows="5" placeholder="" {...register('feedbackText', { required: true })} />
-                                    {errors.description && <span className="error">This field is required</span>}
+                                    {errors.feedbackText && <span className="error">This field is required</span>}
                                 </div>
                             </div>
                             

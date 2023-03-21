@@ -154,10 +154,10 @@ export const CREATE_FEEDBACK = gql`
             _id
             feedbackText
             rating
-            responseStatus
             createdAt
             ticketId {
                 _id
+                feedbackId
             }
             
         }

@@ -18,6 +18,7 @@ const typeDefs = gql`
         createdAt: String
         users: [User]
         comments: [Comment]
+        feedbackId: Feedback
     }
     type Note {
         notes: String
@@ -34,9 +35,8 @@ const typeDefs = gql`
         _id: ID!
         feedbackText: String
         createdAt: String
-        rating: User
+        rating: String
         ticketId: Ticket
-        responseStatus: String
     }
     type Auth {
         token: ID!

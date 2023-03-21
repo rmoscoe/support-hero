@@ -155,8 +155,13 @@ const resolvers = {
 
         //submit feedback
         createFeedback: async (parent, { ticketId , feedbackText, rating })  => {
-            const responseStatus = "Submitted";
-            const feedback = await Feedback.create({ticketId , feedbackText, rating, responseStatus })
+            const feedback = await Feedback.create({ticketId , feedbackText, rating });
+            const ticket = await Ticket.findOneAndUpdate(
+                { _id: ticketId },
+                {
+                    feedbackId: feedback._id
+                })
+
             return feedback;
         }
 
