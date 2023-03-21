@@ -56,7 +56,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createUser(firstName: String, lastName: String, password: String, email: String): Auth
 
-        createFeedback(ticketId: ID!,feedbackText: String!, rating: String!): Feedback
+        createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
 
     }
 `
