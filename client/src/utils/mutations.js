@@ -147,3 +147,23 @@ export const CREATE_USER = gql`
         }
     }
 `;
+
+export const CREATE_FEEDBACK = gql`
+    mutation createFeedback($ticketId: ID!, $feedbackText: String!, $rating: String!) {
+        createFeedback(ticketId: $ticketId, feedbackText: $feedbackText, rating: $rating) {
+            _id
+            feedbackText
+            rating
+            repsonseStatus
+            createdAt
+            ticketId {
+                _id
+                title
+                description
+                priority
+                status
+            }
+            
+        }
+    }
+`;
