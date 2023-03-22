@@ -19,7 +19,6 @@ function Home() {
     if (!Auth.loggedIn()) {
         return (<Navigate to="/login" />)
     };
-
     
     // const navigate = useNavigate();
 
@@ -46,8 +45,6 @@ function Home() {
 
             </div>
             <div className="alltickets">
-                <div className="is-flex is-flex-direction-row is-justify-content-center	">
-                    <div className="is-6-tablet is-5-desktop is-4-widescreen is-3-fullh">
                         {loading ? (
                             <div>Loading...</div>
                         ) : (
@@ -55,8 +52,7 @@ function Home() {
                                 tickets={data.getTicketsByUserId}
                             />
                         )}
-                    </div>
-                </div>
+
             </div>
             {<CreateTicket isActive={isCreateTicket} handleCloseCreateTicket={handleCloseCreateTicket} refetchTicketData={refetch} />}
         </main>
