@@ -16,8 +16,5 @@
     "devDependencies": {
         "concurrently": "^5.1.0",
         "serve": "^14.2.0"
-    },
-    "dependencies": {
-        "bulma-responsive-tables": "^1.2.5"
     }
 }
