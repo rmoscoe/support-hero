@@ -97,6 +97,7 @@ connection.once("open", async () => {
         await User.deleteMany({});
         await Ticket.deleteMany({});
         await Comment.deleteMany({});
+        await Feedback.deleteMany({});
         console.log("Existing data dropped.\n--------------------\n");
 
         const agents = [];
