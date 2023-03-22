@@ -19,6 +19,7 @@ const typeDefs = gql`
         createdAt: String
         users: [User]
         comments: [Comment]
+        feedback: Feedback
     }
     type Note {
         notes: String
@@ -35,17 +36,30 @@ const typeDefs = gql`
         _id: ID!
         feedbackText: String
         createdAt: String
-        rating: User
+        rating: String
         ticketId: Ticket
-        responseStatus: String
     }
     type Auth {
         token: ID!
         user: User
     } 
+    type Email {
+        _id: ID!
+        trigger: String
+        sentAt: String
+        sentTo: String
+        sentToUser: User
+        accepted: Boolean
+        response: String
+        messageId: String
+        messageURL: String
+    }
     type Query {
         getTicketById(ticketId: ID!, userType: String!): Ticket
         getTicketsByUserId(userId: ID, status: String): [Ticket]
+        getEmailById(emailId: ID!): Email
+        getEmailsByTrigger(trigger: String!, sentAt: String): [Email]
+        getEmailsByDate(sentAt: String): [Email]
     }
     type Mutation {
         createTicket(title: String!, description: String!, issueType: String!, priority: String!): Ticket
@@ -57,8 +71,10 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createUser(firstName: String, lastName: String, password: String, email: String): Auth
 
-        createFeedback(ticketId: ID!,feedbackText: String!, rating: String!): Feedback
+        createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
 
+        createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!): Email
+        deleteEmail(messageId: String!): Email
     }
 `
 

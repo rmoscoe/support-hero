@@ -34,8 +34,12 @@ const ticketSchema = new Schema(
         }],
         comments: [{
             type: Schema.Types.ObjectId,
-            ref: 'Comment'
+            ref: 'Comment',
         }],
+        feedback: {
+            type: Schema.Types.ObjectId,
+            ref: 'Feedback',
+        }
     },
     {
         toJSON: {

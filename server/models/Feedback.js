@@ -19,12 +19,7 @@ const feedbackSchema = new Schema(
         ticketId: {
             type: Schema.Types.ObjectId,
             ref: 'Ticket',
-        },
-        repsonseStatus: {
-            type: String,
-            default: 'Not Submitted',
-        },
-
+        }
     },
     {
         toJSON: {

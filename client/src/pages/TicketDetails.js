@@ -1,4 +1,4 @@
-// import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Navigate, useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
@@ -6,12 +6,17 @@ import { UPDATE_TICKET_STATUS } from '../utils/mutations';
 import CommentList from '../components/CommentList';
 import Auth from '../utils/auth';
 import { useTheme } from '../utils/ThemeContext';
+import SubmitFeedback from '../components/SubmitFeedback';
+
 
 
 function TicketDetails() {
     const { theme } = useTheme();
 
     const { ticketId } = useParams();
+
+    const [isSubmitfeedback, setIsSubmitFeedback] = useState(false);
+
 
     const { loading, error, data, refetch } = useQuery(GET_TICKET_BY_ID, {
         variables: { ticketId, userType: Auth.getUser()?.data.type }
@@ -33,6 +38,15 @@ function TicketDetails() {
             }
         })
     }
+
+    const handleSubmitFeedback = () => {
+        setIsSubmitFeedback(true);
+    }
+
+    const handleCloseSubmitFeedback = () => {
+        setIsSubmitFeedback(false);
+    }
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
@@ -58,6 +72,8 @@ function TicketDetails() {
                         </div>
                     </div>}
                     {Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className={`${theme}-tertiary button`} onClick={updateTicketStatus}>Close Ticket</button> : <label></label>}
+                    {Auth.getUser().data.type === "Customer" && data.getTicketById.status === "Closed" && !data.getTicketById.feedback ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-target="submit-feedback-form">Submit Feedback</button> : <label></label>}
+                    </div>
                 </div>
                 <div className={`${theme} message`}>
                     <div className={`message-header ${theme}-primary`}>
@@ -71,6 +87,7 @@ function TicketDetails() {
             <div className="is-centered container comments-container">
                 <CommentList comments={data.getTicketById.comments} status={data.getTicketById.status} userId={userId} refetchTicket={refetch} />
             </div>
+            {<SubmitFeedback isActive={isSubmitfeedback} handleSubmitFeedback={handleCloseSubmitFeedback} refetchTicketData={refetch} />}
         </div>
     );
 };
