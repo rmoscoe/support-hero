@@ -51,6 +51,12 @@ function TicketDetails() {
                             <p className={`${theme}-secondary message-body is-size-5`}>Priority: <strong>{data.getTicketById.priority}</strong></p>
                         </div>
                     </div>
+                    {Auth.getUser().data.type === "Agent" &&
+                    <div className="column">
+                        <div className="message has-text-centered is-half-tablet is-mobile">
+                            <p className={`${theme}-secondary message-body is-size-5`}>Issue Type: <strong>{data.getTicketById.issueType}</strong></p>
+                        </div>
+                    </div>}
                     {Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className={`${theme}-tertiary button`} onClick={updateTicketStatus}>Close Ticket</button> : <label></label>}
                 </div>
                 <div className={`${theme} message`}>
