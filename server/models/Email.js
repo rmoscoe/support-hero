@@ -13,7 +13,7 @@ const emailSchema = new Schema(
             get: dateFormat
         },
         sentTo: {
-            // email address the email was actually sent to
+            // email address the email was actually sent to, which may be different from the user's email address if the user's email address has changed
             type: String,
             required: true
         },

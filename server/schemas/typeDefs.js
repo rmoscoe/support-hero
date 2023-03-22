@@ -42,9 +42,23 @@ const typeDefs = gql`
         token: ID!
         user: User
     } 
+    type Email {
+        _id: ID!
+        trigger: String
+        sentAt: String
+        sentTo: String
+        sentToUser: User
+        accepted: Boolean
+        response: String
+        messageId: String
+        messageURL: String
+    }
     type Query {
         getTicketById(ticketId: ID!, userType: String!): Ticket
         getTicketsByUserId(userId: ID, status: String): [Ticket]
+        getEmailById(emailId: ID!): Email
+        getEmailsByTrigger(trigger: String!, sentAt: String): [Email]
+        getEmailsByDate(sentAt: String): [Email]
     }
     type Mutation {
         createTicket(title: String!, description: String!, priority: String!): Ticket
@@ -58,6 +72,8 @@ const typeDefs = gql`
 
         createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
 
+        createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!): Email
+        deleteEmail(messageId: String!): Email
     }
 `
 
