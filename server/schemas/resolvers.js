@@ -31,12 +31,12 @@ const resolvers = {
         },
 
         // get Email by ID
-        getEmailByID: async (parent, { emailId }) => {
+        getEmailById: async (parent, { emailId }) => {
             return await Email.findOne({ _id: emailId }).populate("sentToUser");
         },
 
         // get Emails by Trigger
-        getEmailByTrigger: async (parent, { trigger, sentAt }) => {
+        getEmailsByTrigger: async (parent, { trigger, sentAt }) => {
             if (sentAt)
                 return await Email.find({
                     trigger: trigger,
