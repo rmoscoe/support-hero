@@ -20,6 +20,7 @@ const CreateTicket = (props) => {
                 variables: {
                     title: formData.title,
                     description: formData.description,
+                    issueType: formData.issueType,
                     priority: formData.priority,
                     userId: props.userId
                 },
@@ -62,6 +63,21 @@ const CreateTicket = (props) => {
                                 <div className="control">
                                     <textarea className={`${theme} textarea`} rows="10" placeholder="Detailed description of the issue" {...register('description', { required: true })} />
                                     {errors.description && <span className="error">This field is required</span>}
+                                </div>
+                            </div>
+                            <div className="field">
+                                <label className={`${theme} label`}>Issue:</label>
+                                <div className="control">
+                                <div className="select is-fullwidth">
+                                        <select {...register('issueType', { required: true })}>
+                                            <option value="">Select Issue Type</option>
+                                            <option value="Technical">Technical</option>
+                                            <option value="Account-related">Account-related</option>
+                                            <option value="Bug Report">Bug Report</option>
+                                            <option value="Feature Request">Feature Request</option>
+                                        </select>
+                                    </div>
+                                    {errors.issueType && <span className="error">This field is required</span>}
                                 </div>
                             </div>
                             <div className="field">

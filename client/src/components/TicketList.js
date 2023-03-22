@@ -32,31 +32,33 @@ const TicketList = ({ tickets }) => {
     return (
         <>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-            <table {...getTableProps()} className={` table ${theme === 'dark' && 'dark-bg'} is-fullwidth is-responsive hscroll`}>
-                <thead>
-                    {headerGroups.map((headerGroup) => (
-                        <tr className="is-selected" {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map((column) => (
-                                <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
-                                    <div>{column.canFilter ? column.render('Filter') : null}</div>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
-                        prepareRow(row)
-                        return (
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map((cell) => {
-                                    return <td style={{color:'black'}} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</Link></td>
-                                })}
+            <div className='table-container'>
+                <table {...getTableProps()} className={` table is-narrow  is-fullwidth is-responsive hscroll`}>
+                    <thead>
+                        {headerGroups.map((headerGroup) => (
+                            <tr className="is-selected " {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map((column) => (
+                                    <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
+                                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                    </th>
+                                ))}
                             </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+                        ))}
+                    </thead>
+                    <tbody className={`${theme}-primary-bg`} {...getTableBodyProps()}>
+                        {rows.map((row) => {
+                            prepareRow(row)
+                            return (
+                                <tr {...row.getRowProps()}>
+                                    {row.cells.map((cell) => {
+                                        return <td className={`${theme}-text`} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</Link></td>
+                                    })}
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 };

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_TICKET = gql`
-    mutation createTicket(title: String!, description: String!, issueType: String!, priority: String!) {
+    mutation createTicket($title: String!, $description: String!, $issueType: String!, $priority: String!) {
         createTicket(title: $title, description: $description, issueType: $issueType, priority: $priority) {
             _id
             title

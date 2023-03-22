@@ -34,7 +34,7 @@ const resolvers = {
 
     Mutation: {
         //create new ticket
-        createTicket: async (parent, { title, description, priority, issueType }, context) => {
+        createTicket: async (parent, { title, description, issueType, priority }, context) => {
 
             const usersDb = await User.find({ type: "Agent" });
 
@@ -49,7 +49,7 @@ const resolvers = {
 
             const users = [agentId, customerId]
 
-            const ticket = await (await Ticket.create({ title, description, priority, issueType, users })).populate("users");
+            const ticket = await (await Ticket.create({ title, description, issueType, priority, users })).populate("users");
 
             return ticket;
         },
