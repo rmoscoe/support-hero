@@ -22,6 +22,7 @@ import TicketDetails from './pages/TicketDetails';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Signup from './pages/Signup';
+import Metrics from './pages/Metrics';
 
 // Construct main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -75,6 +76,10 @@ function App() {
                                 <Route
                                     path="/signup"
                                     element={<Signup />}
+                                />
+                                <Route
+                                    path="/metrics"
+                                    element={<Metrics />}
                                 />
                                 <Route
                                     path="/tickets/:ticketId"
