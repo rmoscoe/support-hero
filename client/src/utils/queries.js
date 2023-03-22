@@ -5,6 +5,7 @@ export const GET_TICKET_BY_ID = gql`
         getTicketById(ticketId: $ticketId, userType: $userType) {
             _id
             title
+            issueType
             priority
             status
             createdAt
@@ -40,6 +41,7 @@ export const GET_TICKETS_BY_USER_ID = gql`
         getTicketsByUserId(userId: $userId, status: $status) {
                 _id
                 title
+                issueType
                 priority
                 status
                 createdAt

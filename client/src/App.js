@@ -54,7 +54,6 @@ function App() {
     return (
         <ApolloProvider client={client}>
             <Router>
-                <div className="d-flex flex-column justify-content-start min-100-vh">
                     <StoreProvider>
                         {Auth.loggedIn() &&
                             <Header />}
@@ -63,7 +62,6 @@ function App() {
                                 <input type="checkbox" onChange={e => {}} checked={theme === 'dark'} />
                                 <span onClick={toggleTheme} className="toggle"></span>
                             </label>}
-                        <div className="container">
                             <Routes>
                                 <Route
                                     path="/"
@@ -86,10 +84,8 @@ function App() {
                                     element={<TicketDetails />}
                                 />
                             </Routes>
-                        </div>
                     </StoreProvider>
                     <Footer />
-                </div>
             </Router>
         </ApolloProvider >
     )

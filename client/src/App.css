@@ -2,6 +2,7 @@
     text-align: center;
 }
 
+
 html {
     height: 100%;
 }
@@ -149,6 +150,14 @@ body {
     background-color: #313536;
 }
 
+.dark-text > a  {
+    color: white;
+}
+
+.dark-text > a:hover  {
+    color: rgb(92, 92, 92);
+}
+
 .dark-bg {
     color: #000000;
     background-color: #bcbbbb;
@@ -174,12 +183,7 @@ body {
     border-radius: 5px;
 }
 
-.dark-primary-bg {
-    color: white;
-    background-color: #313536;
-    border-radius: 5px;
-    box-shadow: 3px 3px 9px #000508;
-}
+
 
 .dark-secondary-bg {
     color: white;
@@ -222,7 +226,12 @@ body {
     box-shadow: 3px 3px 9px #2e4eb7;
     border-radius: 5px;
 }
-
+.dark-primary-bg {
+    color: white ;
+    background-color: #474748 !important;
+    border-radius: 5px;
+    box-shadow: 3px 3px 9px #000508;
+}
 .light-primary-bg {
     color: black;
     background-color: white;
@@ -307,16 +316,15 @@ input:checked+.toggle:before {
     transform: translateX(26px);
 }
 
-.hscroll {
-    overflow-x: auto;
-    /* Horizontal */
+td, th {
+  border: 1px solid #DDD;
+  text-align:center;
 }
 
-table,
-thead,
-th,
-span {
-    border-radius: 10px !important;
+
+.table-container{
+    border-radius: 10px;
+    text-align: center;
 }
 
 #comment-message-textarea {
@@ -329,17 +337,17 @@ span {
     color: white;
 }
 
-.td {
-    border: none;
-}
-
-table {
-    box-shadow: 3px 3px 10px #000000;
-}
-
 .link-item a {
     color: white;
 }
 .link-item a:hover {
     color: black;
 }
+
+@media screen and (max-width: 1050px){
+     .filter{
+        width: 100px;
+    }
+}
+
+
