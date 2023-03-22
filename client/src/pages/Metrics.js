@@ -4,8 +4,6 @@ import Auth from '../utils/auth';
 import { Navigate } from 'react-router-dom';
 import MetricCards from '../components/MetricCards';
 
-
-
 function Metrics() {
     const { theme } = useTheme();
 
