@@ -77,7 +77,7 @@ const createFeedback = async (ticketId) => {
     const currentDate = new Date();
     const feedbackText = faker.lorem.sentences(1);
     const rating = faker.helpers.arrayElement(['Very Satisfied', 'Satisfied', 'Neutral', 'Dissatisfied', 'Very Dissatisfied'], 1);
-    const createdAt = faker.datatype.datetime({ min: currentDate, max: currentDate - (20 * 24 * 60 * 60 * 1000)});
+    const createdAt = faker.datatype.datetime({ max: currentDate, min: currentDate - (20 * 24 * 60 * 60 * 1000)});
 
     const feedback = new Feedback({
         ticketId,
@@ -120,14 +120,18 @@ connection.once("open", async () => {
         console.log('Customers created!\n--------------------\n');
 
         // For all customers, create tickets with comments and assign them to agents
+        // This adds two tickets per customer
         console.log('Creating ticket and Comment data...');
         for (let i = 0; i < customers.length; i++) {
             const customerId = customers[i]._id;
-            const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
+            
+            for (let j = 0; j < 2; j++) {
+                const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
 
-            userIds = [customerId, randomAgentId];
-            const ticket = await createTicket(userIds);
-            tickets.push(ticket);
+                userIds = [customerId, randomAgentId];
+                const ticket = await createTicket(userIds);
+                tickets.push(ticket);
+            }
         }
         console.log('Ticket and Comment data created!\n--------------------\n');
 
