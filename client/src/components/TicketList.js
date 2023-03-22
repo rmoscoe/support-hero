@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTable, useGlobalFilter, useFilters } from 'react-table';
 import { COLUMNS } from '../components/Columns'
 import { GlobalFilter } from './GlobalFilter';
@@ -10,6 +10,8 @@ const TicketList = ({ tickets }) => {
     const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => tickets, [tickets]);
     const { theme } = useTheme();
+    const [isSubmitfeedback, setIsSubmitFeedback] = useState(false);
+
 
     const { getTableProps,
         getTableBodyProps,
@@ -24,6 +26,10 @@ const TicketList = ({ tickets }) => {
     }, useFilters, useGlobalFilter)
 
     const { globalFilter } = state
+
+    const handleSubmitFeedback = () => {
+        setIsSubmitFeedback(true);
+    }
 
     if (!tickets.length) {
         return <h3 className={theme}>No Tickets Yet</h3>;
@@ -50,7 +56,10 @@ const TicketList = ({ tickets }) => {
                         return (
                             <tr {...row.getRowProps()}>
                                 {row.cells.map((cell) => {
-                                    return <td style={{color:'black'}} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</Link></td>
+                                    // console.log(cell)
+                                    return <td style={{color:'black'}} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</Link>
+                                    {/* { cell.column.Header === "Feedback" && !cell.value  && <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-target="submit-feedback-form">Submit Feedback</button> } */}
+                                    </td>
                                 })}
                             </tr>
                         )
