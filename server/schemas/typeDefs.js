@@ -13,6 +13,7 @@ const typeDefs = gql`
         _id: ID!
         title: String
         description: String
+        issueType: String
         priority: String
         status: String
         createdAt: String
@@ -47,7 +48,7 @@ const typeDefs = gql`
         getTicketsByUserId(userId: ID, status: String): [Ticket]
     }
     type Mutation {
-        createTicket(title: String!, description: String!, priority: String!): Ticket
+        createTicket(title: String!, description: String!, issueType: String!, priority: String!): Ticket
         updateTicketStatus(ticketId: ID!, status: String!): Ticket
         createComment(ticketId: ID!, message: String!, userId: ID!): Comment
         createNote(commentId: ID!, notes: String!): Comment
