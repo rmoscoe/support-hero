@@ -73,6 +73,22 @@ const createComment = async (userId) => {
     return await comment.save();
 };
 
+const createFeedback = async (ticketId) => {
+    const currentDate = new Date();
+    const feedbackText = faker.lorem.sentences(1);
+    const rating = faker.helpers.arrayElement(['Very Satisfied', 'Satisfied', 'Neutral', 'Dissatisfied', 'Very Dissatisfied'], 1);
+    const createdAt = faker.datatype.datetime({ min: currentDate, max: currentDate - (20 * 24 * 60 * 60 * 1000)});
+
+    const feedback = new Feedback({
+        ticketId,
+        feedbackText,
+        rating,
+        createdAt
+    });
+
+    return await feedback.save();
+}
+
 connection.once("open", async () => {
     try {
         console.log("\n--------------------\n\nConnected to MongoDB database...");
@@ -85,6 +101,7 @@ connection.once("open", async () => {
 
         const agents = [];
         const customers = [];
+        const tickets = [];
 
         // Create agents
         console.log('Creating agents...');
