@@ -67,7 +67,7 @@ function TicketDetails() {
                     </div>
                     <div>
                     {Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className={`${theme}-tertiary button`} onClick={updateTicketStatus}>Close Ticket</button> : <label></label>}
-                    {Auth.getUser().data.type === "Customer" && data.getTicketById.status === "Closed" && data.getTicketById.feedbackId !== "" ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-target="submit-feedback-form">Submit Feedback</button> : <label></label>}
+                    {Auth.getUser().data.type === "Customer" && data.getTicketById.status === "Closed" && !data.getTicketById.feedback ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-target="submit-feedback-form">Submit Feedback</button> : <label></label>}
                     </div>
                 </div>
                 <div className={`${theme} message`}>

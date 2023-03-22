@@ -30,9 +30,9 @@ const ticketSchema = new Schema(
         }],
         comments: [{
             type: Schema.Types.ObjectId,
-            ref: 'Comment'
+            ref: 'Comment',
         }],
-        feedbackId: {
+        feedback: {
             type: Schema.Types.ObjectId,
             ref: 'Feedback',
         }

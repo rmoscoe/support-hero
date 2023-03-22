@@ -18,7 +18,7 @@ const typeDefs = gql`
         createdAt: String
         users: [User]
         comments: [Comment]
-        feedbackId: Feedback
+        feedback: Feedback
     }
     type Note {
         notes: String

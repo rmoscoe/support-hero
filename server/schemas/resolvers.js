@@ -22,11 +22,11 @@ const resolvers = {
                     users: userId,
                     status: status
 
-                }).populate('users').populate({ path: "comments", populate: { path: "creator" } });
+                }).populate('users').populate('feedback').populate({ path: "comments", populate: { path: "creator" } });
             else
                 return await Ticket.find({
                     users: userId,
-                }).populate('users').populate({ path: "comments", populate: { path: "creator" } });
+                }).populate('users').populate('feedback').populate({ path: "comments", populate: { path: "creator" } });
 
         },
     },
@@ -159,9 +159,12 @@ const resolvers = {
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
-                    feedbackId: feedback._id
+                    feedback: feedback._id
                 })
+                console.log(feedback)
 
+                console.log(feedback._id)
+                console.log(ticket)
             return feedback;
         }
 

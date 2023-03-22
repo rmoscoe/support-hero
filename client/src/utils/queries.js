@@ -8,7 +8,9 @@ export const GET_TICKET_BY_ID = gql`
             priority
             status
             createdAt
-            feedbackId
+            feedback {
+                _id
+            }
             users {
                 _id
                 firstName
@@ -41,7 +43,10 @@ export const GET_TICKETS_BY_USER_ID = gql`
                 priority
                 status
                 createdAt
-                feedbackId
+                feedback {
+                    _id
+                }
+               
                 users {
                     _id
                     firstName

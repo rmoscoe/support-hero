@@ -157,7 +157,7 @@ export const CREATE_FEEDBACK = gql`
             createdAt
             ticketId {
                 _id
-                feedbackId
+                
             }
             
         }

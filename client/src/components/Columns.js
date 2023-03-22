@@ -20,5 +20,12 @@ export const COLUMNS = [
         accessor : "status",
         Filter : ColumnFilter
     },
+    // {
+    //     Header : 'Feedback',
+    //     accessor : "feedback._id",
+    //     Filter : ColumnFilter
+
+    // }
+
 
 ]
