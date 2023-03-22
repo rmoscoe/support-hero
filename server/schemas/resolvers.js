@@ -1,6 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Ticket, Comment, Feedback } = require('../models');
+const Email = require("../models/Email");
 const { signToken } = require('../utils/auth');
+const dateFormat = require("../utils/helpers");
 require('dotenv').config({ path: __dirname + '/../.env' });
 
 const resolvers = {
@@ -29,6 +31,178 @@ const resolvers = {
                 }).populate('users').populate('feedback').populate({ path: "comments", populate: { path: "creator" } });
 
         },
+
+        // get Email by ID
+        getEmailById: async (parent, { emailId }) => {
+            return await Email.findOne({ _id: emailId }).populate("sentToUser");
+        },
+
+        // get Emails by Trigger
+        getEmailsByTrigger: async (parent, { trigger, start, end }) => {
+            let pipeline = [];
+            if (start && end) {
+                pipeline = [
+                    {
+                        $match: {
+                            trigger: trigger,
+                            sentAt: {
+                                $gte: new Date(start),
+                                $lte: new Date(end)
+                            }
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "users",
+                            let: { userId: "$sentToUser" },
+                            pipeline: [
+                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
+                            ],
+                            as: "sentToUser"
+                        }
+                    }
+                ];
+            } else if (start) {
+                pipeline = [
+                    {
+                        $match: {
+                            trigger: trigger,
+                            sentAt: {
+                                $gte: new Date(start)
+                            }
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "users",
+                            let: { userId: "$sentToUser" },
+                            pipeline: [
+                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
+                            ],
+                            as: "sentToUser"
+                        }
+                    }
+                ];
+            } else if (end) {
+                pipeline = [
+                    {
+                        $match: {
+                            trigger: trigger,
+                            sentAt: {
+                                $lte: new Date(end)
+                            }
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "users",
+                            let: { userId: "$sentToUser" },
+                            pipeline: [
+                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
+                            ],
+                            as: "sentToUser"
+                        }
+                    }
+                ];
+            } else {
+                return await Email.find({
+                    trigger: trigger
+                }).populate("sentToUser");
+            }
+            const emailData = await Email.aggregate(pipeline);
+            const emails = emailData.map(email => {
+                email.sentAt = dateFormat(email.sentAt);
+                if (email.sentToUser.length > 0) {
+                    email.sentToUser = email.sentToUser[0];
+                }
+                return email;
+            });
+            return emails;
+        },
+
+        // get Emails by Date
+        getEmailsByDate: async (parent, {start, end}) => {
+            let pipeline = [];
+            if (start && end) {
+                pipeline = [
+                    {
+                        $match: {
+                            sentAt: {
+                                $gte: new Date(start),
+                                $lte: new Date(end)
+                            }
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "users",
+                            let: { userId: "$sentToUser" },
+                            pipeline: [
+                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
+                            ],
+                            as: "sentToUser"
+                        }
+                    }
+                ];
+            } else if (start) {
+                pipeline = [
+                    {
+                        $match: {
+                            sentAt: {
+                                $gte: new Date(start)
+                            }
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "users",
+                            let: { userId: "$sentToUser" },
+                            pipeline: [
+                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
+                            ],
+                            as: "sentToUser"
+                        }
+                    }
+                ];
+            } else if (end) {
+                pipeline = [
+                    {
+                        $match: {
+                            sentAt: {
+                                $lte: new Date(end)
+                            }
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "users",
+                            let: { userId: "$sentToUser" },
+                            pipeline: [
+                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
+                            ],
+                            as: "sentToUser"
+                        }
+                    }
+                ];
+            } else {
+                return await Email.find().populate("sentToUser");
+            }
+            const emailData = await Email.aggregate(pipeline);
+            const emails = emailData.map(email => {
+                email.sentAt = dateFormat(email.sentAt);
+                if (email.sentToUser.length > 0) {
+                    email.sentToUser = email.sentToUser[0];
+                }
+                return email;
+            });
+            return emails;
+        }
     },
 
 
@@ -154,18 +328,38 @@ const resolvers = {
         },
 
         //submit feedback
-        createFeedback: async (parent, { ticketId , feedbackText, rating })  => {
-            const feedback = await Feedback.create({ticketId , feedbackText, rating });
+        createFeedback: async (parent, { ticketId, feedbackText, rating }) => {
+            const feedback = await Feedback.create({ ticketId, feedbackText, rating });
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
                     feedback: feedback._id
                 })
-                console.log(feedback)
+            console.log(feedback)
 
-                console.log(feedback._id)
-                console.log(ticket)
+            console.log(feedback._id)
+            console.log(ticket)
             return feedback;
+        },
+
+        // create email
+        createEmail: async (parent, { trigger, sentTo, sentToUser, accepted, response, messageId, messageURL }) => {
+            const email = await Email.create({
+                trigger,
+                sentTo,
+                sentToUser,
+                accepted,
+                response,
+                messageId,
+                messageURL
+            });
+            return email;
+        },
+
+        // delete email
+        deleteEmail: async (parent, { emailId }) => {
+            const email = await Email.deleteOne({ _id: emailId });
+            return email;
         }
 
     }

@@ -58,8 +58,8 @@ const typeDefs = gql`
         getTicketById(ticketId: ID!, userType: String!): Ticket
         getTicketsByUserId(userId: ID, status: String): [Ticket]
         getEmailById(emailId: ID!): Email
-        getEmailsByTrigger(trigger: String!, sentAt: String): [Email]
-        getEmailsByDate(sentAt: String): [Email]
+        getEmailsByTrigger(trigger: String!, start: String, end: String): [Email]
+        getEmailsByDate(start: String, end: String): [Email]
     }
     type Mutation {
         createTicket(title: String!, description: String!, issueType: String!, priority: String!): Ticket
@@ -74,7 +74,7 @@ const typeDefs = gql`
         createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
 
         createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!): Email
-        deleteEmail(messageId: String!): Email
+        deleteEmail(emailId: String!): Email
     }
 `
 
