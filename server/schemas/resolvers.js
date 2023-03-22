@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Ticket, Comment, Feedback } = require('../models');
+const { User, Ticket, Comment, Feedback, Email } = require('../models');
 const { signToken } = require('../utils/auth');
 require('dotenv').config({ path: __dirname + '/../.env' });
 
@@ -29,6 +29,31 @@ const resolvers = {
                 }).populate('users').populate('feedback').populate({ path: "comments", populate: { path: "creator" } });
 
         },
+
+        // get Email by ID
+        getEmailByID: async (parent, { emailId }) => {
+            return await Email.findOne({ _id: emailId }).populate("sentToUser");
+        },
+
+        // get Emails by Trigger
+        getEmailByTrigger: async (parent, { trigger, sentAt }) => {
+            if (sentAt)
+                return await Email.find({
+                    trigger: trigger,
+                    sentAt: sentAt
+                }).populate("sentToUser");
+            else
+                return await Email.find({
+                    trigger: trigger
+                }).populate("sentToUser");
+        },
+
+        // get Emails by Date
+        getEmailsByDate: async (parent, { start, end }) => {
+            return await Email.find({
+                sentAt: { $gte: start, $lte: end }
+            }).populate("sentToUser");
+        }
     },
 
 
@@ -154,17 +179,17 @@ const resolvers = {
         },
 
         //submit feedback
-        createFeedback: async (parent, { ticketId , feedbackText, rating })  => {
-            const feedback = await Feedback.create({ticketId , feedbackText, rating });
+        createFeedback: async (parent, { ticketId, feedbackText, rating }) => {
+            const feedback = await Feedback.create({ ticketId, feedbackText, rating });
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
                     feedback: feedback._id
                 })
-                console.log(feedback)
+            console.log(feedback)
 
-                console.log(feedback._id)
-                console.log(ticket)
+            console.log(feedback._id)
+            console.log(ticket)
             return feedback;
         }
 
