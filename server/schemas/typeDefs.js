@@ -18,6 +18,7 @@ const typeDefs = gql`
         createdAt: String
         users: [User]
         comments: [Comment]
+        feedback: Feedback
     }
     type Note {
         notes: String
@@ -34,9 +35,8 @@ const typeDefs = gql`
         _id: ID!
         feedbackText: String
         createdAt: String
-        rating: User
+        rating: String
         ticketId: Ticket
-        responseStatus: String
     }
     type Auth {
         token: ID!
@@ -56,7 +56,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createUser(firstName: String, lastName: String, password: String, email: String): Auth
 
-        createFeedback(ticketId: ID!,feedbackText: String!, rating: String!): Feedback
+        createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
 
     }
 `

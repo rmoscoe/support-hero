@@ -8,6 +8,9 @@ export const GET_TICKET_BY_ID = gql`
             priority
             status
             createdAt
+            feedback {
+                _id
+            }
             users {
                 _id
                 firstName
@@ -35,12 +38,15 @@ export const GET_TICKET_BY_ID = gql`
 export const GET_TICKETS_BY_USER_ID = gql`
     query getTicketsByUserId($userId: ID, $status: String) {
         getTicketsByUserId(userId: $userId, status: $status) {
-           
                 _id
                 title
                 priority
                 status
                 createdAt
+                feedback {
+                    _id
+                }
+               
                 users {
                     _id
                     firstName
@@ -60,8 +66,7 @@ export const GET_TICKETS_BY_USER_ID = gql`
                     note {
                         notes
                     }
-                }
-             
+                } 
         }
     }
 `;
