@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { faker } = require('@faker-js/faker');
 const connection = require("../config/connection");
-const { Comment, Ticket, User } = require("../models");
+const { Comment, Ticket, User, Feedback } = require("../models");
 
 const createUser = async (type) => {
     const firstName = faker.name.firstName();
@@ -126,9 +126,19 @@ connection.once("open", async () => {
             const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
 
             userIds = [customerId, randomAgentId];
-            await createTicket(userIds);
+            const ticket = await createTicket(userIds);
+            tickets.push(ticket);
         }
         console.log('Ticket and Comment data created!\n--------------------\n');
+
+        console.log('Creating feedback data...');
+        for (let i = 0; i < tickets.length; i++) {
+            if (tickets[i].status === 'Closed' && Math.random() >= 0.5) {
+                const feedback = await createFeedback(tickets[i]._id);
+                await Ticket.findByIdAndUpdate(tickets[i]._id, { $set: { feedback: feedback._id } });
+            }
+        }
+        console.log('Feedback data created!\n--------------------\n');
 
         // Write agent data for reference and close db connection
         fs.writeFile('userData.json', JSON.stringify([...agents, ...customers], null, 4), (err) => {
