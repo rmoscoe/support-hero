@@ -1,3 +1,4 @@
+const MAX_DATE_RANGE = 30 * 24 * 60 * 60 * 1000;  // 30 days
 const fs = require('fs');
 const { faker } = require('@faker-js/faker');
 const connection = require("../config/connection");
@@ -38,16 +39,26 @@ const createTicket = async (userIds) => {
     const status = faker.helpers.arrayElement(['Open', 'Pending Agent Response', 'Pending Customer Response', 'Closed'], 1);
     const comments = [];
 
+    let minDate = new Date() - MAX_DATE_RANGE;
     for (let i = 0; i < 3; i++) {
-        const comment = await createComment(userIds[i % 2]);
-        comments.push(comment._id);
+        const comment = await createComment(userIds[i % 2], minDate);
+        minDate = new Date(comment.createdAt);
+        comments.push(comment);
     }
 
+    // Find earliest comment date
+    const latestDate = comments.reduce((maxDate, comment) => {
+        const currentDate = new Date(comment.createdAt);
+        return currentDate > maxDate ? currentDate : maxDate;
+    }, new Date(comments[0].createdAt));
+
+    const ticketCreateDate = faker.datatype.datetime({ max: latestDate, min: new Date() - MAX_DATE_RANGE });
     const ticket = new Ticket({
         title,
         description,
         priority,
         status,
+        createdAt: ticketCreateDate,
         users: userIds,
         comments
     });
@@ -57,27 +68,30 @@ const createTicket = async (userIds) => {
     return ticket;
 };
 
-const createComment = async (userId) => {
+const createComment = async (userId, minDate) => {
+    const currentDate = new Date();
     const message = faker.lorem.sentences(2);
     const creator = userId;
+    const createdAt = faker.datatype.datetime({ max: currentDate, min: minDate });
     const note = {
         notes: faker.lorem.sentences(1),
     };
 
     const comment = new Comment({
         message,
-        creator: userId,
-        note,
+        creator,
+        createdAt,
+        note
     });
 
     return await comment.save();
 };
 
-const createFeedback = async (ticketId) => {
+const createFeedback = async (ticketId, minDate) => {
     const currentDate = new Date();
     const feedbackText = faker.lorem.sentences(1);
     const rating = faker.helpers.arrayElement(['Very Satisfied', 'Satisfied', 'Neutral', 'Dissatisfied', 'Very Dissatisfied'], 1);
-    const createdAt = faker.datatype.datetime({ max: currentDate, min: currentDate - (20 * 24 * 60 * 60 * 1000)});
+    const createdAt = faker.datatype.datetime({ max: currentDate, min: minDate });
 
     const feedback = new Feedback({
         ticketId,
@@ -139,7 +153,12 @@ connection.once("open", async () => {
         console.log('Creating feedback data...');
         for (let i = 0; i < tickets.length; i++) {
             if (tickets[i].status === 'Closed' && Math.random() >= 0.5) {
-                const feedback = await createFeedback(tickets[i]._id);
+                const earliestDate = tickets[i].comments.reduce((minDate, comment) => {
+                    const currentDate = new Date(comment.createdAt);
+                    return currentDate < minDate ? currentDate : minDate;
+                }, new Date(tickets[i].comments[0].createdAt));
+                    
+                const feedback = await createFeedback(tickets[i]._id, earliestDate);
                 await Ticket.findByIdAndUpdate(tickets[i]._id, { $set: { feedback: feedback._id } });
             }
         }
