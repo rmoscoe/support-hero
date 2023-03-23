@@ -5,8 +5,7 @@ import { GlobalFilter } from './GlobalFilter';
 import { useTheme } from '../utils/ThemeContext';
 import { Link } from "react-router-dom";
 import SubmitFeedback from '../components/SubmitFeedback';
-
-
+import Auth from '../utils/auth';
 
 const TicketList = ({ tickets,refetchTicketData } ) => {
     const columns = useMemo(() => COLUMNS, []);
@@ -66,7 +65,7 @@ const TicketList = ({ tickets,refetchTicketData } ) => {
                                     {row.cells.map((cell) => {
                                         // console.log(cell)
                                         return <td className={`${theme}-text`} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.column.Header !== "Feedback" && cell.render('Cell')}</Link>
-                                         { cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && !cell.value ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-ticket-id={cell.row.values._id} data-target="submit-feedback-form">Submit Feedback</button> : cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && <label>Feedback Submitted</label> }
+                                         { cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && !cell.value && Auth.getUser()?.data.type === "Customer" ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-ticket-id={cell.row.values._id} data-target="submit-feedback-form">Submit Feedback</button> : Auth.getUser()?.data.type === "Customer" &&cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && <label style={{color:'Red'}}>Feedback Submitted</label> }
                                          </td>
                                     })}
                                 </tr>
