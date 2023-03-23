@@ -9,7 +9,7 @@ import {
     createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Auth from './utils/auth';
 
 
@@ -53,7 +53,7 @@ function App() {
     const { theme, toggleTheme } = useTheme();
     return (
         <ApolloProvider client={client}>
-            <Router>
+            <BrowserRouter>
                     <StoreProvider>
                         {Auth.loggedIn() &&
                             <Header />}
@@ -86,7 +86,8 @@ function App() {
                             </Routes>
                     </StoreProvider>
                     <Footer />
-            </Router>
+
+            </BrowserRouter>
         </ApolloProvider >
     )
 }

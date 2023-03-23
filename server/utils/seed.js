@@ -35,7 +35,7 @@ const createUser = async (type) => {
 const createTicket = async (userIds) => {
     const title = faker.lorem.words(3);
     const description = faker.lorem.paragraph();
-    const issueType = faker.helpers.arrayElement(['Technical', 'Account-related', 'Bug Report', 'Feature Request'])
+    const issueType = faker.helpers.arrayElement(['Technical', 'Account-related', 'Bug Report', 'Feature Request'], 1);
     const priority = faker.helpers.arrayElement(['Low', 'Medium', 'High'], 1);
     const status = faker.helpers.arrayElement(['Open', 'Pending Agent Response', 'Pending Customer Response', 'Closed'], 1);
     const comments = [];
