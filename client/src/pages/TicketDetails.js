@@ -34,13 +34,21 @@ function TicketDetails() {
     const userId = Auth.getUser()?.data?.id;
 
     const updateTicketStatus = () => {
-        let now = Date.now()
-        console.log(now)
+        let date = new Date(Date.now()).toLocaleString("en-us",{
+            localeMatcher: "best fit",
+            weekday: undefined,
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
         updateTicket({
             variables: {
                 ticketId: ticketId,
                 status: "Closed",
-                closedAt: now,
+                closedAt: date,
             }
         })
     }

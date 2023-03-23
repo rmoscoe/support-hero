@@ -16,9 +16,9 @@ function Metrics() {
         {
             variables: { userId: Auth.getUser()?.data._id }
         });
-    
- if (!Auth.loggedIn()) {
-            return (<Navigate to="/login" />)
+
+    if (!Auth.loggedIn()) {
+        return (<Navigate to="/login" />)
     };
 
     if (loading) return <p>Loading...</p>;
