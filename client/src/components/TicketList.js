@@ -13,6 +13,7 @@ const TicketList = ({ tickets,refetchTicketData } ) => {
     const { theme } = useTheme();
     const [isSubmitfeedback, setIsSubmitFeedback] = useState(false);
     const [dataTicketId, setDataTicketId] = useState(" ");
+    const [userType, isUserType] = useState(Auth.getUser()?.data.type)
 
 
     const { getTableProps,
@@ -49,11 +50,15 @@ const TicketList = ({ tickets,refetchTicketData } ) => {
                     <thead>
                         {headerGroups.map((headerGroup) => (
                             <tr className="is-selected " {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map((column) => (
-                                    <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
-                                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                {headerGroup.headers.map((column) => {
+                                    console.log(column)
+                                    // {userType === "Agent" && column.Header !== "Feedback" &&
+                                    return (
+                                    <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
+                                        <div>{userType === "Agent" && column.Header === "Feedback" ? null : column.canFilter ? column.render('Filter') : null}</div>
                                     </th>
-                                ))}
+                                )
+                                })}
                             </tr>
                         ))}
                     </thead>
