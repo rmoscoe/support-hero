@@ -149,6 +149,26 @@ export const CREATE_USER = gql`
     }
 `;
 
+export const RESEND_EMAIL = gql`
+    mutation resendEmail($emailId: ID!, $verificationToken: String) {
+        resendEmail(emailId: $emailId, verificationToken: $verificationToken) {
+            trigger
+            sentTo
+            sentToUser {
+                firstName
+                lastName
+                type
+            }
+            accepted
+            response
+            messageId
+            messageURL
+            subject
+            body
+        }
+    }
+`;
+
 export const CREATE_FEEDBACK = gql`
     mutation createFeedback($ticketId: ID!,  $rating: String!,  $feedbackText: String!) {
         createFeedback(ticketId: $ticketId, rating: $rating, feedbackText: $feedbackText) {

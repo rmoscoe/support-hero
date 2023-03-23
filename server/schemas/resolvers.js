@@ -352,7 +352,8 @@ const resolvers = {
                 response,
                 messageId,
                 messageURL,
-                subject, body
+                subject, 
+                body
             });
             return email;
         },
