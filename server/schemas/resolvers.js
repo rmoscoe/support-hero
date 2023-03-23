@@ -202,7 +202,15 @@ const resolvers = {
                 return email;
             });
             return emails;
-        }
+        },
+        getTicketCount: async (parent, { userId, status }) => {
+            const count = await Ticket.where({
+                users: userId,
+                status: status,
+            }).countDocuments();
+            console.log(count);
+            return count;
+          },
     },
 
 
