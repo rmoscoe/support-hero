@@ -15,11 +15,11 @@ function TicketHistory({ historyView, setHistoryView, id }) {
         <div  className={historyView ? 'modal is-active ' : 'modal'}>
             <div className="modal-background"></div>
             <div style={{width: '1000px'}} className="modal-card">
-                <header className="modal-card-head">
-                    <p className="modal-card-title">Cutomer History</p>
+                <header className={`modal-card-head ${theme}-primary-bg`}>
+                    <p className={`modal-card-title ${theme}-text`}>Cutomer History</p>
                     <button onClick={() => setHistoryView(false)} className="delete" aria-label="close"></button>
                 </header>
-                <section className="modal-card-body">
+                <section className={`modal-card-body ${theme}-bg`}>
                 {loading ? (
                             <div>Loading...</div>
                         ) : (
@@ -28,10 +28,8 @@ function TicketHistory({ historyView, setHistoryView, id }) {
                             />
                         )}
                 </section>
-                {/* <footer className="modal-card-foot">
-                    <button className={`button ${theme}-tertiary`} >Save changes</button>
-                    <button className={`button ${theme}-tertiary`}>Cancel</button>
-                </footer> */}
+                <footer className={`modal-card-foot ${theme}-primary-bg`}>
+                </footer>
             </div>
         </div>
     )
