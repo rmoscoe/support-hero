@@ -2,7 +2,10 @@
     text-align: center;
 }
 
-
+.close {
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
 html {
     height: 100%;
 }
