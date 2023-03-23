@@ -49,7 +49,7 @@ function Home() {
                             <div>Loading...</div>
                         ) : (
                             <TicketList
-                                tickets={data.getTicketsByUserId}
+                                tickets={data.getTicketsByUserId} refetchTicketData={refetch}
                             />
                         )}
 
