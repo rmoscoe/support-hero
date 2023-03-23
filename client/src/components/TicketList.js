@@ -51,8 +51,6 @@ const TicketList = ({ tickets,refetchTicketData } ) => {
                         {headerGroups.map((headerGroup) => (
                             <tr className="is-selected " {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => {
-                                    console.log(column)
-                                    // {userType === "Agent" && column.Header !== "Feedback" &&
                                     return (
                                     <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
                                         <div>{userType === "Agent" && column.Header === "Feedback" ? null : column.canFilter ? column.render('Filter') : null}</div>
@@ -68,7 +66,6 @@ const TicketList = ({ tickets,refetchTicketData } ) => {
                             return (
                                 <tr {...row.getRowProps()}>
                                     {row.cells.map((cell) => {
-                                        // console.log(cell)
                                         return <td className={`${theme}-text`} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.column.Header !== "Feedback" && cell.render('Cell')}</Link>
                                          { cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && !cell.value && Auth.getUser()?.data.type === "Customer" ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-ticket-id={cell.row.values._id} data-target="submit-feedback-form">Submit Feedback</button> : Auth.getUser()?.data.type === "Customer" &&cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && <label style={{color:'Red'}}>Feedback Submitted</label> }
                                          </td>
