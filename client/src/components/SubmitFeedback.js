@@ -17,10 +17,9 @@ const SubmitFeedback = (props) => {
 
     const onSubmit = async (formData) => {
         try {
-            console.log(formData, ticketId);
             await createFeedback({
                 variables: {
-                    ticketId,
+                    ticketId: props.ticketId || ticketId,
                     rating: formData.rating,
                     feedbackText: formData.feedbackText,
                 },
@@ -76,7 +75,7 @@ const SubmitFeedback = (props) => {
                             </div>
                             
                             <div className="buttons">
-                                <button className={`button ${theme}-primary`} type="submit" disabled={loading}>
+                                <button className={`button ${theme}-primary`} type="submit" disabled={loading} >
                                     {loading ? 'Creating...' : 'Submit'}
                                 </button>
                                 <button className={`button ${theme}-secondary`} type="button" onClick={onClose}>Close</button>
