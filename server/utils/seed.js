@@ -41,7 +41,6 @@ const createTicket = async (userIds) => {
     const comments = [];
 
     let minDate = new Date() - MAX_DATE_RANGE;
-    console.log(minDate)
     for (let i = 0; i < 3; i++) {
         const comment = await createComment(userIds[i % 2], minDate);
         minDate = new Date(comment.createdAt);
