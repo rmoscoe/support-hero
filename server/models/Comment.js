@@ -10,7 +10,7 @@ const commentSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now(),
-            // get: dateFormat
+            get: dateFormat
         },
         creator: {
             type: Schema.Types.ObjectId,
