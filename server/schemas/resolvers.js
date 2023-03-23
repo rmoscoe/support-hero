@@ -203,14 +203,6 @@ const resolvers = {
             });
             return emails;
         },
-        getTicketCount: async (parent, { userId, status }) => {
-            const count = await Ticket.where({
-                users: userId,
-                status: status,
-            }).countDocuments();
-            console.log(count);
-            return count;
-          },
     },
 
 
@@ -237,19 +229,20 @@ const resolvers = {
         },
 
         //updateTicketStatus
-        updateTicketStatus: async (parent, { ticketId, status }, context) => {
+        updateTicketStatus: async (parent, { ticketId, status, closedAt }, context) => {
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
-                    status: status
+                    status: status,
+                    closedAt: closedAt
                 },
                 {
                     new: true,
                 }
             ).populate("users").populate({ path: "comments", populate: { path: "creator" } });
+            console.log('ticket', ticket)
             return ticket;
         },
-
 
         // createComment
         createComment: async (parent, { ticketId, message, userId }, context) => {

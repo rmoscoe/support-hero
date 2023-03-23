@@ -21,8 +21,8 @@ export const CREATE_TICKET = gql`
 `;
 
 export const UPDATE_TICKET_STATUS = gql`
-    mutation updateTicketStatus($ticketId: ID!, $status: String!) {
-        updateTicketStatus(ticketId: $ticketId, status: $status) {
+    mutation updateTicketStatus($ticketId: ID!, $status: String!, $closedAt: String) {
+        updateTicketStatus(ticketId: $ticketId, status: $status, closedAt: $closedAt) {
                 _id
                 title
                 priority

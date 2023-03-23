@@ -31,10 +31,13 @@ function TicketDetails() {
     const userId = Auth.getUser()?.data?.id;
 
     const updateTicketStatus = () => {
+        let now = Date.now()
+        console.log(now)
         updateTicket({
             variables: {
                 ticketId: ticketId,
-                status: "Closed"
+                status: "Closed",
+                closedAt: now,
             }
         })
     }

@@ -17,6 +17,7 @@ const typeDefs = gql`
         priority: String
         status: String
         createdAt: String
+        closedAt: String
         users: [User]
         comments: [Comment]
         feedback: Feedback
@@ -60,11 +61,10 @@ const typeDefs = gql`
         getEmailById(emailId: ID!): Email
         getEmailsByTrigger(trigger: String!, start: String, end: String): [Email]
         getEmailsByDate(start: String, end: String): [Email]
-        getTicketCount(userId: ID!, status: String): Ticket
     }
     type Mutation {
         createTicket(title: String!, description: String!, issueType: String!, priority: String!): Ticket
-        updateTicketStatus(ticketId: ID!, status: String!): Ticket
+        updateTicketStatus(ticketId: ID!, status: String!, closedAt: String): Ticket
         createComment(ticketId: ID!, message: String!, userId: ID!): Comment
         createNote(commentId: ID!, notes: String!): Comment
         updateNote(commentId: ID!, notes: String!): Comment

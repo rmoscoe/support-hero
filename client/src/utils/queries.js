@@ -9,6 +9,7 @@ export const GET_TICKET_BY_ID = gql`
             priority
             status
             createdAt
+            closedAt
             feedback {
                 _id
             }
@@ -45,6 +46,7 @@ export const GET_TICKETS_BY_USER_ID = gql`
                 priority
                 status
                 createdAt
+                closedAt
                 feedback {
                     _id
                 }
@@ -72,9 +74,3 @@ export const GET_TICKETS_BY_USER_ID = gql`
         }
     }
 `;
-
-export const GET_TICKET_COUNT = gql`
- query getTicketCount($userId: ID!, $status: String!) {
-    ticketCount(userId: $userId, status: $status)
-  }
-  ;`
