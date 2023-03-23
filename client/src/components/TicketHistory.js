@@ -6,28 +6,32 @@ import { useTheme } from '../utils/ThemeContext';
 
 function TicketHistory({ historyView, setHistoryView, id }) {
     const { theme } = useTheme();
-    const { data } = useQuery(GET_TICKETS_BY_USER_ID,
+    const { loading, data } = useQuery(GET_TICKETS_BY_USER_ID,
         {
             variables: { userId: id }
         });
-        console.log(data);
+
     return (
-        <div className={historyView ? 'modal is-active ' : 'modal'}>
+        <div  className={historyView ? 'modal is-active ' : 'modal'}>
             <div className="modal-background"></div>
-            <div className="modal-card">
+            <div style={{width: '1000px'}} className="modal-card">
                 <header className="modal-card-head">
-                    <p className="modal-card-title">Modal title</p>
+                    <p className="modal-card-title">Cutomer History</p>
                     <button onClick={() => setHistoryView(false)} className="delete" aria-label="close"></button>
                 </header>
                 <section className="modal-card-body">
-                    <TicketList
-                        tickets={data.getTicketsByUserId}
-                    />
+                {loading ? (
+                            <div>Loading...</div>
+                        ) : (
+                            <TicketList
+                                tickets={data.getTicketsByUserId}
+                            />
+                        )}
                 </section>
-                <footer className="modal-card-foot">
+                {/* <footer className="modal-card-foot">
                     <button className={`button ${theme}-tertiary`} >Save changes</button>
                     <button className={`button ${theme}-tertiary`}>Cancel</button>
-                </footer>
+                </footer> */}
             </div>
         </div>
     )

@@ -35,12 +35,13 @@ const createUser = async (type) => {
 const createTicket = async (userIds) => {
     const title = faker.lorem.words(3);
     const description = faker.lorem.paragraph();
-    const issueType = faker.helpers.arrayElement(['Technical', 'Account-related', 'Bug Report', 'Feature Request'])
+    const issueType = faker.helpers.arrayElement(['Technical', 'Account-related', 'Bug Report', 'Feature Request'], 1);
     const priority = faker.helpers.arrayElement(['Low', 'Medium', 'High'], 1);
     const status = faker.helpers.arrayElement(['Open', 'Pending Agent Response', 'Pending Customer Response', 'Closed'], 1);
     const comments = [];
 
     let minDate = new Date() - MAX_DATE_RANGE;
+    console.log(minDate)
     for (let i = 0; i < 3; i++) {
         const comment = await createComment(userIds[i % 2], minDate);
         minDate = new Date(comment.createdAt);

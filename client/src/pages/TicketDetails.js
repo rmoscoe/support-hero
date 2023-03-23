@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Navigate, useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
-import { UPDATE_TICKET_STATUS } from '../utils/mutations';
+import { UPDATE_TICKET_STATUS, GET_TICKETS_BY_USER_ID } from '../utils/mutations';
 import CommentList from '../components/CommentList';
 import Auth from '../utils/auth';
 import { useTheme } from '../utils/ThemeContext';
@@ -25,6 +25,7 @@ function TicketDetails() {
     });
 
     const [updateTicket] = useMutation(UPDATE_TICKET_STATUS);
+
 
     if (!Auth.loggedIn()) {
         return < Navigate to = "/login" />;
@@ -52,7 +53,6 @@ function TicketDetails() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
     let customerId = data.getTicketById.users[0]._id;
-    console.log(customerId)
     return (
         <div>
             <h2 className={`${theme} title has-text-centered`}>{data.getTicketById.title}</h2>
