@@ -53,6 +53,8 @@ const typeDefs = gql`
         response: String
         messageId: String
         messageURL: String
+        subject: String
+        body: String
     }
     type Query {
         getTicketById(ticketId: ID!, userType: String!): Ticket
@@ -73,7 +75,7 @@ const typeDefs = gql`
 
         createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
 
-        createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!): Email
+        createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!, subject: String!, body: String!): Email
         deleteEmail(emailId: String!): Email
     }
 `
