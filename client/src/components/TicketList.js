@@ -4,13 +4,16 @@ import { COLUMNS } from '../components/Columns'
 import { GlobalFilter } from './GlobalFilter';
 import { useTheme } from '../utils/ThemeContext';
 import { Link } from "react-router-dom";
+import SubmitFeedback from '../components/SubmitFeedback';
+import Auth from '../utils/auth';
 
-
-const TicketList = ({ tickets }) => {
+const TicketList = ({ tickets,refetchTicketData } ) => {
     const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => tickets, [tickets]);
     const { theme } = useTheme();
     const [isSubmitfeedback, setIsSubmitFeedback] = useState(false);
+    const [dataTicketId, setDataTicketId] = useState(" ");
+    const [userType, isUserType] = useState(Auth.getUser()?.data.type)
 
 
     const { getTableProps,
@@ -27,8 +30,12 @@ const TicketList = ({ tickets }) => {
 
     const { globalFilter } = state
 
-    const handleSubmitFeedback = () => {
+    const handleSubmitFeedback = (event) => {
+        setDataTicketId(event.target.getAttribute("data-ticket-id"))
         setIsSubmitFeedback(true);
+    }
+    const handleCloseSubmitFeedback = () => {
+        setIsSubmitFeedback(false);
     }
 
     if (!tickets.length) {
@@ -43,11 +50,13 @@ const TicketList = ({ tickets }) => {
                     <thead>
                         {headerGroups.map((headerGroup) => (
                             <tr className="is-selected " {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map((column) => (
-                                    <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{column.render('Header')}
-                                        <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                {headerGroup.headers.map((column) => {
+                                    return (
+                                    <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
+                                        <div>{userType === "Agent" && column.Header === "Feedback" ? null : column.canFilter ? column.render('Filter') : null}</div>
                                     </th>
-                                ))}
+                                )
+                                })}
                             </tr>
                         ))}
                     </thead>
@@ -57,13 +66,17 @@ const TicketList = ({ tickets }) => {
                             return (
                                 <tr {...row.getRowProps()}>
                                     {row.cells.map((cell) => {
-                                        return <td className={`${theme}-text`} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.render('Cell')}</Link></td>
+                                        return <td className={`${theme}-text`} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.column.Header !== "Feedback" && cell.render('Cell')}</Link>
+                                         { cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && !cell.value && Auth.getUser()?.data.type === "Customer" ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-ticket-id={cell.row.values._id} data-target="submit-feedback-form">Submit Feedback</button> : Auth.getUser()?.data.type === "Customer" &&cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && <label style={{color:'Red'}}>Feedback Submitted</label> }
+                                         </td>
                                     })}
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
+                {<SubmitFeedback isActive={isSubmitfeedback} handleSubmitFeedback={handleCloseSubmitFeedback} ticketId={dataTicketId} refetchTicketData={refetchTicketData}/>}
+
             </div>
         </>
     );

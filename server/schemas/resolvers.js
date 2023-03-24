@@ -335,10 +335,6 @@ const resolvers = {
                 {
                     feedback: feedback._id
                 })
-            console.log(feedback)
-
-            console.log(feedback._id)
-            console.log(ticket)
             return feedback;
         },
 
