@@ -4,6 +4,7 @@ const Email = require("../models/Email");
 const { signToken } = require('../utils/auth');
 const dateFormat = require("../utils/helpers");
 require('dotenv').config({ path: __dirname + '/../.env' });
+const { sendEmail } = require('../config/transporter')
 
 const resolvers = {
     Query: {
@@ -324,6 +325,8 @@ const resolvers = {
         createUser: async (parent, { firstName, lastName, password, email }) => {
             const user = await User.create({ firstName, lastName, password, email });
             const token = signToken(user);
+            const html="/verifyUserEmail/" + email + "/" + token;
+            sendEmail(email,"Verify Email by clicking this link",html)
             return { token, user };
         },
 

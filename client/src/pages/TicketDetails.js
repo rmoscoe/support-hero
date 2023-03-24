@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Navigate, useParams } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
