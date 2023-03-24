@@ -120,8 +120,8 @@ export const DELETE_NOTE = gql`
 `;
 
 export const LOGIN = gql`
-    mutation login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
+    mutation login($email: String!, $password: String!, $redirectUrl: String, $feedback: Boolean) {
+        login(email: $email, password: $password, redirectUrl: $redirectUrl, feedback: $feedback) {
             token
             user {
                 _id

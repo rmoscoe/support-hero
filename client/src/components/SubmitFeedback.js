@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { CREATE_FEEDBACK } from '../utils/mutations';
 import { useTheme } from "../utils/ThemeContext";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 
 const SubmitFeedback = (props) => {
@@ -14,7 +14,7 @@ const SubmitFeedback = (props) => {
     const [createFeedback, { loading }] = useMutation(CREATE_FEEDBACK);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({ defaultValues });
     const { ticketId } = useParams();
-
+    const location = useLocation();
     const onSubmit = async (formData) => {
         try {
             await createFeedback({

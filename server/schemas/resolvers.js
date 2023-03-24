@@ -301,7 +301,7 @@ const resolvers = {
         },
 
         //login
-        login: async (parent, { email, password }) => {
+        login: async (parent, { email, password, redirectUrl, feedback }) => {
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -316,9 +316,9 @@ const resolvers = {
                 return { token, user };
             }
 
-            const token = signToken(user);
+            const token = signToken(user, redirectUrl);
 
-            return { token, user };
+            return { token, user, feedback };
         },
 
         createUser: async (parent, { firstName, lastName, password, email }) => {
