@@ -26,9 +26,13 @@ class AuthService {
         return localStorage.getItem("id_token");
     }
 
-    login(idToken) {
+    login(idToken, redirectUrl) {
         localStorage.setItem("id_token", idToken);
-        window.location.assign("/");
+        if (redirectUrl) {
+            window.location.assign(`${redirectUrl}/feedback`)
+        } else {
+            window.location.assign("/");
+        }
     }
 
     logout() {
