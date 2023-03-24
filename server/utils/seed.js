@@ -39,21 +39,25 @@ const createTicket = async (userIds) => {
     const priority = faker.helpers.arrayElement(['Low', 'Medium', 'High'], 1);
     const status = faker.helpers.arrayElement(['Open', 'Pending Agent Response', 'Pending Customer Response', 'Closed'], 1);
     const comments = [];
-
+    
     let minDate = new Date() - MAX_DATE_RANGE;
     for (let i = 0; i < 3; i++) {
         const comment = await createComment(userIds[i % 2], minDate);
         minDate = new Date(comment.createdAt);
         comments.push(comment);
     }
-
+    
     // Find earliest comment date
     const latestDate = comments.reduce((maxDate, comment) => {
         const currentDate = new Date(comment.createdAt);
         return currentDate > maxDate ? currentDate : maxDate;
     }, new Date(comments[0].createdAt));
-
+    
     const ticketCreateDate = faker.datatype.datetime({ max: latestDate, min: new Date() - MAX_DATE_RANGE });
+
+    const closedAt = status === 'Closed' ? new Date(comments[2].createdAt) : undefined;
+    
+
     const ticket = new Ticket({
         title,
         description,
@@ -61,6 +65,7 @@ const createTicket = async (userIds) => {
         priority,
         status,
         createdAt: ticketCreateDate,
+        closedAt,
         users: userIds,
         comments
     });

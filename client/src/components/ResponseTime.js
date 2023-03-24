@@ -16,7 +16,7 @@ function ResponseTime({ metrics }) {
             // iterate through comments on ticket
             for (let j = 1; j < metrics?.getTicketsByUserId[i].comments.length; j++) {
                 // Response counts as customer message that preceeds an agent message
-                if(metrics?.getTicketsByUserId[i].comments[j].creator.type === "Agent" && metrics?.getTicketsByUserId[i].comments[j - 1].creator.type === "Customer"){
+                if (metrics?.getTicketsByUserId[i].comments[j].creator.type === "Agent" && metrics?.getTicketsByUserId[i].comments[j - 1].creator.type === "Customer") {
                     let customerMsg = new Date(metrics?.getTicketsByUserId[i].comments[j - 1].createdAt);
                     let agentResponse = new Date(metrics?.getTicketsByUserId[i].comments[j].createdAt);
                     let responseTime = (agentResponse - customerMsg) / 86400000; //days
@@ -26,41 +26,22 @@ function ResponseTime({ metrics }) {
             }
         }
     }
-    let average = total/responseCount;
-    
+    let average = total / responseCount;
+
     // formats average in day/hour/minute/second format
     function formatTime(time) {
-        if (average > 1) {
-            let days = Math.floor(average)
-            let hours = (average - days) * 24;
-            if (hours > 1) {
-                let newHours = Math.floor(hours);
-                let minutes = (hours - newHours) * 60;
-                if (minutes > 1) {
-                    let newMin = Math.floor(minutes);
-                    let seconds = Math.floor((minutes - newMin) * 60);
-                    return(`Days: ${days}, Hours: ${newHours}, Minutes: ${newMin}, Seconds: ${seconds}`);
-                }
-            }
-        } else {
-            let hours = average * 24;
-            if (hours > 1) {
-                let newHours = Math.floor(hours);
-                let minutes = (hours - newHours) * 60;
-                if (minutes > 1) {
-                    let newMin = Math.floor(minutes);
-                    let seconds = Math.floor((minutes - newMin) * 60);
-                    return(`Hours: ${newHours}, Minutes: ${newMin}, Seconds: ${seconds}`);
-                }
-            } else {
-                let minutes = hours * 60;
-                if (minutes > 1) {
-                    let newMin = Math.floor(minutes);
-                    let seconds = Math.floor((minutes - newMin) * 60);
-                    return(`Minutes: ${newMin}, Seconds: ${seconds}`);
-                }
-            }
-        }
+        const days = Math.floor(time);
+        const hours = Math.floor((time - days) * 24);
+        const minutes = Math.floor(((time - days) * 24 - hours) * 60);
+        const seconds = Math.floor((((time - days) * 24 - hours) * 60 - minutes) * 60);
+
+        const timeArr = [];
+        if (days > 0) timeArr.push(`${days} day${days > 1 ? 's' : ''}`);
+        if (hours > 0) timeArr.push(`${hours} hour${hours > 1 ? 's' : ''}`);
+        if (minutes > 0) timeArr.push(`${minutes} minute${minutes > 1 ? 's' : ''}`);
+        if (seconds > 0) timeArr.push(`${seconds} second${seconds > 1 ? 's' : ''}`);
+
+        return timeArr.join(', ');
     }
 
     return (
