@@ -15,6 +15,10 @@ const ticketSchema = new Schema(
             type: String,
             required: true,
         },
+        issueType: {
+            type: String,
+            required: true,
+        },
         status: {
             type: String,
             default: 'Open',
@@ -30,8 +34,12 @@ const ticketSchema = new Schema(
         }],
         comments: [{
             type: Schema.Types.ObjectId,
-            ref: 'Comment'
+            ref: 'Comment',
         }],
+        feedback: {
+            type: Schema.Types.ObjectId,
+            ref: 'Feedback',
+        }
     },
     {
         toJSON: {

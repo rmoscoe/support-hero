@@ -1,10 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_TICKET = gql`
-    mutation createTicket($title: String!, $description: String!, $priority: String!) {
-        createTicket(title: $title, description: $description, priority: $priority) {
+    mutation createTicket($title: String!, $description: String!, $issueType: String!, $priority: String!) {
+        createTicket(title: $title, description: $description, issueType: $issueType, priority: $priority) {
             _id
             title
+            issueType
             priority
             status
             createdAt
@@ -119,8 +120,8 @@ export const DELETE_NOTE = gql`
 `;
 
 export const LOGIN = gql`
-    mutation login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
+    mutation login($email: String!, $password: String!, $redirectUrl: String, $feedback: Boolean) {
+        login(email: $email, password: $password, redirectUrl: $redirectUrl, feedback: $feedback) {
             token
             user {
                 _id
@@ -144,6 +145,42 @@ export const CREATE_USER = gql`
                 type
                 email
             }
+        }
+    }
+`;
+
+export const RESEND_EMAIL = gql`
+    mutation resendEmail($emailId: ID!, $verificationToken: String) {
+        resendEmail(emailId: $emailId, verificationToken: $verificationToken) {
+            trigger
+            sentTo
+            sentToUser {
+                firstName
+                lastName
+                type
+            }
+            accepted
+            response
+            messageId
+            messageURL
+            subject
+            body
+        }
+    }
+`;
+
+export const CREATE_FEEDBACK = gql`
+    mutation createFeedback($ticketId: ID!,  $rating: String!,  $feedbackText: String!) {
+        createFeedback(ticketId: $ticketId, rating: $rating, feedbackText: $feedbackText) {
+            _id
+            feedbackText
+            rating
+            createdAt
+            ticketId {
+                _id
+                
+            }
+            
         }
     }
 `;

@@ -9,7 +9,7 @@ import {
     createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Auth from './utils/auth';
 
 
@@ -22,6 +22,7 @@ import TicketDetails from './pages/TicketDetails';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Signup from './pages/Signup';
+import Metrics from './pages/Metrics';
 
 // Construct main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -52,8 +53,7 @@ function App() {
     const { theme, toggleTheme } = useTheme();
     return (
         <ApolloProvider client={client}>
-            <Router>
-                <div className="d-flex flex-column justify-content-start min-100-vh">
+            <BrowserRouter>
                     <StoreProvider>
                         {Auth.loggedIn() &&
                             <Header />}
@@ -62,7 +62,6 @@ function App() {
                                 <input type="checkbox" onChange={e => {}} checked={theme === 'dark'} />
                                 <span onClick={toggleTheme} className="toggle"></span>
                             </label>}
-                        <div className="container">
                             <Routes>
                                 <Route
                                     path="/"
@@ -77,15 +76,22 @@ function App() {
                                     element={<Signup />}
                                 />
                                 <Route
+                                    path="/metrics"
+                                    element={<Metrics />}
+                                />
+                                <Route
                                     path="/tickets/:ticketId"
                                     element={<TicketDetails />}
                                 />
+                                <Route
+                                    path="/tickets/:ticketId/:feedback"
+                                    element={<TicketDetails />}
+                                />
                             </Routes>
-                        </div>
                     </StoreProvider>
                     <Footer />
-                </div>
-            </Router>
+
+            </BrowserRouter>
         </ApolloProvider >
     )
 }
