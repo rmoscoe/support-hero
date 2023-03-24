@@ -120,8 +120,8 @@ export const DELETE_NOTE = gql`
 `;
 
 export const LOGIN = gql`
-    mutation login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
+    mutation login($email: String!, $password: String!, $redirectUrl: String, $feedback: Boolean) {
+        login(email: $email, password: $password, redirectUrl: $redirectUrl, feedback: $feedback) {
             token
             user {
                 _id
@@ -145,6 +145,26 @@ export const CREATE_USER = gql`
                 type
                 email
             }
+        }
+    }
+`;
+
+export const RESEND_EMAIL = gql`
+    mutation resendEmail($emailId: ID!, $verificationToken: String) {
+        resendEmail(emailId: $emailId, verificationToken: $verificationToken) {
+            trigger
+            sentTo
+            sentToUser {
+                firstName
+                lastName
+                type
+            }
+            accepted
+            response
+            messageId
+            messageURL
+            subject
+            body
         }
     }
 `;

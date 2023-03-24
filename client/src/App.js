@@ -83,6 +83,10 @@ function App() {
                                     path="/tickets/:ticketId"
                                     element={<TicketDetails />}
                                 />
+                                <Route
+                                    path="/tickets/:ticketId/:feedback"
+                                    element={<TicketDetails />}
+                                />
                             </Routes>
                     </StoreProvider>
                     <Footer />
