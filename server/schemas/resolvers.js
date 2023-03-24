@@ -5,6 +5,7 @@ const { signToken } = require('../utils/auth');
 const dateFormat = require("../utils/helpers");
 require('dotenv').config({ path: __dirname + '/../.env' });
 const { sendEmail } = require('../config/transporter')
+const {customerSignupHtml} = require('../utils/emailTemplates')
 
 const resolvers = {
     Query: {
@@ -325,8 +326,10 @@ const resolvers = {
         createUser: async (parent, { firstName, lastName, password, email }) => {
             const user = await User.create({ firstName, lastName, password, email });
             const token = signToken(user);
-            const html="/verifyUserEmail/" + email + "/" + token;
-            sendEmail(email,"Verify Email by clicking this link",html)
+            // const html="/verifyUserEmail/" + email + "/" + token;
+            const link = "https://dry-fjord-88699.herokuapp.com/" + "verifyUserEmail" + firstName + "/" + token;
+            const html = customerSignupHtml(firstName,link );
+            sendEmail(email,"Verify Email",html);
             return { token, user };
         },
 
