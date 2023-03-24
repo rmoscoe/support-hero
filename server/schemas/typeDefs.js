@@ -53,6 +53,8 @@ const typeDefs = gql`
         response: String
         messageId: String
         messageURL: String
+        subject: String
+        body: String
     }
     type Query {
         getTicketById(ticketId: ID!, userType: String!): Ticket
@@ -68,12 +70,12 @@ const typeDefs = gql`
         createNote(commentId: ID!, notes: String!): Comment
         updateNote(commentId: ID!, notes: String!): Comment
         deleteNote(commentId: ID!, notes: String!): Comment
-        login(email: String!, password: String!): Auth
+        login(email: String!, password: String!, redirectUrl: String, feedback: Boolean): Auth
         createUser(firstName: String, lastName: String, password: String, email: String): Auth
 
         createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
 
-        createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!): Email
+        createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!, subject: String!, body: String!): Email
         deleteEmail(emailId: String!): Email
     }
 `

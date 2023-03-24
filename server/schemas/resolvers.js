@@ -301,7 +301,7 @@ const resolvers = {
         },
 
         //login
-        login: async (parent, { email, password }) => {
+        login: async (parent, { email, password, redirectUrl, feedback }) => {
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -316,9 +316,9 @@ const resolvers = {
                 return { token, user };
             }
 
-            const token = signToken(user);
+            const token = signToken(user, redirectUrl);
 
-            return { token, user };
+            return { token, user, feedback };
         },
 
         createUser: async (parent, { firstName, lastName, password, email }) => {
@@ -339,7 +339,7 @@ const resolvers = {
         },
 
         // create email
-        createEmail: async (parent, { trigger, sentTo, sentToUser, accepted, response, messageId, messageURL }) => {
+        createEmail: async (parent, { trigger, sentTo, sentToUser, accepted, response, messageId, messageURL, subject, body }) => {
             const email = await Email.create({
                 trigger,
                 sentTo,
@@ -347,7 +347,9 @@ const resolvers = {
                 accepted,
                 response,
                 messageId,
-                messageURL
+                messageURL,
+                subject, 
+                body
             });
             return email;
         },

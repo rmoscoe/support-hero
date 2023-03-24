@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import { useForm } from "react-hook-form";
@@ -12,6 +12,11 @@ import Auth from '../utils/auth';
 const Login = (props) => {
     const [login] = useMutation(LOGIN);
 
+    const location = useLocation();
+    const urlParams = new URLSearchParams(location.search);
+    const redirect = urlParams.get('redirect');
+    const feedback = urlParams.get('feedback') === "true";
+
     const {
         register,
         resetField,
@@ -20,15 +25,15 @@ const Login = (props) => {
     } = useForm();
 
     // submit form
-    const onSubmit = async (formData, event) => {
+    const onSubmit = async (formData, event,) => {
         event.preventDefault();
         try {
             const { data } = await login({
-                variables: { email: formData.email, password: formData.password },
+                variables: { email: formData.email, password: formData.password, redirectUrl: redirect, feedback: feedback },
             });
 
             if (data.login.token !== "0") {
-                Auth.login(data.login.token);
+                Auth.login(data.login.token, redirect);
             }
             else {
                 toast.error("Please enter valid credentials");

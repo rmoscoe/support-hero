@@ -32,6 +32,12 @@ const emailSchema = new Schema(
         },
         messageURL: {
             type: String
+        },
+        subject: {
+            type: String
+        },
+        body: {
+            type: String
         }
     },
     {
