@@ -4,8 +4,13 @@ import BarChart from './BarChart';
 
 function FeedbackScores({ metrics }) {
     const { theme } = useTheme();
-    let obj = [{ rating: 'Very Satisfied', count: 0 }, { rating: 'Satisfied', count: 0 }, { rating: 'Neutral', count: 0 }, { rating: 'Dissatisfied', count: 0 }, { rating: 'Very Dissatisfied', count: 0 }];
-    // let feedbackCount = 0;
+    let obj = [
+        { rating: 'Very Satisfied', count: 0 },
+        { rating: 'Satisfied', count: 0 },
+        { rating: 'Neutral', count: 0 },
+        { rating: 'Dissatisfied', count: 0 },
+        { rating: 'Very Dissatisfied', count: 0 }];
+
     for (let i = 0; i < metrics?.getTicketsByUserId.length; i++) {
         if (metrics?.getTicketsByUserId[i].feedback) {
             // feedbackCount++
@@ -17,8 +22,15 @@ function FeedbackScores({ metrics }) {
             }
         }
     };
-    // console.log(obj);
 
+    function checkData(obj) {
+        for (let i = 0; i < obj.length; i++) {
+            if (obj[i].count > 0) {
+                return true
+            }
+            return false;
+        };
+    };
 
     return (
         <>
@@ -26,9 +38,9 @@ function FeedbackScores({ metrics }) {
                 <div className={`card-header `}>
                     <h2 className={`${theme}-tertiary is-size-4 card-header-title is-centered`}>Feedback Scores</h2>
                 </div>
-                {obj ? 
-                <BarChart data={obj} />
-                : <p>Not Enough Data</p>}
+                {checkData(obj) ?
+                    <BarChart data={obj} />
+                    : <p className='no-data'>No Data Available in Table</p>}
                 <p className='card-content'></p>
             </div>
 

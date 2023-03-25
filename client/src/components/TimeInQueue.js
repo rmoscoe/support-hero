@@ -22,12 +22,12 @@ function TimeInQueue({ metrics }) {
         const seconds = Math.floor((((time - days) * 24 - hours) * 60 - minutes) * 60);
 
         const timeArr = [];
-        if (days > 0) timeArr.push(`${days} day${days > 1 ? 's' : ''}`);
-        if (hours > 0) timeArr.push(`${hours} hour${hours > 1 ? 's' : ''}`);
-        if (minutes > 0) timeArr.push(`${minutes} minute${minutes > 1 ? 's' : ''}`);
-        if (seconds > 0) timeArr.push(`${seconds} second${seconds > 1 ? 's' : ''}`);
+        if (days > 0) timeArr.push(`${days} Day${days > 1 ? 's' : ''}`);
+        if (hours > 0) timeArr.push(`${hours} Hour${hours > 1 ? 's' : ''}`);
+        if (minutes > 0) timeArr.push(`${minutes} Minute${minutes > 1 ? 's' : ''}`);
+        if (seconds > 0) timeArr.push(`${seconds} Second${seconds > 1 ? 's' : ''}`);
 
-        return timeArr.join(', ');
+        return timeArr;
     }
 
     return (
@@ -36,7 +36,9 @@ function TimeInQueue({ metrics }) {
                 <div className={`card-header `}>
                     <h2 className={`${theme}-tertiary is-size-4 card-header-title is-centered`}>Average Time In Queue</h2>
                 </div>
-                <p className='card-content'>{formatTime(average)}</p>
+                {formatTime(average).map((time, i) => (
+                    <p className='time card-content' key={i}>{time}</p>
+                ))}
             </div>
 
         </>

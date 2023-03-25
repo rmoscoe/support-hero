@@ -14,7 +14,7 @@ function Chart({data}){
                     fontSize: 14,
                   },
                 marks: [
-                    Plot.barY(data, {x: data[0].rating ? "rating" : "issue", y: "count", fx: data[0].rating ? "Rating" : "Issue Type", fy: "Count"})
+                    Plot.barY(data, {x: data[0].rating ? "rating" : "issue", y: "count", fx: data[0].rating ? "Rating" : "Issue Type", fy: "Count", sort: {x: "y"}})
                   ]
             });
             chartRef.current.append(chart);

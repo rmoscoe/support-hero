@@ -8,6 +8,16 @@ svg{
     margin-top: 25px;
     padding: 15px;
 }
+.time {
+    font-family: 'Bakbak One', cursive;
+    font-size: 50px;
+}
+
+.no-data{
+    font-size: larger;
+    text-align: center;
+    line-height: 500px;
+}
 
 g[aria-label="x-axis label"][transform="translate(0,27)"] text,
 g[aria-label="y-axis label"][transform="translate(-37,-27)"] text{

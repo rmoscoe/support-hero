@@ -6,8 +6,8 @@ import BarChart from './BarChart';
 function IssueType({ metrics }) {
     const { theme } = useTheme();
 
-    let obj = [{ issue: 'Technical', count: 0}, 
-    {issue: 'Account-related', count: 0}, {issue: 'Bug Report', count: 0}, {issue: 'Feature Request', count: 0 }];
+    let obj = [{ issue: 'Technical', count: 0 },
+    { issue: 'Account-related', count: 0 }, { issue: 'Bug Report', count: 0 }, { issue: 'Feature Request', count: 0 }];
     for (let i = 0; i < metrics?.getTicketsByUserId.length; i++) {
         if (metrics?.getTicketsByUserId[i].issueType) {
             let issue = metrics?.getTicketsByUserId[i].issueType
@@ -18,7 +18,15 @@ function IssueType({ metrics }) {
             }
         }
     };
-    console.log(obj);
+
+    function checkData(obj) {
+        for (let i = 0; i < obj.length; i++) {
+            if (obj[i].count > 0) {
+                return true
+            }
+            return false;
+        };
+    };
 
     return (
         <>
@@ -26,10 +34,10 @@ function IssueType({ metrics }) {
                 <div className={`card-header `}>
                     <h2 className={`${theme}-tertiary is-size-4 card-header-title is-centered`}>Issue Type Frequency</h2>
                 </div>
-                {obj ? 
-                <BarChart data={obj} />
- : <p>Not Enough Data</p>}
-                <p className='card-content'></p>
+                {checkData(obj) ?
+                    <BarChart data={obj} />
+                    : <p>No Data Available in Table</p>}
+                <p className='no-data card-content'></p>
             </div>
 
         </>
