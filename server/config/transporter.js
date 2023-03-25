@@ -27,7 +27,9 @@ async function sendEmail (to, subject, html) {
         html
     });
 
-    return info;
+    const messageURL = nodemailer.getTestMessageUrl(info);
+
+    return { info, messageURL };
 }
 
 module.exports = {

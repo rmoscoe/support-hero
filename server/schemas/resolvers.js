@@ -3,6 +3,8 @@ const { User, Ticket, Comment, Feedback } = require('../models');
 const Email = require("../models/Email");
 const { signToken } = require('../utils/auth');
 const dateFormat = require("../utils/helpers");
+const { customerSignupHtml, ticketCreatedHtml, commentAddedByAgentHtml, commentAddedByCustomerHtml, ticketClosedHtml } = require("../utils/emailTemplates");
+const { sendEmail } = require("../config/transporter");
 require('dotenv').config({ path: __dirname + '/../.env' });
 
 const resolvers = {
@@ -56,7 +58,7 @@ const resolvers = {
                             from: "users",
                             let: { userId: "$sentToUser" },
                             pipeline: [
-                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
                                 { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
                             ],
                             as: "sentToUser"
@@ -78,7 +80,7 @@ const resolvers = {
                             from: "users",
                             let: { userId: "$sentToUser" },
                             pipeline: [
-                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
                                 { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
                             ],
                             as: "sentToUser"
@@ -100,7 +102,7 @@ const resolvers = {
                             from: "users",
                             let: { userId: "$sentToUser" },
                             pipeline: [
-                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
                                 { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
                             ],
                             as: "sentToUser"
@@ -124,7 +126,7 @@ const resolvers = {
         },
 
         // get Emails by Date
-        getEmailsByDate: async (parent, {start, end}) => {
+        getEmailsByDate: async (parent, { start, end }) => {
             let pipeline = [];
             if (start && end) {
                 pipeline = [
@@ -141,7 +143,7 @@ const resolvers = {
                             from: "users",
                             let: { userId: "$sentToUser" },
                             pipeline: [
-                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
                                 { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
                             ],
                             as: "sentToUser"
@@ -162,7 +164,7 @@ const resolvers = {
                             from: "users",
                             let: { userId: "$sentToUser" },
                             pipeline: [
-                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
                                 { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
                             ],
                             as: "sentToUser"
@@ -183,7 +185,7 @@ const resolvers = {
                             from: "users",
                             let: { userId: "$sentToUser" },
                             pipeline: [
-                                { $match: { $expr: { $eq: [ "$_id", "$$userId" ] } } },
+                                { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
                                 { $project: { _id: 1, firstName: 1, lastName: 1, type: 1 } }
                             ],
                             as: "sentToUser"
@@ -207,6 +209,22 @@ const resolvers = {
 
 
     Mutation: {
+        // create email
+        createEmail: async (parent, { trigger, sentTo, sentToUser, accepted, response, messageId, messageURL, subject, body }) => {
+            const email = await Email.create({
+                trigger,
+                sentTo,
+                sentToUser,
+                accepted,
+                response,
+                messageId,
+                messageURL,
+                subject,
+                body
+            });
+            return email;
+        },
+
         //create new ticket
         createTicket: async (parent, { title, description, issueType, priority }, context) => {
 
@@ -241,7 +259,6 @@ const resolvers = {
             ).populate("users").populate({ path: "comments", populate: { path: "creator" } });
             return ticket;
         },
-
 
         // createComment
         createComment: async (parent, { ticketId, message, userId }, context) => {
@@ -324,6 +341,24 @@ const resolvers = {
         createUser: async (parent, { firstName, lastName, password, email }) => {
             const user = await User.create({ firstName, lastName, password, email });
             const token = signToken(user);
+            if (user.type === "Customer") {
+                const confirmationURL = `https://https://dry-fjord-88699.herokuapp.com/placeholder`;
+                const html = customerSignupHtml(user.firstName, confirmationURL);
+                const emailInfo = await sendEmail(user.email, "Welcome to Support Hero!", html);
+                const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+                const emailRecord = await Email.create({
+                    trigger: "Customer Signup",
+                    sentTo: user.email,
+                    sentToUser: user._id,
+                    accepted: emailInfo.info.accepted[0] ? true : false,
+                    response: response,
+                    messageId: emailInfo.info.messageId,
+                    messageURL: emailInfo.messageURL,
+                    subject: "Welcome to Support Hero!",
+                    body: html
+                });
+            }
             return { token, user };
         },
 
@@ -338,21 +373,6 @@ const resolvers = {
             return feedback;
         },
 
-        // create email
-        createEmail: async (parent, { trigger, sentTo, sentToUser, accepted, response, messageId, messageURL, subject, body }) => {
-            const email = await Email.create({
-                trigger,
-                sentTo,
-                sentToUser,
-                accepted,
-                response,
-                messageId,
-                messageURL,
-                subject, 
-                body
-            });
-            return email;
-        },
 
         // delete email
         deleteEmail: async (parent, { emailId }) => {
