@@ -20,11 +20,11 @@ async function createTransporter () {
 
 async function sendEmail (to, subject, html) {
     let transporter = await createTransporter();
-
+    
     let info = await transporter.sendMail({
         to,
         subject,
-        html
+        html,
     });
 
     const messageURL = nodemailer.getTestMessageUrl(info);
