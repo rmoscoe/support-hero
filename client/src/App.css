@@ -207,7 +207,18 @@ body {
     border-radius: 5px;
 }
 
+.comment-header {
+    display: flex;
+    height: 40px;
+}
 
+.comment-header > p {
+   line-height: 13px;
+}
+
+.description{
+    font-size: 25px !important;
+}
 
 .dark-secondary-bg {
     color: white;
@@ -218,7 +229,6 @@ body {
 .dark-tertiary-bg {
     color: white;
     background-color: #313536;
-    box-shadow: 3px 3px 9px #000508;
     border-radius: 5px;
 }
 
@@ -226,7 +236,6 @@ body {
     color: white;
     background-color: #2a816c;
     border: none;
-    box-shadow: 5px 5px 10px #03372b;
 }
 
 .dark-tertiary {
@@ -254,29 +263,34 @@ body {
     color: white ;
     background-color: #474748 !important;
     border-radius: 5px;
-    box-shadow: 3px 3px 9px #000508;
 }
 .light-primary-bg {
     color: black;
     background-color: white;
-    box-shadow: 2px 2px 9px rgb(84, 84, 84);
     border-radius: 5px;
+}
+.comment-container {
+    /* display: flex; */
+    height: 20px;
 }
 
 .light-secondary-bg {
     color: black;
     background-color: rgb(242, 242, 244);
-    /* box-shadow: 1px 1px 3px rgb(84, 84, 84); */
     border-radius: 5px;
 }
 
 .light-tertiary-bg {
     color: black;
-    background-color: white;
-    box-shadow: 2px 2px 9px rgb(84, 84, 84);
+    background-color: white; 
     border-radius: 5px;
 }
-
+.light-shadow{
+    box-shadow: 2px 2px 9px rgb(84, 84, 84);
+}
+.dark-shadow{
+    box-shadow: 3px 3px 9px #000508;
+}
 .light-secondary {
     color: rgb(255, 255, 255);
     background-color: #28bc99;

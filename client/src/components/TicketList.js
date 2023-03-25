@@ -46,10 +46,10 @@ const TicketList = ({ tickets,refetchTicketData, setHistoryView } ) => {
         <>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
             <div className='table-container'>
-                <table {...getTableProps()} className={` table is-narrow  is-fullwidth is-responsive hscroll`}>
+                <table {...getTableProps()} className={`${theme} table is-narrow  is-fullwidth is-responsive hscroll`}>
                     <thead>
                         {headerGroups.map((headerGroup) => (
-                            <tr className="is-selected " {...headerGroup.getHeaderGroupProps()}>
+                            <tr className={`${theme}`} {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => {
                                     return (
                                     <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}

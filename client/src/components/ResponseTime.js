@@ -48,9 +48,10 @@ function ResponseTime({ metrics }) {
     return (
         <>
             <div className={`${theme}-secondary-bg card is-flex-grow-1`} style={{ minWidth: '300px', minHeight: '300px' }} >
-                <div className={`card-header `}>
-                    <h2 className={`${theme}-tertiary is-size-4 card-header-title is-centered`}>Response Time</h2>
-                </div>
+          <div className={`message-header ${theme}-tertiary`}>
+                <p className='description'>Response Time</p>
+            </div>
+               
                 {formatTime(average).map((time, i) => (
                     <p className='time card-content' key={i}>{time}</p>
                 ))}
