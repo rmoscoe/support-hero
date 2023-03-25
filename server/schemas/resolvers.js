@@ -7,6 +7,23 @@ const { customerSignupHtml, ticketCreatedHtml, commentAddedByAgentHtml, commentA
 const { sendEmail } = require("../config/transporter");
 require('dotenv').config({ path: __dirname + '/../.env' });
 
+// Email info
+// {
+//     [0]   info: {
+//     [0]     accepted: [ 'omoscoe@dog.com' ],
+//     [0]     rejected: [],
+//     [0]     ehlo: [ 'PIPELINING', '8BITMIME', 'SMTPUTF8', 'AUTH LOGIN PLAIN' ],
+//     [0]     envelopeTime: 476,
+//     [0]     messageTime: 185,
+//     [0]     messageSize: 3269,
+//     [0]     response: '250 Accepted [STATUS=new MSGID=ZB5r--KaqoBzYVwMZB5sEqD91CXnejquAAAAATW6NZnfZ9P4AGi9DTW4N.4]',
+//     [0]     envelope: { from: 'no-reply@supporthero.com', to: [Array] },
+//     [0]     messageId: '<899858f1-8b42-2375-7a49-06e13ae31ad8@supporthero.com>'
+//     [0]   },
+//     [0]   messageURL: 'https://ethereal.email/message/ZB5r--KaqoBzYVwMZB5sEqD91CXnejquAAAAATW6NZnfZ9P4AGi9DTW4N.4'
+//     [0] }
+
+
 const resolvers = {
     Query: {
         // get Ticket by its ID
@@ -209,22 +226,6 @@ const resolvers = {
 
 
     Mutation: {
-        // create email
-        createEmail: async (parent, { trigger, sentTo, sentToUser, accepted, response, messageId, messageURL, subject, body }) => {
-            const email = await Email.create({
-                trigger,
-                sentTo,
-                sentToUser,
-                accepted,
-                response,
-                messageId,
-                messageURL,
-                subject,
-                body
-            });
-            return email;
-        },
-
         //create new ticket
         createTicket: async (parent, { title, description, issueType, priority }, context) => {
 
@@ -242,6 +243,22 @@ const resolvers = {
             const users = [agentId, customerId]
 
             const ticket = await (await Ticket.create({ title, description, issueType, priority, users })).populate("users");
+
+            const html = ticketCreatedHtml(ticket.users[1].firstName, ticket._id, ticket.title, ticket.issueType, ticket.priority, ticket.description);
+            const emailInfo = await sendEmail(ticket.users[1].email, `Ticket #${ticket._id}`, html);
+            const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+            const emailRecord = await Email.create({
+                trigger: "Create Ticket",
+                sentTo: ticket.users[1].email,
+                sentToUser: ticket.users[1]._id,
+                accepted: emailInfo.info.accepted[0] ? true : false,
+                response: response,
+                messageId: emailInfo.info.messageId,
+                messageURL: emailInfo.messageURL,
+                subject: `Ticket #${ticket._id}`,
+                body: html
+            });
 
             return ticket;
         },
@@ -267,11 +284,30 @@ const resolvers = {
                     message,
                     creator: userId
                 }
-            )
-            await Ticket.findOneAndUpdate(
+            ).populate("creator");
+
+            const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 { $addToSet: { comments: comment._id } }
-            );
+            ).populate("users");
+
+            if (context.user.type === "Agent") {
+                const html = commentAddedByAgentHtml(ticket.users[1].firstName, ticket._id, ticket.status, comment.creator.firstName, comment.createdAt, comment.message);
+                const emailInfo = await sendEmail(ticket.users[1].email, `Update Regarding Ticket #${ticket._id}`, html);
+                const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+                const emailRecord = await Email.create({
+                    trigger: "Comment Added by Agent",
+                    sentTo: ticket.users[1].email,
+                    sentToUser: ticket.users[1]._id,
+                    accepted: emailInfo.info.accepted[0] ? true : false,
+                    response: response,
+                    messageId: emailInfo.info.messageId,
+                    messageURL: emailInfo.messageURL,
+                    subject: `Update Regarding Ticket #${ticket._id}`,
+                    body: html
+                });
+            }
             return comment;
         },
 

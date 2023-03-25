@@ -28,20 +28,22 @@ const customerSignupHtml = (firstName, confirmationURL) => {
 
 const ticketCreatedHtml = (firstName, ticketId, ticketTitle, issueType, priority, description) => {
     return `${header}
-    <main style="display: flex; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; justify-content: center; margin-top: 2rem;">
+    <main style="display: flex; flex-wrap: wrap; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
         <p>Hello ${firstName},</p>
         <br/>
         This email is to acknowledge that we have received your ticket for customer support, and you can expect a response within one business day. You may check the status of your ticket or add additional details at any time <a href="https://dry-fjord-88699.herokuapp.com/tickets/${ticketId}">here</a>.
         <br/>
-        <section style="margin: 0 1.5rem 1rem 1.5rem; background-color: #ededed; border-radius: 0.25rem; padding: 1rem; box-shadow: 3px 3px 8px #787878;">
-            <h2 style="margin-bottom: 1em;">Ticket Details</h2>
-            <p><span style="font-weight:700;">Ticket Number: </span>${ticketId}</p>
-            <p><span style="font-weight:700;">Title: </span>${ticketTitle}</p>
-            <p><span style="font-weight:700;">Issue Type: </span>${issueType}</p>
-            <p><span style="font-weight:700;">Priority: </span>${priority}</p>
-            <br/>
-            <p><span style="font-weight:700;">Description: </span>${description}</p>
-        </section>
+        <div style="display: flex; justify-content: center; margin: 1rem; width: 100%">
+            <section style="margin: 0 1.5rem 1rem 1.5rem; background-color: #ededed; border-radius: 0.25rem; padding: 1rem; box-shadow: 3px 3px 8px #787878;">
+                <h2 style="margin-bottom: 1em;">Ticket Details</h2>
+                <p><span style="font-weight:700;">Ticket Number: </span>${ticketId}</p>
+                <p><span style="font-weight:700;">Title: </span>${ticketTitle}</p>
+                <p><span style="font-weight:700;">Issue Type: </span>${issueType}</p>
+                <p><span style="font-weight:700;">Priority: </span>${priority}</p>
+                <br/>
+                <p><span style="font-weight:700;">Description: </span>${description}</p>
+            </section>
+        </div>
         <br/>
         <p>Regards,</p>
         <br/>
@@ -84,22 +86,24 @@ const commentAddedByAgentHtml = (firstName, ticketId, status, agentFirstName, co
         }
     </style>
     ${header}
-    <main style="display: flex; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; justify-content: center; margin-top: 2rem;">
+    <main style="display: flex; flex-wrap: wrap; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
         <p>Hello ${firstName},</p>
         <br/>
         <p>An agent has added a comment to your ticket number <a href="https://dry-fjord-88699.herokuapp.com/tickets/${ticketId}>${ticketId}</a>. The status of your ticket has been updated to <span style="font-weight: 700">${status}</span>.</p>
         <br/>
-        <section style="background-color: #fff; box-shadow: 2px 2px 9 px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
-            <header class="comment-header">
-                <p style="color: #fff; font-size: 1.25rem !important; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; padding: 0.75rem; font-weight: 700; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; line-height: 1.5;">${agentFirstName}</p>
-                <p class="comment-date">${commentDate}</p>
-            </header>
-            <div style="border-bottom-left-radius: 0.25rem; border-bottom-right-radius: 0.25rem; background-color: transparent; padding: 1.5rem; display: block; color: black;">
-                <div style="padding-left: 0.75rem !important; padding-right: 0.75rem!important; display: block; color: black;">
-                    <p style="display: block; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; color: black;">${commentText}</p>
+        <div style="display: flex; justify-content: center; margin: 1rem; width: 100%">
+            <section style="background-color: #fff; box-shadow: 2px 2px 9 px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
+                <header class="comment-header">
+                    <p style="color: #fff; font-size: 1.25rem !important; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; padding: 0.75rem; font-weight: 700; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; line-height: 1.5;">${agentFirstName}</p>
+                    <p class="comment-date">${commentDate}</p>
+                </header>
+                <div style="border-bottom-left-radius: 0.25rem; border-bottom-right-radius: 0.25rem; background-color: transparent; padding: 1.5rem; display: block; color: black;">
+                    <div style="padding-left: 0.75rem !important; padding-right: 0.75rem!important; display: block; color: black;">
+                        <p style="display: block; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; color: black;">${commentText}</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
         <br/>
         <p>Regards,</p>
         <br/>
@@ -142,36 +146,40 @@ const commentAddedByCustomerHtml = (firstName, ticketId, status, customerFirstNa
         }
     </style>
     ${header}
-    <main style="display: flex; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; justify-content: center; margin-top: 2rem;">
+    <main style="display: flex; flex-wrap: wrap; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
         <p>Hello ${firstName},</p>
         <br/>
         <p>The customer has added a comment to ticket number <a href="https://dry-fjord-88699.herokuapp.com/tickets/${ticketId}">${ticketId}</a>. The status of this ticket is now <span style="font-weight: 700">${status}</span>.
         <br/>
-        <section style="background-color: #fff; box-shadow: 2px 2px 9 px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
-            <header class="comment-header">
-                <p style="color: #fff; font-size: 1.25rem !important; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; padding: 0.75rem; font-weight: 700; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; line-height: 1.5;">${agentFirstName}</p>
-                <p class="comment-date">${commentDate}</p>
-            </header>
-            <div style="border-bottom-left-radius: 0.25rem; border-bottom-right-radius: 0.25rem; background-color: transparent; padding: 1.5rem; display: block; color: black;">
-                <div style="padding-left: 0.75rem !important; padding-right: 0.75rem!important; display: block; color: black;">
-                    <p style="display: block; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; color: black;">${commentText}</p>
+        <div style="display: flex; justify-content: center; margin: 1rem; width: 100%">
+            <section style="background-color: #fff; box-shadow: 2px 2px 9 px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
+                <header class="comment-header">
+                    <p style="color: #fff; font-size: 1.25rem !important; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; padding: 0.75rem; font-weight: 700; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; line-height: 1.5;">${agentFirstName}</p>
+                    <p class="comment-date">${commentDate}</p>
+                </header>
+                <div style="border-bottom-left-radius: 0.25rem; border-bottom-right-radius: 0.25rem; background-color: transparent; padding: 1.5rem; display: block; color: black;">
+                    <div style="padding-left: 0.75rem !important; padding-right: 0.75rem!important; display: block; color: black;">
+                        <p style="display: block; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; color: black;">${commentText}</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>`
 }
 
 const ticketClosedHtml = (firstName, ticketId) => {
     const encodedTicketId = encodeURIComponent(ticketId);
     return `${header}
-    <main style="display: flex; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; justify-content: center; margin-top: 2rem;">
+    <main style="display: flex; flex-wrap: wrap; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
         <p>Hello ${firstName},</p>
         <br/>
         <p>Your ticket number <a href="https://dry-fjord-88699.com/tickets/${ticketId}">${ticketId}</a> has been closed. Thank you for the opportunity to serve you! We hope your issue has been resolved to your satisfaction.</p>
         <br/>
         <p>Please click the button below to provide your feedback regarding the service you received.</p>
         <br/>
-        <button style="background-color: #9159cd; color: #fff; border: none; box-shadow: 3px 3px 8px #5e2798; vertical-align: middle !important; padding: 0rem 0.75rem 0rem 0.75rem; cursor: pointer; justify-content: center; text-align: center; white-space: nowrap; user-select: none; height: 2.5em; fint-size: 1rem;" href="https://dry-fjord-88699.com/login?redirect=/tickets/${encodedTicketId}&feedback=true}">Submit Feedback</button>
+        <div style="display: flex; justify-content: center; margin: 1rem; width: 100%">
+            <button style="background-color: #9159cd; color: #fff; border: none; box-shadow: 3px 3px 8px #5e2798; vertical-align: middle !important; padding: 0rem 0.75rem 0rem 0.75rem; cursor: pointer; justify-content: center; text-align: center; white-space: nowrap; user-select: none; height: 2.5em; fint-size: 1rem;" href="https://dry-fjord-88699.com/login?redirect=/tickets/${encodedTicketId}&feedback=true}">Submit Feedback</button>
+        </div>
         <br/>
         <p>Regards,</p>
         <br/>
