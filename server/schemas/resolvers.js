@@ -7,23 +7,6 @@ const { customerSignupHtml, ticketCreatedHtml, commentAddedByAgentHtml, commentA
 const { sendEmail } = require("../config/transporter");
 require('dotenv').config({ path: __dirname + '/../.env' });
 
-// Email info
-// {
-//     [0]   info: {
-//     [0]     accepted: [ 'omoscoe@dog.com' ],
-//     [0]     rejected: [],
-//     [0]     ehlo: [ 'PIPELINING', '8BITMIME', 'SMTPUTF8', 'AUTH LOGIN PLAIN' ],
-//     [0]     envelopeTime: 476,
-//     [0]     messageTime: 185,
-//     [0]     messageSize: 3269,
-//     [0]     response: '250 Accepted [STATUS=new MSGID=ZB5r--KaqoBzYVwMZB5sEqD91CXnejquAAAAATW6NZnfZ9P4AGi9DTW4N.4]',
-//     [0]     envelope: { from: 'no-reply@supporthero.com', to: [Array] },
-//     [0]     messageId: '<899858f1-8b42-2375-7a49-06e13ae31ad8@supporthero.com>'
-//     [0]   },
-//     [0]   messageURL: 'https://ethereal.email/message/ZB5r--KaqoBzYVwMZB5sEqD91CXnejquAAAAATW6NZnfZ9P4AGi9DTW4N.4'
-//     [0] }
-
-
 const resolvers = {
     Query: {
         // get Ticket by its ID
@@ -275,7 +258,6 @@ const resolvers = {
                     new: true,
                 }
             ).populate("users").populate({ path: "comments", populate: { path: "creator" } });
-            console.log('ticket', ticket)
             return ticket;
         },
 
@@ -287,22 +269,24 @@ const resolvers = {
                     creator: userId
                 }
             );
-            console.log(comment);
 
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 { $addToSet: { comments: comment._id } }
             ).populate("users");
 
+            const agent = ticket.users.find(user => user.type === "Agent");
+            const customer = ticket.users.find(user => user.type === "Customer");
+
             if (context.user.type === "Agent") {
-                const html = commentAddedByAgentHtml(ticket.users[1].firstName, ticket._id, ticket.status, context.user.firstName, comment.createdAt, comment.message);
-                const emailInfo = await sendEmail(ticket.users[1].email, `Update Regarding Ticket #${ticket._id}`, html);
+                const html = commentAddedByAgentHtml(customer.firstName, ticket._id, ticket.status, agent.firstName, comment.createdAt, comment.message);
+                const emailInfo = await sendEmail(customer.email, `Update Regarding Ticket #${ticket._id}`, html);
                 const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
 
                 const emailRecord = await Email.create({
                     trigger: "Comment Added by Agent",
-                    sentTo: ticket.users[1].email,
-                    sentToUser: ticket.users[1]._id,
+                    sentTo: customer.email,
+                    sentToUser: customer._id,
                     accepted: emailInfo.info.accepted[0] ? true : false,
                     response: response,
                     messageId: emailInfo.info.messageId,
@@ -311,15 +295,14 @@ const resolvers = {
                     body: html
                 });
             } else if (context.user.type === "Customer") {
-                const html = commentAddedByCustomerHtml(ticket.users[0].firstName, ticket._id, ticket.status, context.user.firstName, comment.createdAt, comment.message);
-                console.log(html);
-                const emailInfo = await sendEmail(ticket.users[0].email, `Customer Commented on Ticket #${ticket._id}`, html);
+                const html = commentAddedByCustomerHtml(agent.firstName, ticket._id, ticket.status, customer.firstName, comment.createdAt, comment.message);
+                const emailInfo = await sendEmail(agent.email, `Customer Commented on Ticket #${ticket._id}`, html);
                 const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
 
                 const emailRecord = await Email.create({
                     trigger: "Comment Added by Customer",
-                    sentTo: ticket.users[0].email,
-                    sentToUser: ticket.users[0]._id,
+                    sentTo: agent.email,
+                    sentToUser: agent._id,
                     accepted: emailInfo.info.accepted[0] ? true : false,
                     response: response,
                     messageId: emailInfo.info.messageId,
