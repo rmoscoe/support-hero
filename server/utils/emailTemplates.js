@@ -62,7 +62,7 @@ const commentAddedByAgentHtml = (firstName, ticketId, status, agentFirstName, co
             border-radius: 5px;
             padding-left: 0.75rem important!;
             padding-right: 0.75rem important!;
-            margin: -0.75rem -0.75rem 075rem -0.75rem;
+            margin: -0.75rem -0.75rem 0.75rem -0.75rem;
         }
         .comment-date {
            display: block;
@@ -86,13 +86,13 @@ const commentAddedByAgentHtml = (firstName, ticketId, status, agentFirstName, co
         }
     </style>
     ${header}
-    <main style="display: flex; flex-wrap: wrap; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
+    <main style="display: block; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
         <p>Hello ${firstName},</p>
         <br/>
-        <p>An agent has added a comment to your ticket number <a href="https://dry-fjord-88699.herokuapp.com/tickets/${ticketId}>${ticketId}</a>. The status of your ticket has been updated to <span style="font-weight: 700">${status}</span>.</p>
+        <p>An agent has added a comment to your ticket number <a href="https://dry-fjord-88699.herokuapp.com/tickets/${ticketId}">${ticketId}</a>. The status of your ticket has been updated to <span style="font-weight: 700">${status}</span>.</p>
         <br/>
         <div style="display: flex; justify-content: center; margin: 1rem; width: 100%">
-            <section style="background-color: #fff; box-shadow: 2px 2px 9 px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
+            <section style="background-color: #fff; box-shadow: 2px 2px 9px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
                 <header class="comment-header">
                     <p style="color: #fff; font-size: 1.25rem !important; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; padding: 0.75rem; font-weight: 700; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; line-height: 1.5;">${agentFirstName}</p>
                     <p class="comment-date">${commentDate}</p>
@@ -122,7 +122,7 @@ const commentAddedByCustomerHtml = (firstName, ticketId, status, customerFirstNa
             border-radius: 5px;
             padding-left: 0.75rem important!;
             padding-right: 0.75rem important!;
-            margin: -0.75rem -0.75rem 075rem -0.75rem;
+            margin: -0.75rem -0.75rem 0.75rem -0.75rem;
         }
         .comment-date {
             display: block;
@@ -146,13 +146,13 @@ const commentAddedByCustomerHtml = (firstName, ticketId, status, customerFirstNa
         }
     </style>
     ${header}
-    <main style="display: flex; flex-wrap: wrap; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
+    <main style="display: block; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
         <p>Hello ${firstName},</p>
         <br/>
         <p>The customer has added a comment to ticket number <a href="https://dry-fjord-88699.herokuapp.com/tickets/${ticketId}">${ticketId}</a>. The status of this ticket is now <span style="font-weight: 700">${status}</span>.
         <br/>
         <div style="display: flex; justify-content: center; margin: 1rem; width: 100%">
-            <section style="background-color: #fff; box-shadow: 2px 2px 9 px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
+            <section style="background-color: #fff; box-shadow: 2px 2px 9px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
                 <header class="comment-header">
                     <p style="color: #fff; font-size: 1.25rem !important; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; padding: 0.75rem; font-weight: 700; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; line-height: 1.5;">${customerFirstName}</p>
                     <p class="comment-date">${commentDate}</p>

@@ -284,7 +284,8 @@ const resolvers = {
                     message,
                     creator: userId
                 }
-            ).populate("creator");
+            );
+            console.log(comment);
 
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
@@ -292,7 +293,7 @@ const resolvers = {
             ).populate("users");
 
             if (context.user.type === "Agent") {
-                const html = commentAddedByAgentHtml(ticket.users[1].firstName, ticket._id, ticket.status, comment.creator.firstName, comment.createdAt, comment.message);
+                const html = commentAddedByAgentHtml(ticket.users[1].firstName, ticket._id, ticket.status, context.user.firstName, comment.createdAt, comment.message);
                 const emailInfo = await sendEmail(ticket.users[1].email, `Update Regarding Ticket #${ticket._id}`, html);
                 const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
 
@@ -308,7 +309,8 @@ const resolvers = {
                     body: html
                 });
             } else if (context.user.type === "Customer") {
-                const html = commentAddedByCustomerHtml(ticket.users[0].firstName, ticket._id, ticket.status, comment.creator.firstName, comment.createdAt, comment.message);
+                const html = commentAddedByCustomerHtml(ticket.users[0].firstName, ticket._id, ticket.status, context.user.firstName, comment.createdAt, comment.message);
+                console.log(html);
                 const emailInfo = await sendEmail(ticket.users[0].email, `Customer Commented on Ticket #${ticket._id}`, html);
                 const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
 
