@@ -154,7 +154,7 @@ const commentAddedByCustomerHtml = (firstName, ticketId, status, customerFirstNa
         <div style="display: flex; justify-content: center; margin: 1rem; width: 100%">
             <section style="background-color: #fff; box-shadow: 2px 2px 9 px rgb(84, 84, 84); border-radius: 5px; margin: 1.5rem !important;">
                 <header class="comment-header">
-                    <p style="color: #fff; font-size: 1.25rem !important; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; padding: 0.75rem; font-weight: 700; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; line-height: 1.5;">${agentFirstName}</p>
+                    <p style="color: #fff; font-size: 1.25rem !important; display: block; flex-basis: 0; flex-grow: 1; flex-shrink: 1; padding: 0.75rem; font-weight: 700; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; line-height: 1.5;">${customerFirstName}</p>
                     <p class="comment-date">${commentDate}</p>
                 </header>
                 <div style="border-bottom-left-radius: 0.25rem; border-bottom-right-radius: 0.25rem; background-color: transparent; padding: 1.5rem; display: block; color: black;">

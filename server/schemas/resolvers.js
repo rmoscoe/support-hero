@@ -307,7 +307,26 @@ const resolvers = {
                     subject: `Update Regarding Ticket #${ticket._id}`,
                     body: html
                 });
+            } else if (context.user.type === "Customer") {
+                const html = commentAddedByCustomerHtml(ticket.users[0].firstName, ticket._id, ticket.status, comment.creator.firstName, comment.createdAt, comment.message);
+                const emailInfo = await sendEmail(ticket.users[0].email, `Customer Commented on Ticket #${ticket._id}`, html);
+                const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+                const emailRecord = await Email.create({
+                    trigger: "Comment Added by Customer",
+                    sentTo: ticket.users[0].email,
+                    sentToUser: ticket.users[0]._id,
+                    accepted: emailInfo.info.accepted[0] ? true : false,
+                    response: response,
+                    messageId: emailInfo.info.messageId,
+                    messageURL: emailInfo.messageURL,
+                    subject: `Customer Commented on Ticket #${ticket._id}`,
+                    body: html
+                });
+            } else {
+                console.error("Cannot Identify User Type of Comment Creator");
             }
+
             return comment;
         },
 
