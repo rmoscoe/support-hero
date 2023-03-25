@@ -12,8 +12,8 @@ function TicketHistory({ historyView, setHistoryView, id }) {
         });
 
     return (
-        <div  className={historyView ? 'modal is-active ' : 'modal'}>
-            <div className="modal-background"></div>
+        <div className={historyView ? 'modal is-active ' : 'modal'}>
+            <div onClick={() => setHistoryView(false)}  className="modal-background"></div>
             <div style={{width: '1000px'}} className="modal-card">
                 <header className={`modal-card-head ${theme}-primary-bg`}>
                     <p className={`modal-card-title ${theme}-text`}>Cutomer History</p>
@@ -23,7 +23,7 @@ function TicketHistory({ historyView, setHistoryView, id }) {
                 {loading ? (
                             <div>Loading...</div>
                         ) : (
-                            <TicketList
+                            <TicketList setHistoryView={setHistoryView}
                                 tickets={data.getTicketsByUserId}
                             />
                         )}

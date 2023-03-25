@@ -356,9 +356,16 @@ td, th {
     border-radius: 5px;
 }
 
-.dark-text,
-.light-text {
+.dark-text{
     color: white;
+}
+
+.light-text {
+    color: black;
+}
+
+.current-ticket{
+    background-color: rgba(123, 124, 167, 0.412) !important;
 }
 
 .link-item a {
