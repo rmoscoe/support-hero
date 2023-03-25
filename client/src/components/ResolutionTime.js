@@ -32,13 +32,16 @@ function TimeInQueue({ metrics }) {
 
     return (
         <>
-            <div className={`${theme}-secondary-bg card is-flex-grow-1`} style={{ minWidth: '300px', minHeight: '300px' }} >
-            <div className={`message-header ${theme}-tertiary`}>
-                <p className='description'>Time in Queue</p>
+            <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{border: '1px solid black'}} >
+            <div className={`message-header ${theme}-quaternary`}>
+                <p className='description'>Average Resolution Time</p>
             </div>
-                {formatTime(average).map((time, i) => (
-                    <p className='time card-content' key={i}>{time}</p>
-                ))}
+            <div className='time'>
+               {formatTime(average).map((time, i) => (
+                    <p key={i}>{time}</p>
+                ))} 
+            </div>
+                
             </div>
 
         </>

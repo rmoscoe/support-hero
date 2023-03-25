@@ -34,14 +34,13 @@ function FeedbackScores({ metrics }) {
 
     return (
         <>
-            <div className={`${theme}-secondary-bg card is-flex-grow-1`} style={{ minWidth: '300px', minHeight: '300px' }} >
-            <div className={`message-header ${theme}-tertiary`}>
+            <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '1px solid black'}} >
+            <div className={`message-header ${theme}-primary`}>
                 <p className='description'>Feedback Scores</p>
             </div>
                 {checkData(obj) ?
                     <BarChart data={obj} />
                     : <p className='no-data'>No Data Available in Table</p>}
-                <p className='card-content'></p>
             </div>
 
         </>

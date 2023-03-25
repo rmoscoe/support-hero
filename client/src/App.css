@@ -3,14 +3,56 @@
 }
 
 svg{
+    margin-top: 7px;
+    height: 200px !important;
+}
+
+@media screen and (max-width: 820px){
+    .metrics > div {
+        flex: 100% !important;
+    }
+    .time {
+        font-size: 2.1rem !important;
+        height: 70% !important;
+        column-gap: 55px !important;
+    }
+}
+
+@media screen and (max-width: 650px){
+    .time {
+        font-size: 1.7rem !important;
+        height: 70% !important;
+        column-gap: 30px !important;
+    }
+}
+.metric-card{
+    height: 260px;
+}
+
+.metrics{
+    row-gap: 10px;
+    column-gap: 10px;
+    margin-bottom: 25px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25px;
-    padding: 15px;
 }
+.metrics > div {
+    flex: 40%;
+}
+
 .time {
     font-family: 'Bakbak One', cursive;
-    font-size: 50px;
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    row-gap: 30px;
+}
+
+.time > p {
+text-align: center;
 }
 
 .no-data{
@@ -247,6 +289,20 @@ body {
 
 .light-tertiary {
     background-color: #9159cd;
+    color: white;
+    border: none;
+    box-shadow: 3px 3px 8px #5e2798;
+}
+
+.dark-quaternary {
+    background-color: #982778;
+    color: white;
+    border: none;
+    box-shadow: 3px 3px 8px #28054e;
+}
+
+.light-quaternary {
+    background-color: #cd59b6;
     color: white;
     border: none;
     box-shadow: 3px 3px 8px #5e2798;
