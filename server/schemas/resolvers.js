@@ -204,7 +204,7 @@ const resolvers = {
                 return email;
             });
             return emails;
-        }
+        },
     },
 
 
@@ -247,16 +247,18 @@ const resolvers = {
         },
 
         //updateTicketStatus
-        updateTicketStatus: async (parent, { ticketId, status }, context) => {
+        updateTicketStatus: async (parent, { ticketId, status, closedAt }, context) => {
             const ticket = await Ticket.findOneAndUpdate(
                 { _id: ticketId },
                 {
-                    status: status
+                    status: status,
+                    closedAt: closedAt
                 },
                 {
                     new: true,
                 }
             ).populate("users").populate({ path: "comments", populate: { path: "creator" } });
+            console.log('ticket', ticket)
             return ticket;
         },
 
