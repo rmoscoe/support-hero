@@ -2,6 +2,17 @@
     text-align: center;
 }
 
+svg{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    padding: 15px;
+}
+
+g[aria-label="x-axis label"][transform="translate(0,27)"] text,
+g[aria-label="y-axis label"][transform="translate(-37,-27)"] text{
+   display: none;
+}
 .close {
     margin-bottom: 20px;
     margin-right: 20px;

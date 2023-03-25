@@ -3,7 +3,6 @@ import { useTheme } from '../utils/ThemeContext';
 
 function TimeInQueue({ metrics }) {
     const { theme } = useTheme();
-    
     // calculate average time between when ticket is created to when ticket is closed
     let total = 0;
     let closeCount = 0;
