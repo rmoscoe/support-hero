@@ -34,7 +34,8 @@ const Header = () => {
                                 <button className={`${theme}-tertiary button`} ><Link to='/'>Home</Link></button>
                             </div>}
                             {location.pathname !== '/metrics' && <div className='navbar-item link-item' >
-                            <button className={`${theme}-tertiary button`} ><Link to='/metrics'>Metrics</Link></button>
+                            {Auth.getUser().data.type === "Agent" &&
+                            <button className={`${theme}-tertiary button`} ><Link to='/metrics'>Metrics</Link></button>}
                         </div>}
                         <div className='navbar-item'>
                             <button className={`button ${theme}-tertiary`} onClick={logout}>Logout</button>

@@ -28,6 +28,10 @@ const ticketSchema = new Schema(
             default: Date.now(),
             get: dateFormat,
         },
+        closedAt: {
+            type: Date,
+            get: dateFormat,
+        },
         users: [{
             type: Schema.Types.ObjectId,
             ref: 'User',

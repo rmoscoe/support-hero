@@ -17,6 +17,7 @@ const typeDefs = gql`
         priority: String
         status: String
         createdAt: String
+        closedAt: String
         users: [User]
         comments: [Comment]
         feedback: Feedback
@@ -65,7 +66,7 @@ const typeDefs = gql`
     }
     type Mutation {
         createTicket(title: String!, description: String!, issueType: String!, priority: String!): Ticket
-        updateTicketStatus(ticketId: ID!, status: String!): Ticket
+        updateTicketStatus(ticketId: ID!, status: String!, closedAt: String): Ticket
         createComment(ticketId: ID!, message: String!, userId: ID!): Comment
         createNote(commentId: ID!, notes: String!): Comment
         updateNote(commentId: ID!, notes: String!): Comment
