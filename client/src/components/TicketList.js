@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import SubmitFeedback from '../components/SubmitFeedback';
 import Auth from '../utils/auth';
 
-const TicketList = ({ tickets,refetchTicketData } ) => {
+const TicketList = ({ tickets,refetchTicketData, setHistoryView } ) => {
     const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => tickets, [tickets]);
     const { theme } = useTheme();
@@ -60,13 +60,13 @@ const TicketList = ({ tickets,refetchTicketData } ) => {
                             </tr>
                         ))}
                     </thead>
-                    <tbody className={`${theme}-primary-bg`} {...getTableBodyProps()}>
+                    <tbody  className={`${theme}-primary-bg`} {...getTableBodyProps()}>
                         {rows.map((row) => {
                             prepareRow(row)
                             return (
                                 <tr {...row.getRowProps()}>
                                     {row.cells.map((cell) => {
-                                        return <td className={`${theme}-text`} {...cell.getCellProps()}><Link to={`/tickets/${cell.row.original._id}`}>{cell.column.Header !== "Feedback" && cell.render('Cell')}</Link>
+                                        return <td className={window.location.href.split('/').pop() === cell.row.original._id ? `current-ticket ${theme}-text` : `${theme}-text `} {...cell.getCellProps()}><Link className={window.location.href.split('/') === cell.row.original._id ? 'is-selected' : ''} onClick={() => setHistoryView(false)} to={`/tickets/${cell.row.original._id}`}>{cell.column.Header !== "Feedback" && cell.render('Cell')}</Link>
                                          { cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && !cell.value && Auth.getUser()?.data.type === "Customer" ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-ticket-id={cell.row.values._id} data-target="submit-feedback-form">Submit Feedback</button> : Auth.getUser()?.data.type === "Customer" &&cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && <label style={{color:'Red'}}>Feedback Submitted</label> }
                                          </td>
                                     })}
