@@ -3,12 +3,16 @@ const fs = require('fs');
 const { faker } = require('@faker-js/faker');
 const connection = require("../config/connection");
 const { Comment, Ticket, User, Feedback } = require("../models");
+const Email = require("../models/Email");
+const dateFormat = require("./helpers");
+const { customerSignupHtml, ticketCreatedHtml, commentAddedByAgentHtml, commentAddedByCustomerHtml, ticketClosedHtml } = require("./emailTemplates");
+const { sendEmail } = require("../config/transporter");
 
-const createUser = async (type) => {
+const createAgent = async () => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const password = 'Password1!';  //faker.internet.password(8, false, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,32})/);
-    const email = faker.internet.email().toLowerCase();
+    const email = faker.internet.email(firstName, lastName, "supporthero.com").toLowerCase();
 
     // console.log(firstName, lastName, email, password);
 
@@ -16,7 +20,26 @@ const createUser = async (type) => {
         firstName,
         lastName,
         password,
-        type,
+        type: "Agent",
+        email,
+    });
+
+    return await user.save();
+}
+
+const createCustomer = async () => {
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    const password = 'Password1!';  //faker.internet.password(8, false, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,32})/);
+    const email = faker.internet.email(firstName, lastName).toLowerCase();
+
+    // console.log(firstName, lastName, email, password);
+
+    const user = new User({
+        firstName,
+        lastName,
+        password,
+        type: "Customer",
         email,
     });
 
@@ -29,7 +52,24 @@ const createUser = async (type) => {
     // unencryptedUser.password = password;
 
     // return unencryptedUser;
-    return await user.save();
+    const customer = await user.save();
+
+    const confirmationURL = `https://https://dry-fjord-88699.herokuapp.com/placeholder`;
+    const html = customerSignupHtml(customer.firstName, confirmationURL);
+    const emailInfo = await sendEmail(customer.email, "Welcome to Support Hero!", html);
+    const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+    const emailRecord = await Email.create({
+        trigger: "Customer Signup",
+        sentTo: customer.email,
+        sentToUser: customer._id,
+        accepted: emailInfo.info.accepted[0] ? true : false,
+        response: response,
+        messageId: emailInfo.info.messageId,
+        messageURL: emailInfo.messageURL,
+        subject: "Welcome to Support Hero!",
+        body: html
+    });
 };
 
 const createTicket = async (userIds) => {
@@ -39,24 +79,24 @@ const createTicket = async (userIds) => {
     const priority = faker.helpers.arrayElement(['Low', 'Medium', 'High'], 1);
     const status = faker.helpers.arrayElement(['Open', 'Pending Agent Response', 'Pending Customer Response', 'Closed'], 1);
     const comments = [];
-    
+
     let minDate = new Date() - MAX_DATE_RANGE;
     for (let i = 0; i < 3; i++) {
         const comment = await createComment(userIds[i % 2], minDate);
         minDate = new Date(comment.createdAt);
         comments.push(comment);
     }
-    
+
     // Find earliest comment date
     const latestDate = comments.reduce((maxDate, comment) => {
         const currentDate = new Date(comment.createdAt);
         return currentDate > maxDate ? currentDate : maxDate;
     }, new Date(comments[0].createdAt));
-    
+
     const ticketCreateDate = faker.datatype.datetime({ max: latestDate, min: new Date() - MAX_DATE_RANGE });
 
     const closedAt = status === 'Closed' ? new Date(comments[2].createdAt) : undefined;
-    
+
 
     const ticket = new Ticket({
         title,
@@ -128,7 +168,7 @@ connection.once("open", async () => {
         // Create agents
         console.log('Creating agents...');
         for (let i = 0; i < 5; i++) {
-            const agent = await createUser('Agent');
+            const agent = await createAgent();
             agents.push(agent);
         }
         console.log('Agents created!\n--------------------\n');
@@ -136,7 +176,7 @@ connection.once("open", async () => {
         // Create customers
         console.log('Creating customers...');
         for (let i = 0; i < 20; i++) {
-            const customer = await createUser('Customer');
+            const customer = await createCustomer();
             customers.push(customer);
         }
         console.log('Customers created!\n--------------------\n');
@@ -146,7 +186,7 @@ connection.once("open", async () => {
         console.log('Creating ticket and Comment data...');
         for (let i = 0; i < customers.length; i++) {
             const customerId = customers[i]._id;
-            
+
             for (let j = 0; j < 2; j++) {
                 const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
 
@@ -164,7 +204,7 @@ connection.once("open", async () => {
                     const currentDate = new Date(comment.createdAt);
                     return currentDate < minDate ? currentDate : minDate;
                 }, new Date(tickets[i].comments[0].createdAt));
-                    
+
                 const feedback = await createFeedback(tickets[i]._id, earliestDate);
                 await Ticket.findByIdAndUpdate(tickets[i]._id, { $set: { feedback: feedback._id } });
             }
