@@ -110,7 +110,7 @@ const createTicket = async (ticketUsers) => {
         comments
     });
 
-    await ticket.save();
+    const ticketData = await ticket.save();
 
     const html = ticketCreatedHtml(ticketUsers[0].firstName, ticket._id, ticket.title, ticket.issueType, ticket.priority, ticket.description);
     const emailInfo = await sendEmail(ticketUsers[0].email, `Ticket #${ticket._id}`, html);
@@ -128,13 +128,78 @@ const createTicket = async (ticketUsers) => {
         body: html
     });
 
+    const ticketUsersObj = {};
+    if (ticketUsers[0].type === "Agent") {
+        ticketUsersObj.agent = ticketUsers[0];
+        ticketUsersObj.customer = ticketUsers[1];
+    } else {
+        ticketUsersObj.customer = ticketUsers[0];
+        ticketUsersObj.agent = ticketUsers[1];
+    }
+
+    comments.forEach(async (comment) => {
+        if (comment.creator === ticketUsersObj.agent._id) {
+            const html = commentAddedByAgentHtml(ticketUsersObj.customer.firstName, ticketData._id, ticketData.status, ticketUsersObj.agent.firstName, comment.createdAt, comment.message);
+            const emailInfo = await sendEmail(ticketUsersObj.customer.email, `Update Regarding Ticket #${ticketData._id}`, html);
+            const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+            const emailRecord = await Email.create({
+                trigger: "Comment Added by Agent",
+                sentTo: ticketUsersObj.customer.email,
+                sentToUser: ticketUsersObj.customer._id,
+                accepted: emailInfo.info.accepted[0] ? true : false,
+                response: response,
+                messageId: emailInfo.info.messageId,
+                messageURL: emailInfo.messageURL,
+                subject: `Update Regarding Ticket #${ticketData._id}`,
+                body: html
+            });
+        } else if (comment.creator === ticketUsersObj.customer._id) {
+            const html = commentAddedByCustomerHtml(ticketUsersObj.agent.firstName, ticketData._id, ticketData.status, ticketUsersObj.customer.firstName, comment.createdAt, comment.message);
+            const emailInfo = await sendEmail(ticketUsersObj.agent.email, `Customer Commented on Ticket #${ticketData._id}`, html);
+            const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+            const emailRecord = await Email.create({
+                trigger: "Comment Added by Customer",
+                sentTo: ticketUsersObj.agent.email,
+                sentToUser: ticketUsersObj.agent._id,
+                accepted: emailInfo.info.accepted[0] ? true : false,
+                response: response,
+                messageId: emailInfo.info.messageId,
+                messageURL: emailInfo.messageURL,
+                subject: `Customer Commented on Ticket #${ticketData._id}`,
+                body: html
+            });
+        } else {
+            console.error("Cannot Identify User Type of Comment Creator");
+        }
+    });
+
+    if (ticket.status === "Closed") {
+        const html = ticketClosedHtml(ticketUsersObj.customer.firstName, ticketData._id);
+        const emailInfo = await sendEmail(ticketUsersObj.customer.email, `Ticket ${ticketData._id} Closed`, html);
+        const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+        const emailRecord = await Email.create({
+            trigger: "Ticket Closed",
+            sentTo: ticketUsersObj.customer.email,
+            sentToUser: ticketUsersObj.customer._id,
+            accepted: emailInfo.info.accepted[0] ? true : false,
+            response: response,
+            messageId: emailInfo.info.messageId,
+            messageURL: emailInfo.messageURL,
+            subject: `Ticket ${ticketData._id} Closed`,
+            body: html
+        });
+    }
+
     return ticket;
 };
 
-const createComment = async (userId, minDate) => {
+const createComment = async (user, minDate) => {
     const currentDate = new Date();
     const message = faker.lorem.sentences(2);
-    const creator = userId;
+    const creator = user._id;
     const createdAt = faker.datatype.datetime({ max: currentDate, min: minDate });
     const note = {
         notes: faker.lorem.sentences(1),
