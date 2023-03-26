@@ -3,14 +3,56 @@
 }
 
 svg{
+    margin-top: 7px;
+    height: 200px !important;
+}
+
+@media screen and (max-width: 820px){
+    .metrics > div {
+        flex: 100% !important;
+    }
+    .time {
+        font-size: 2.1rem !important;
+        height: 70% !important;
+        column-gap: 55px !important;
+    }
+}
+
+@media screen and (max-width: 650px){
+    .time {
+        font-size: 1.7rem !important;
+        height: 70% !important;
+        column-gap: 30px !important;
+    }
+}
+.metric-card{
+    height: 260px;
+}
+
+.metrics{
+    row-gap: 10px;
+    column-gap: 10px;
+    margin-bottom: 25px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25px;
-    padding: 15px;
 }
+.metrics > div {
+    flex: 40%;
+}
+
 .time {
     font-family: 'Bakbak One', cursive;
-    font-size: 50px;
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    row-gap: 30px;
+}
+
+.time > p {
+text-align: center;
 }
 
 .no-data{
@@ -207,7 +249,18 @@ body {
     border-radius: 5px;
 }
 
+.comment-header {
+    display: flex;
+    height: 40px;
+}
 
+.comment-header > p {
+   line-height: 13px;
+}
+
+.description{
+    font-size: 25px !important;
+}
 
 .dark-secondary-bg {
     color: white;
@@ -218,7 +271,6 @@ body {
 .dark-tertiary-bg {
     color: white;
     background-color: #313536;
-    box-shadow: 3px 3px 9px #000508;
     border-radius: 5px;
 }
 
@@ -226,7 +278,6 @@ body {
     color: white;
     background-color: #2a816c;
     border: none;
-    box-shadow: 5px 5px 10px #03372b;
 }
 
 .dark-tertiary {
@@ -243,6 +294,20 @@ body {
     box-shadow: 3px 3px 8px #5e2798;
 }
 
+.dark-quaternary {
+    background-color: #982778;
+    color: white;
+    border: none;
+    box-shadow: 3px 3px 8px #28054e;
+}
+
+.light-quaternary {
+    background-color: #cd59b6;
+    color: white;
+    border: none;
+    box-shadow: 3px 3px 8px #5e2798;
+}
+
 .light-primary {
     color: #ffffff;
     background-color: #5471d0;
@@ -254,29 +319,34 @@ body {
     color: white ;
     background-color: #474748 !important;
     border-radius: 5px;
-    box-shadow: 3px 3px 9px #000508;
 }
 .light-primary-bg {
     color: black;
     background-color: white;
-    box-shadow: 2px 2px 9px rgb(84, 84, 84);
     border-radius: 5px;
+}
+.comment-container {
+    /* display: flex; */
+    height: 20px;
 }
 
 .light-secondary-bg {
     color: black;
     background-color: rgb(242, 242, 244);
-    /* box-shadow: 1px 1px 3px rgb(84, 84, 84); */
     border-radius: 5px;
 }
 
 .light-tertiary-bg {
     color: black;
-    background-color: white;
-    box-shadow: 2px 2px 9px rgb(84, 84, 84);
+    background-color: white; 
     border-radius: 5px;
 }
-
+.light-shadow{
+    box-shadow: 2px 2px 9px rgb(84, 84, 84);
+}
+.dark-shadow{
+    box-shadow: 3px 3px 9px #000508;
+}
 .light-secondary {
     color: rgb(255, 255, 255);
     background-color: #28bc99;

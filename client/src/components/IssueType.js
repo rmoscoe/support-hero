@@ -30,14 +30,13 @@ function IssueType({ metrics }) {
 
     return (
         <>
-            <div className={`${theme}-secondary-bg card is-flex-grow-1`} style={{ minWidth: '300px', minHeight: '300px' }} >
-                <div className={`card-header `}>
-                    <h2 className={`${theme}-tertiary is-size-4 card-header-title is-centered`}>Issue Type Frequency</h2>
+            <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '1px solid black'}} >
+                <div className={`message-header ${theme}-secondary`}>
+                    <p className='description'>Issue Type Frequency</p>
                 </div>
                 {checkData(obj) ?
                     <BarChart data={obj} />
                     : <p>No Data Available in Table</p>}
-                <p className='no-data card-content'></p>
             </div>
 
         </>

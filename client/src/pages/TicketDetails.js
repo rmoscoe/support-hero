@@ -107,9 +107,9 @@ function TicketDetails() {
                 </div>
                 <div className={`${theme} message`}>
                     <div className={`message-header ${theme}-primary`}>
-                        <p>Description</p>
+                        <p className='description'>Description</p>
                     </div>
-                    <div className={`${theme}-primary-bg message-body`}>
+                    <div className={`${theme}-primary-bg ${theme}-shadow message-body`}>
                         <p>{data.getTicketById.description}</p>
                     </div>
                 </div>

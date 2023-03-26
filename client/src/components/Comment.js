@@ -101,17 +101,17 @@ function Comment(props) {
 
 
     return props.comments.map((comment, idx) => (
-        <div className={`${theme}-primary-bg card my-5`} key={comment._id}>
-            <header className={`${theme}-primary columns px-3`}>
-                <p className={`${theme}-text card-header-title is-size-5 column`}>{comment.creator.firstName}</p>
-                <p className="column has-text-right-tablet">{comment.createdAt}</p>
+        <div style={{border: '1px solid black'}} className={`${theme}-secondary-bg card my-5`} key={comment._id}>
+            <header className={`comment-header ${theme}-primary columns px-3`}>
+                <p className={`has-text-white card-header-title is-size-5 column`}>{comment.creator.firstName}</p>
+                <p className="column has-text-right">{comment.createdAt}</p>
             </header>
             <div className='card-content'>
                 <div className="content px-3">
                     <p>{comment.message}</p>
                     {userType === "Agent" && comment.note && !noteForm &&
-                        <div className={`${theme}-tertiary-bg card-content `}>
-                            <div className={`content columns ${theme}-secondary-bg is-align-items-baseline`}>
+                        <div style={{border: 'solid black 1px'}} className={`${theme}-secondary-bg card-content`}>
+                            <div className={`content columns is-align-items-baseline`}>
                                 <p className="column is-four-fifths">{comment.note.notes}</p>
                                 {props.status !== "Closed" &&
                                     <div className="column columns is-mobile">

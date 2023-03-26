@@ -9,13 +9,12 @@ function Chart({data}){
             const chart = Plot.plot({
                 style: {
                     color: theme === 'light' ? "#1466e6" : "#58aceb",
-                    background: theme === 'dark' ? "#313536" : "#ffffff",
-                    border: theme === 'dark' ? "2px solid black" : "2px solid rgb(84, 84, 84)",
-                    fontSize: 14,
+                    background: "transparent",
+                    fontSize: 13,
                   },
                 marks: [
                     Plot.barY(data, {x: data[0].rating ? "rating" : "issue", y: "count", fx: data[0].rating ? "Rating" : "Issue Type", fy: "Count", sort: {x: "y"}})
-                  ]
+                  ],
             });
             chartRef.current.append(chart);
             return () => chart.remove();
