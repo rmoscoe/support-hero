@@ -26,7 +26,7 @@ function TimeInQueue({ metrics }) {
         if (hours > 0) timeArr.push(`${hours} Hour${hours > 1 ? 's' : ''}`);
         if (minutes > 0) timeArr.push(`${minutes} Minute${minutes > 1 ? 's' : ''}`);
         if (seconds > 0) timeArr.push(`${seconds} Second${seconds > 1 ? 's' : ''}`);
-
+console.log(timeArr[0].split(' ')[0])
         return timeArr;
     }
 
@@ -36,9 +36,12 @@ function TimeInQueue({ metrics }) {
             <div className={`message-header ${theme}-quaternary`}>
                 <p className='description'>Average Resolution Time</p>
             </div>
-            <div className='time'>
+            <div style={{display: 'flex', columnGap: '15px', justifyContent: 'center', marginTop: '30px'}}>
                {formatTime(average).map((time, i) => (
-                    <p key={i}>{time}</p>
+                    <div key={i} style={{textAlign: 'center', fontFamily: 'Bakbak One', fontSize: '35px'}}>              
+                    <p key={i}>{time.split(' ')[0]}</p>
+                    <p key={i + 1}>{time.split(' ')[1]}</p>
+                    </div>
                 ))} 
             </div>
                 

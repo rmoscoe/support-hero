@@ -26,6 +26,7 @@ function Metrics() {
     return (
         <>
             <h2 className={`${theme} is-block title has-text-centered`}> My Metrics</h2>
+            
             <div className={`metrics is-flex is-flex-wrap-wrap ${theme}`}>
                 <IssueType metrics={data} />
                 <ResponseTime metrics={data} />
