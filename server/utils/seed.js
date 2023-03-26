@@ -72,7 +72,7 @@ const createCustomer = async () => {
     });
 };
 
-const createTicket = async (userIds) => {
+const createTicket = async (ticketUsers) => {
     const title = faker.lorem.words(3);
     const description = faker.lorem.paragraph();
     const issueType = faker.helpers.arrayElement(['Technical', 'Account-related', 'Bug Report', 'Feature Request'], 1);
@@ -82,7 +82,7 @@ const createTicket = async (userIds) => {
 
     let minDate = new Date() - MAX_DATE_RANGE;
     for (let i = 0; i < 3; i++) {
-        const comment = await createComment(userIds[i % 2], minDate);
+        const comment = await createComment(ticketUsers[i % 2]._id, minDate);
         minDate = new Date(comment.createdAt);
         comments.push(comment);
     }
@@ -96,7 +96,7 @@ const createTicket = async (userIds) => {
     const ticketCreateDate = faker.datatype.datetime({ max: latestDate, min: new Date() - MAX_DATE_RANGE });
 
     const closedAt = status === 'Closed' ? new Date(comments[2].createdAt) : undefined;
-
+    const userIds = ticketUsers.map(user => user._id);
 
     const ticket = new Ticket({
         title,
@@ -111,6 +111,22 @@ const createTicket = async (userIds) => {
     });
 
     await ticket.save();
+
+    const html = ticketCreatedHtml(ticketUsers[0].firstName, ticket._id, ticket.title, ticket.issueType, ticket.priority, ticket.description);
+    const emailInfo = await sendEmail(ticketUsers[0].email, `Ticket #${ticket._id}`, html);
+    const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+    const emailRecord = await Email.create({
+        trigger: "Create Ticket",
+        sentTo: ticketUsers[0].email,
+        sentToUser: ticketUsers[0]._id,
+        accepted: emailInfo.info.accepted[0] ? true : false,
+        response: response,
+        messageId: emailInfo.info.messageId,
+        messageURL: emailInfo.messageURL,
+        subject: `Ticket #${ticket._id}`,
+        body: html
+    });
 
     return ticket;
 };
@@ -185,13 +201,13 @@ connection.once("open", async () => {
         // This adds two tickets per customer
         console.log('Creating ticket and Comment data...');
         for (let i = 0; i < customers.length; i++) {
-            const customerId = customers[i]._id;
+            const customer = customers[i];
 
             for (let j = 0; j < 2; j++) {
-                const randomAgentId = agents[Math.floor(Math.random() * agents.length)]._id;
+                const randomAgent = agents[Math.floor(Math.random() * agents.length)];
 
-                userIds = [customerId, randomAgentId];
-                const ticket = await createTicket(userIds);
+                const ticketUsers = [customer, randomAgent];
+                const ticket = await createTicket(ticketUsers);
                 tickets.push(ticket);
             }
         }
