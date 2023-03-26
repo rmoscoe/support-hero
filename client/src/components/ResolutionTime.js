@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../utils/ThemeContext';
 
-function TimeInQueue({ metrics }) {
+function ResolutionTime({ metrics }) {
     const { theme } = useTheme();
     // calculate average time between when ticket is created to when ticket is closed
     let total = 0;
@@ -52,4 +52,4 @@ console.log(timeArr[0].split(' ')[0])
     )
 };
 
-export default TimeInQueue;
+export default ResolutionTime;
