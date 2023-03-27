@@ -87,13 +87,13 @@ function TicketDetails() {
                 {historyView && <TicketHistory historyView={historyView} setHistoryView={setHistoryView} id={customerId} />}
                 <div className="columns is-multiline is-centered">
                     <div className="column">
-                        <div className="message  has-text-centered is-half-tablet is-mobile">
+                        <div className="message has-text-centered is-half-tablet is-mobile">
                             <p className={`${theme}-secondary message-body is-size-5`}>Status: <strong>{data.getTicketById.status}</strong></p>
                         </div>
                     </div>
                     <div className="column">
                         <div className="message has-text-centered is-half-tablet is-mobile">
-                            <p className={`${theme}-secondary message-body is-size-5`}>Priority: <strong>{data.getTicketById.priority}</strong></p>
+                            <p className={`${theme}-secondary message-body is-size-5 ${data.getTicketById.priority.toLowerCase()}-priority`}>Priority: <strong>{data.getTicketById.priority}</strong></p>
                         </div>
                     </div>
                     {Auth.getUser().data.type === "Agent" &&
