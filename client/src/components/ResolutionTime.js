@@ -3,7 +3,6 @@ import { useTheme } from '../utils/ThemeContext';
 
 function ResolutionTime({ metrics }) {
     const { theme } = useTheme();
-    console.log(metrics)
     // calculate average time between when ticket is created to when ticket is closed
     let total = 0;
     let closeCount = 0;
@@ -29,7 +28,6 @@ function ResolutionTime({ metrics }) {
         if (hours > 0) timeArr.push(`${hours} Hour${hours > 1 ? 's' : ''}`);
         if (minutes > 0) timeArr.push(`${minutes} Minute${minutes > 1 ? 's' : ''}`);
         if (seconds > 0) timeArr.push(`${seconds} Second${seconds > 1 ? 's' : ''}`);
-        console.log(timeArr[0].split(' ')[0])
         return timeArr;
     }
 
