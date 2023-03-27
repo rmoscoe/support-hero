@@ -258,6 +258,24 @@ const resolvers = {
                     new: true,
                 }
             ).populate("users").populate({ path: "comments", populate: { path: "creator" } });
+
+            if (status === "Closed") {
+                const html = ticketClosedHtml(ticket.users[0].firstName, ticket._id);
+                const emailInfo = await sendEmail(ticket.users[0].email, `Ticket ${ticket._id} Closed`, html);
+                const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+                const emailRecord = await Email.create({
+                    trigger: "Ticket Closed",
+                    sentTo: ticket.users[0].email,
+                    sentToUser: ticket.users[0]._id,
+                    accepted: emailInfo.info.accepted[0] ? true : false,
+                    response: response,
+                    messageId: emailInfo.info.messageId,
+                    messageURL: emailInfo.messageURL,
+                    subject: `Ticket ${ticket._id} Closed`,
+                    body: html
+                });
+            }
             return ticket;
         },
 
