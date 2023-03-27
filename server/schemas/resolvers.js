@@ -403,8 +403,21 @@ const resolvers = {
             const token = signToken(user);
             // const html="/verifyUserEmail/" + email + "/" + token;
             const link = "https://dry-fjord-88699.herokuapp.com/" + "verifyUserEmail" + firstName + "/" + token;
-            const html = customerSignupHtml(firstName,link );
-            sendEmail(email,"Verify Email",html);
+            const html = customerSignupHtml(user.firstName, link);
+                const emailInfo = await sendEmail(user.email, "Welcome to Support Hero!", html);
+                const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
+
+                const emailRecord = await Email.create({
+                    trigger: "Customer Signup",
+                    sentTo: user.email,
+                    sentToUser: user._id,
+                    accepted: emailInfo.info.accepted[0] ? true : false,
+                    response: response,
+                    messageId: emailInfo.info.messageId,
+                    messageURL: emailInfo.messageURL,
+                    subject: "Welcome to Support Hero!",
+                    body: html
+                });
             return { token, user };
         },
 
