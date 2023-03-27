@@ -1,4 +1,5 @@
 import { ColumnFilter } from "./ColumnFilter"
+
 export const COLUMNS = [
     {
         Header : 'Ticket ID',
@@ -24,6 +25,11 @@ export const COLUMNS = [
         Header : 'Feedback',
         accessor : "feedback._id",
         Filter : ColumnFilter
+
+    },
+    {
+        Header: "Priority",
+        accessor: "priority"
 
     }
 
