@@ -40,7 +40,7 @@ function FeedbackScores({ metrics }) {
             </div>
                 {checkData(obj) ?
                     <BarChart data={obj} />
-                    : <p className='no-data'>No Data Available in Table</p>}
+                    : <p>No Data Available in Table</p>}
             </div>
 
         </>
