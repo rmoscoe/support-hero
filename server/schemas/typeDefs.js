@@ -72,7 +72,7 @@ const typeDefs = gql`
         deleteNote(commentId: ID!, notes: String!): Comment
         login(email: String!, password: String!, redirectUrl: String, feedback: Boolean): Auth
         createUser(firstName: String, lastName: String, password: String, email: String): Auth
-
+        verifyEmail(email: String!, token: String!): Boolean
         createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
 
         createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!, subject: String!, body: String!): Email

@@ -364,6 +364,30 @@ const resolvers = {
         deleteEmail: async (parent, { emailId }) => {
             const email = await Email.deleteOne({ _id: emailId });
             return email;
+        },
+
+        //Email verification
+        verifyEmail: async (parent, {email,token}) => {
+            await User.findOne({email},function (err,result) {
+                try {
+                    const secret = process.env.JWT_SECRET;
+
+                const decode = jwt.verify(token,secret);
+
+                console.log(decode)
+
+                User.updateOne({email},
+                    {
+                        $set : {
+                            isVerified: true
+                        }
+                    })
+                return true;
+
+                } catch (err) 
+                 { return false }
+
+            })
         }
 
     }

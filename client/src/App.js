@@ -23,6 +23,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Signup from './pages/Signup';
 import Metrics from './pages/Metrics';
+import EmailVerification from './components/EmailVerification';
 
 // Construct main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -86,6 +87,10 @@ function App() {
                                 <Route
                                     path="/tickets/:ticketId/:feedback"
                                     element={<TicketDetails />}
+                                />
+                                <Route 
+                                    path="/verifyUserEmail/:email/:token"
+                                    element={<EmailVerification />}
                                 />
                             </Routes>
                     </StoreProvider>
