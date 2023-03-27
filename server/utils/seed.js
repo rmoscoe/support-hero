@@ -1,5 +1,5 @@
 const MAX_DATE_RANGE = 30 * 24 * 60 * 60 * 1000;  // 30 days
-const fs = require('fs');
+const fs = require('fs').promises;
 const { faker } = require('@faker-js/faker');
 const connection = require("../config/connection");
 const { Comment, Ticket, User, Feedback } = require("../models");
@@ -11,12 +11,10 @@ const { sendEmail } = require("../config/transporter");
 const createAgent = async () => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
-    const password = 'Password1!';  //faker.internet.password(8, false, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,32})/);
+    const password = 'Password1!'; 
     const email = faker.internet.email(firstName, lastName, "supporthero.com").toLowerCase();
 
-    // console.log(firstName, lastName, email, password);
-
-    const user = new User({
+    const agent = new User({
         firstName,
         lastName,
         password,
@@ -24,16 +22,14 @@ const createAgent = async () => {
         email,
     });
 
-    return await user.save();
+    return await agent.save();
 }
 
 const createCustomer = async () => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
-    const password = 'Password1!';  //faker.internet.password(8, false, /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.{8,32})/);
+    const password = 'Password1!'; 
     const email = faker.internet.email(firstName, lastName).toLowerCase();
-
-    // console.log(firstName, lastName, email, password);
 
     const user = new User({
         firstName,
@@ -43,15 +39,6 @@ const createCustomer = async () => {
         email,
     });
 
-    // await user.save();
-
-    // Get a copy of the saved user and return the raw password
-    // this is only for the faker data for testing purposes
-    // const encryptedUser = await user.findById(user._id);
-    // const unencryptedUser = encryptedUser.toObject({ getters: true });
-    // unencryptedUser.password = password;
-
-    // return unencryptedUser;
     const customer = await user.save();
 
     const confirmationURL = `https://https://dry-fjord-88699.herokuapp.com/placeholder`;
@@ -70,6 +57,8 @@ const createCustomer = async () => {
         subject: "Welcome to Support Hero!",
         body: html
     });
+
+    return customer;
 };
 
 const createTicket = async (ticketUsers) => {
@@ -240,6 +229,7 @@ connection.once("open", async () => {
         await Ticket.deleteMany({});
         await Comment.deleteMany({});
         await Feedback.deleteMany({});
+        await Email.deleteMany({});
         console.log("Existing data dropped.\n--------------------\n");
 
         const agents = [];
@@ -255,7 +245,7 @@ connection.once("open", async () => {
         console.log('Agents created!\n--------------------\n');
 
         // Create customers
-        console.log('Creating customers...');
+        console.log('Creating customers. This may take up to a minute...');
         for (let i = 0; i < 20; i++) {
             const customer = await createCustomer();
             customers.push(customer);
@@ -264,7 +254,7 @@ connection.once("open", async () => {
 
         // For all customers, create tickets with comments and assign them to agents
         // This adds two tickets per customer
-        console.log('Creating ticket and Comment data...');
+        console.log('Creating ticket and Comment data. This may take a few minutes...');
         for (let i = 0; i < customers.length; i++) {
             const customer = customers[i];
 
@@ -293,15 +283,14 @@ connection.once("open", async () => {
         console.log('Feedback data created!\n--------------------\n');
 
         // Write agent data for reference and close db connection
-        fs.writeFile('userData.json', JSON.stringify([...agents, ...customers], null, 4), (err) => {
+        await fs.writeFile('userData.json', JSON.stringify([...agents, ...customers], null, 4), (err) => {
             if (err) throw err;
             console.log('User data written to file!');
-            connection.close();
-            console.log('Connection closed.\n--------------------\n');
         });
     } catch (err) {
         console.error(err);
         connection.close();
         console.log('Connection closed on error.');
     }
+    process.exit(0);
 });
