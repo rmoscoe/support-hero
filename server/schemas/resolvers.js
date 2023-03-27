@@ -6,6 +6,8 @@ const dateFormat = require("../utils/helpers");
 const { customerSignupHtml, ticketCreatedHtml, commentAddedByAgentHtml, commentAddedByCustomerHtml, ticketClosedHtml } = require("../utils/emailTemplates");
 const { sendEmail } = require("../config/transporter");
 require('dotenv').config({ path: __dirname + '/../.env' });
+const { sendEmail } = require('../config/transporter')
+const {customerSignupHtml} = require('../utils/emailTemplates')
 
 const resolvers = {
     Query: {
@@ -401,24 +403,10 @@ const resolvers = {
         createUser: async (parent, { firstName, lastName, password, email }) => {
             const user = await User.create({ firstName, lastName, password, email });
             const token = signToken(user);
-            if (user.type === "Customer") {
-                const confirmationURL = `https://https://dry-fjord-88699.herokuapp.com/placeholder`;
-                const html = customerSignupHtml(user.firstName, confirmationURL);
-                const emailInfo = await sendEmail(user.email, "Welcome to Support Hero!", html);
-                const response = emailInfo.info.response.split(" ")[0].concat(" ").concat(emailInfo.info.response.split(" ")[1]);
-
-                const emailRecord = await Email.create({
-                    trigger: "Customer Signup",
-                    sentTo: user.email,
-                    sentToUser: user._id,
-                    accepted: emailInfo.info.accepted[0] ? true : false,
-                    response: response,
-                    messageId: emailInfo.info.messageId,
-                    messageURL: emailInfo.messageURL,
-                    subject: "Welcome to Support Hero!",
-                    body: html
-                });
-            }
+            // const html="/verifyUserEmail/" + email + "/" + token;
+            const link = "https://dry-fjord-88699.herokuapp.com/" + "verifyUserEmail" + firstName + "/" + token;
+            const html = customerSignupHtml(firstName,link );
+            sendEmail(email,"Verify Email",html);
             return { token, user };
         },
 
@@ -438,6 +426,30 @@ const resolvers = {
         deleteEmail: async (parent, { emailId }) => {
             const email = await Email.deleteOne({ _id: emailId });
             return email;
+        },
+
+        //Email verification
+        verifyEmail: async (parent, {email,token}) => {
+            await User.findOne({email},function (err,result) {
+                try {
+                    const secret = process.env.JWT_SECRET;
+
+                const decode = jwt.verify(token,secret);
+
+                console.log(decode)
+
+                User.updateOne({email},
+                    {
+                        $set : {
+                            isVerified: true
+                        }
+                    })
+                return true;
+
+                } catch (err) 
+                 { return false }
+
+            })
         }
 
     }

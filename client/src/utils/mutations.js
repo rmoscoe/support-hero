@@ -184,3 +184,18 @@ export const CREATE_FEEDBACK = gql`
         }
     }
 `;
+
+export const VERIFY_EMAIL = gql`
+    mutation verifyEmail($email: String!, $token: String!) {
+        verifyEmail(email: $email, token: $token) {
+            token
+            user {
+                _id
+                firstName
+                lastName
+                type
+                email
+            }
+        }
+    }
+`;

@@ -26,6 +26,9 @@ const userSchema = new Schema({
         unique: true,
         match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     },
+    isVerified: {
+        type: Boolean,
+    }
 },
     {
         toJSON: {
