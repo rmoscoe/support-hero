@@ -11,20 +11,8 @@ svg{
     .metrics > div {
         flex: 100% !important;
     }
-    .time {
-        font-size: 2.1rem !important;
-        height: 70% !important;
-        column-gap: 55px !important;
-    }
 }
 
-@media screen and (max-width: 650px){
-    .time {
-        font-size: 1.7rem !important;
-        height: 70% !important;
-        column-gap: 30px !important;
-    }
-}
 .metric-card{
     height: 260px;
 }
@@ -39,26 +27,6 @@ svg{
 }
 .metrics > div {
     flex: 40%;
-}
-
-.time {
-    font-family: 'Bakbak One', cursive;
-    font-size: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-    row-gap: 30px;
-}
-
-.time > p {
-text-align: center;
-}
-
-.no-data{
-    font-size: larger;
-    text-align: center;
-    line-height: 500px;
 }
 
 g[aria-label="x-axis label"][transform="translate(0,27)"] text,

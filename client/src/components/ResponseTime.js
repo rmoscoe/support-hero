@@ -44,18 +44,22 @@ function ResponseTime({ metrics }) {
         return timeArr;
     }
 
-
     return (
         <>
             <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '1px solid black' }} >
                 <div className={`message-header ${theme}-tertiary`}>
                     <p className='description'>Average Response Time</p>
                 </div>
-                <div className='time'>
-                    {formatTime(average).map((time, i) => (
-                        <p key={i}>{time}</p>
-                    ))}
-                </div>
+                {responseCount >= 1 ?
+                    <div style={{ display: 'flex', columnGap: '15px', justifyContent: 'center', marginTop: '30px' }}>
+                        {formatTime(average).map((time, i) => (
+                            <div key={i} style={{ textAlign: 'center', fontFamily: 'Bakbak One', fontSize: '35px' }}>
+                                <p key={i}>{time.split(' ')[0]}</p>
+                                <p key={i + 1}>{time.split(' ')[1]}</p>
+                            </div>
+                        ))}
+                    </div>
+                    : <p>No Data Available in Table</p>}
 
             </div>
 
