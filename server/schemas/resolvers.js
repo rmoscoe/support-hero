@@ -6,8 +6,6 @@ const dateFormat = require("../utils/helpers");
 const { customerSignupHtml, ticketCreatedHtml, commentAddedByAgentHtml, commentAddedByCustomerHtml, ticketClosedHtml } = require("../utils/emailTemplates");
 const { sendEmail } = require("../config/transporter");
 require('dotenv').config({ path: __dirname + '/../.env' });
-const { sendEmail } = require('../config/transporter')
-const {customerSignupHtml} = require('../utils/emailTemplates')
 
 const resolvers = {
     Query: {
