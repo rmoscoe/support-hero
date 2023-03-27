@@ -93,7 +93,7 @@ function TicketDetails() {
                     </div>
                     <div className="column">
                         <div className="message has-text-centered is-half-tablet is-mobile">
-                            <p className={`${theme}-secondary message-body is-size-5 ${data.getTicketById.priority.toLowerCase()}-priority`}>Priority: <strong>{data.getTicketById.priority}</strong></p>
+                            <p className={`${theme}-secondary message-body is-size-5 ${theme}-${data.getTicketById.priority.toLowerCase()}-priority`}>Priority: <strong>{data.getTicketById.priority}</strong></p>
                         </div>
                     </div>
                     {Auth.getUser().data.type === "Agent" &&
