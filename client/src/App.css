@@ -416,6 +416,24 @@ td, th {
     background-color: rgba(123, 124, 167, 0.412) !important;
 }
 
+.light-medium-priority {
+    background-color: #F9D256;
+    box-shadow: 3px 3px 9px #a18938;
+}
+
+.light-high-priority {
+    background-color: #bc0d47;
+    box-shadow: 3px 3px 9px #75082c
+}
+
+.dark-medium-priority {
+    background-color: #F9D256;
+}
+
+.dark-high-priority {
+    background-color: #bc0d47;
+}
+
 .link-item a {
     color: white;
 }

@@ -1,4 +1,4 @@
-const MAX_DATE_RANGE = 30 * 24 * 60 * 60 * 1000;  // 30 days
+const MAX_DATE_RANGE = 30 * 24 * 60 * 60 * 1000;  // 30 days change this
 const fs = require('fs').promises;
 const { faker } = require('@faker-js/faker');
 const connection = require("../config/connection");
@@ -270,7 +270,7 @@ connection.once("open", async () => {
 
         console.log('Creating feedback data...');
         for (let i = 0; i < tickets.length; i++) {
-            if (tickets[i].status === 'Closed' && Math.random() >= 0.5) {
+            if (tickets[i].status === 'Closed' && Math.random() >= 1) {
                 const earliestDate = tickets[i].comments.reduce((minDate, comment) => {
                     const currentDate = new Date(comment.createdAt);
                     return currentDate < minDate ? currentDate : minDate;
