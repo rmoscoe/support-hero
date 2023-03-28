@@ -78,11 +78,11 @@ function TicketDetails() {
     let customerId = data.getTicketById.users[0]._id;
 
     return (
-        <div>
-            <h2 className={`${theme} title has-text-centered`}>{data.getTicketById.title}</h2>
+        <div className='header'>
+            <h2 className={`${theme} header title has-text-centered`}>{data.getTicketById.title}</h2>
             <div className="block">
-                {Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className={`${theme}-tertiary button close`} onClick={updateTicketStatus}>Close Ticket</button> : <label></label>}
-                {Auth.getUser().data.type === "Agent" && <button className={`${theme}-tertiary button close`} onClick={() => setHistoryView(true)}>Customer History</button>}
+                {Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className={`${theme}-tertiary header-bold button close`} onClick={updateTicketStatus}>Close Ticket</button> : <label></label>}
+                {Auth.getUser().data.type === "Agent" && <button className={`${theme}-tertiary header-bold button close`} onClick={() => setHistoryView(true)}>Customer History</button>}
 
                 {historyView && <TicketHistory historyView={historyView} setHistoryView={setHistoryView} id={customerId} />}
                 <div className="columns is-multiline is-centered">
@@ -103,13 +103,13 @@ function TicketDetails() {
                             </div>
                         </div>}
 
-                    {Auth.getUser().data.type === "Customer" && data.getTicketById.status === "Closed" && !data.getTicketById.feedback ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-target="submit-feedback-form">Submit Feedback</button> : <label></label>}
+                    {Auth.getUser().data.type === "Customer" && data.getTicketById.status === "Closed" && !data.getTicketById.feedback ? <button className={`header-bold ${theme}-tertiary button`} onClick={handleSubmitFeedback} data-target="submit-feedback-form">Submit Feedback</button> : <label></label>}
                 </div>
                 <div className={`${theme} message`}>
                     <div className={`message-header ${theme}-primary`}>
                         <p className='description'>Description</p>
                     </div>
-                    <div className={`${theme}-primary-bg ${theme}-shadow message-body`}>
+                    <div className={`${theme}-primary-bg body ${theme}-shadow message-body`}>
                         <p>{data.getTicketById.description}</p>
                     </div>
                 </div>

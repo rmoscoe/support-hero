@@ -12,7 +12,17 @@ svg{
         flex: 100% !important;
     }
 }
+.body {
+    font-family: 'Open Sans', sans-serif;
+}
+.header{
+    font-family: 'Montserrat', sans-serif;
+}
 
+.header-bold{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
 .metric-card{
     height: 260px;
 }

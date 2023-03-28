@@ -35,16 +35,16 @@ function Home() {
     return (
         <main>
             <div>
-                <h2 className={`${theme} title has-text-centered`}> My Tickets</h2><br></br>
+                <h2 className={`header ${theme} title has-text-centered`}> My Tickets</h2><br></br>
                 <div className="buttons is-centered">
                     {Auth.getUser().data.type === "Customer" 
-                    ? <button className={`button ${theme}-tertiary`} onClick={handleCreateTicketClick} data-target="create-ticket-form">Create New ticket</button> 
+                    ? <button className={`header-bold button ${theme}-tertiary`} onClick={handleCreateTicketClick} data-target="create-ticket-form">Create New ticket</button> 
                     : <label></label>
                     }
                 </div>
 
             </div>
-            <div className="alltickets">
+            <div className="body alltickets">
                         {loading ? (
                             <div>Loading...</div>
                         ) : (

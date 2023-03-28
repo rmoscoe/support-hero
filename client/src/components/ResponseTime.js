@@ -48,7 +48,7 @@ function ResponseTime({ metrics }) {
         <>
             <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '1px solid black' }} >
                 <div className={`message-header ${theme}-tertiary`}>
-                    <p className='description'>Average Response Time</p>
+                    <p className='header description'>Average Response Time</p>
                 </div>
                 {responseCount >= 1 ?
                     <div style={{ display: 'flex', columnGap: '15px', justifyContent: 'center', marginTop: '30px' }}>
@@ -59,7 +59,7 @@ function ResponseTime({ metrics }) {
                             </div>
                         ))}
                     </div>
-                    : <p>No Data Available in Table</p>}
+                    : <p className='body'>No Data Available in Table</p>}
 
             </div>
 

@@ -67,7 +67,7 @@ function CommentList(props) {
             <div className={`message-header ${theme}-primary`}>
                 <p className='description'>Comment History</p>
             </div>
-            <section className={`section ${theme}-primary-bg ${theme}-shadow`}>
+            <section  className={`section ${theme}-primary-bg ${theme}-shadow`}>
                 <Comment comments={props.comments} user={user} status={props.status} refetchTicket={props.refetchTicket} />
                 {props.status !== "Closed" &&
                     <form style={{border: '1px solid black'}} className={`${theme}-secondary-bg columns box is-align-items-flex-end mt-3`} onSubmit={handleCreateComment}>
@@ -76,14 +76,14 @@ function CommentList(props) {
                             rows="3"
                             style={{border: '1px solid black'}}
                             value={commentFormState.messageText}
-                            className={`${theme}-secondary-bg form-input w-100 column is-four-fifths mx-3`}
+                            className={`body ${theme}-secondary-bg form-input w-100 column is-four-fifths mx-3`}
                             id="comment-message-textarea"
                             placeholder="Add a comment..."
                             onChange={handleCommentInput}
                             required
                         >
                         </textarea>
-                        <input type="submit" className={`${theme}-secondary button column mx-3`} value="Submit" />
+                        <input type="submit" className={`header-bold ${theme}-secondary button column mx-3`} value="Submit" />
                     </form>
                 }
             </section>

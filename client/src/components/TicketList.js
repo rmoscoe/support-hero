@@ -52,7 +52,7 @@ const TicketList = ({ tickets,refetchTicketData, setHistoryView } ) => {
                             <tr className={`${theme}`} {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => {
                                     return (
-                                    <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
+                                    <th className={`header-bold ${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
                                         <div>{userType === "Agent" && column.Header === "Feedback" ? null : column.canFilter ? column.render('Filter') : null}</div>
                                     </th>
                                 )
@@ -60,7 +60,7 @@ const TicketList = ({ tickets,refetchTicketData, setHistoryView } ) => {
                             </tr>
                         ))}
                     </thead>
-                    <tbody  className={`${theme}-primary-bg`} {...getTableBodyProps()}>
+                    <tbody className={`${theme}-primary-bg`} {...getTableBodyProps()}>
                         {rows.map((row) => {
                             prepareRow(row)
                             return (

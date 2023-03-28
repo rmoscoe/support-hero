@@ -44,7 +44,7 @@ function ResolutionTime({ metrics }) {
         <>
             <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '1px solid black' }} >
                 <div className={`message-header ${theme}-quaternary`}>
-                    <p className='description'>Average Resolution Time</p>
+                    <p className='header description'>Average Resolution Time</p>
                 </div>
                 {checkData(metrics) ?
                     <div style={{ display: 'flex', columnGap: '15px', justifyContent: 'center', marginTop: '30px' }}>
@@ -55,7 +55,7 @@ function ResolutionTime({ metrics }) {
                             </div>
                         ))}
                     </div>
-                    : <p>No Data Available in Table</p>}
+                    : <p className='body'>No Data Available in Table</p>}
             </div>
         </>
 

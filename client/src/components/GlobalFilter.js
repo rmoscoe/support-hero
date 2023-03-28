@@ -5,8 +5,8 @@ export const GlobalFilter = ({ filter, setFilter }) => {
     const { theme } = useTheme();
     return (
         <span >
-            <strong className={`${theme}-text`}>Search Ticket: </strong>{' '}
-            <input className="m-5" size="50" value={filter || ''}
+            <strong className={`header ${theme}-text`}>Search Ticket: </strong>{' '}
+            <input className="body m-5" size="50" value={filter || ''}
                 onChange={e => setFilter(e.target
                     .value)} />
 

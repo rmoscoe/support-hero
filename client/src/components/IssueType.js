@@ -32,11 +32,11 @@ function IssueType({ metrics }) {
         <>
             <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '1px solid black'}} >
                 <div className={`message-header ${theme}-secondary`}>
-                    <p className='description'>Issue Type Frequency</p>
+                    <p className='header description'>Issue Type Frequency</p>
                 </div>
                 {checkData(obj) ?
                     <BarChart data={obj} />
-                    : <p>No Data Available in Table</p>}
+                    : <p className='body'>No Data Available in Table</p>}
             </div>
 
         </>
