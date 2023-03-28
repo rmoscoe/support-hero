@@ -1,4 +1,4 @@
-const MAX_DATE_RANGE = 30 * 24 * 60 * 60 * 1000;  // 30 days change this
+const MAX_DATE_RANGE = 5 * 24 * 60 * 60 * 1000;  // 5 days 
 const fs = require('fs').promises;
 const { faker } = require('@faker-js/faker');
 const connection = require("../config/connection");
