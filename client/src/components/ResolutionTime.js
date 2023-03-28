@@ -21,13 +21,11 @@ function ResolutionTime({ metrics }) {
         const days = Math.floor(time);
         const hours = Math.floor((time - days) * 24);
         const minutes = Math.floor(((time - days) * 24 - hours) * 60);
-        const seconds = Math.floor((((time - days) * 24 - hours) * 60 - minutes) * 60);
 
         const timeArr = [];
         if (days > 0) timeArr.push(`${days} Day${days > 1 ? 's' : ''}`);
         if (hours > 0) timeArr.push(`${hours} Hour${hours > 1 ? 's' : ''}`);
         if (minutes > 0) timeArr.push(`${minutes} Minute${minutes > 1 ? 's' : ''}`);
-        if (seconds > 0) timeArr.push(`${seconds} Second${seconds > 1 ? 's' : ''}`);
         return timeArr;
     }
 
@@ -42,14 +40,14 @@ function ResolutionTime({ metrics }) {
 
     return (
         <>
-            <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '1px solid black' }} >
+            <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '3px solid black', borderRadius: '8px' }} >
                 <div className={`message-header ${theme}-quaternary`}>
-                    <p className='header description'>Average Resolution Time</p>
+                    <p className={`${theme}-text header description`}>Average Resolution Time</p>
                 </div>
                 {checkData(metrics) ?
-                    <div style={{ display: 'flex', columnGap: '15px', justifyContent: 'center', marginTop: '30px' }}>
+                    <div className='time-metric' >
                         {formatTime(average).map((time, i) => (
-                            <div key={i} style={{ textAlign: 'center', fontFamily: 'Bakbak One', fontSize: '35px' }}>
+                            <div key={i}>
                                 <p key={i}>{time.split(' ')[0]}</p>
                                 <p key={i + 1}>{time.split(' ')[1]}</p>
                             </div>

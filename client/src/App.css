@@ -12,15 +12,29 @@ svg{
         flex: 100% !important;
     }
 }
+@media screen and (max-width: 390px){
+    .time-metric{
+        font-size: 25px !important;
+    }
+}
+.time-metric{
+    display: flex; 
+    column-gap: 15px; 
+    justify-content: space-evenly; 
+    margin-top: 40px;
+    text-align: center;
+    font-family: Bakbak One;
+    font-size: 35px;
+}
 .body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: Open Sans, sans-serif;
 }
 .header{
-    font-family: 'Montserrat', sans-serif;
+    font-family: Montserrat, sans-serif;
 }
 
 .header-bold{
-    font-family: 'Montserrat', sans-serif;
+    font-family: Montserrat, sans-serif;
     font-weight: 600;
 }
 .metric-card{
@@ -85,10 +99,6 @@ body {
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-}
-
-.App-link {
-    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -224,6 +234,17 @@ body {
     background-color: #2e4eb7;
     border: 2px solid #2e4eb7;
     box-shadow: 3px 3px 9px #061851;
+}
+
+.dark-border{
+    border: 3px solid #596ba9;
+    box-shadow: 3px 3px 7px #061851;
+    border-radius: 5px;
+}
+
+.light-border{
+    border: 4px solid #192e74;
+    box-shadow: 3px 3px 9px #2e4eb7;
     border-radius: 5px;
 }
 
@@ -256,6 +277,7 @@ body {
     color: white;
     background-color: #2a816c;
     border: none;
+    box-shadow: 3px 3px 9px #0b4436;
 }
 
 .dark-tertiary {
@@ -289,9 +311,6 @@ body {
 .light-primary {
     color: #ffffff;
     background-color: #5471d0;
-    border: 2px solid #5471d0;
-    box-shadow: 3px 3px 9px #2e4eb7;
-    border-radius: 5px;
 }
 .dark-primary-bg {
     color: white ;
