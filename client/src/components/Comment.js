@@ -106,7 +106,7 @@ function Comment(props) {
                 <p className={`has-text-white card-header-title is-size-5 column`}>{comment.creator.firstName}</p>
                 <p className="column has-text-right">{comment.createdAt}</p>
             </header>
-            <div className='card-content'>
+            <div className='body card-content'>
                 <div className="content px-3">
                     <p>{comment.message}</p>
                     {userType === "Agent" && comment.note && !noteForm &&
@@ -133,16 +133,16 @@ function Comment(props) {
                                 rows="2"
                                 data-commentid={comment._id}
                                 value={formState.noteText}
-                                className="form-input w-100 notes-input column is-four-fifths my-1"
+                                className="body form-input w-100 notes-input column is-four-fifths my-1"
                                 placeholder="Add internal note..."
                                 onChange={handleChange}
                             >
                             </textarea>
-                            <input type="submit" className={`${theme}-secondary button is-small column w-100 my-1 ml-2 is-align-self-flex-end`} value="Submit" />
+                            <input type="submit" className={`header-bold ${theme}-secondary button is-small column w-100 my-1 ml-2 is-align-self-flex-end`} value="Submit" />
                         </form>
                     }
                     {userType === "Agent" && !comment.note && (!noteForm || commentToEdit !== comment._id) &&
-                        <button className={`${theme}-secondary button  my-3 is-align-self-flex-end is-small`} data-commentid={comment._id} onClick={addNote}>Add Note</button>
+                        <button className={`header-bold ${theme}-secondary button  my-3 is-align-self-flex-end is-small`} data-commentid={comment._id} onClick={addNote}>Add Note</button>
                     }
                     {userType === "Agent" && !comment.note && noteForm && !editNote && commentToEdit === comment._id &&
                         <form className="columns is-flex is-align-items-flex-end" data-commentid={comment._id} onSubmit={handleCreateNote}>
@@ -151,12 +151,12 @@ function Comment(props) {
                                 rows="2"
                                 data-commentid={comment._id}
                                 value={formState.noteText}
-                                className="form-input w-100 notes-input column is-four-fifths my-1"
+                                className="body form-input w-100 notes-input column is-four-fifths my-1"
                                 placeholder="Add internal note..."
                                 onChange={handleChange}
                             >
                             </textarea>
-                            <input type="submit" className={`${theme}-secondary button is-small column w-100 my-1 ml-2 is-align-self-flex-end`} value="Submit" />
+                            <input type="submit" className={`header-bold ${theme}-secondary button is-small column w-100 my-1 ml-2 is-align-self-flex-end`} value="Submit" />
                         </form>
                     }
                 </div>

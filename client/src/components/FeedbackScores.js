@@ -34,13 +34,13 @@ function FeedbackScores({ metrics }) {
 
     return (
         <>
-            <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '1px solid black'}} >
-            <div className={`message-header ${theme}-primary`}>
-                <p className='description'>Feedback Scores</p>
+            <div className={`metric-card ${theme}-secondary-bg card is-flex-grow-1`} style={{ border: '3px solid black', borderRadius: '8px'}} >
+            <div style={{border: 'none'}} className={`message-header ${theme}-primary ${theme}-border`}>
+                <p className={`${theme}-text header description`}>Feedback Scores</p>
             </div>
                 {checkData(obj) ?
                     <BarChart data={obj} />
-                    : <p>No Data Available in Table</p>}
+                    : <p className='body'>No Data Available in Table</p>}
             </div>
 
         </>

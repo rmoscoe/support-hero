@@ -94,17 +94,17 @@ const TicketList = ({ tickets, refetchTicketData, setHistoryView }) => {
     return (
         <>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-            <div className='table-container'>
-                <table {...getTableProps()} className={`${theme} table is-narrow  is-fullwidth is-responsive hscroll`}>
+            <div className={`${theme}-border table-container`}>
+                <table {...getTableProps()} className={`table is-narrow  is-fullwidth is-responsive hscroll`}>
                     <thead>
                         {headerGroups.map((headerGroup) => (
-                            <tr className={`${theme}`} {...headerGroup.getHeaderGroupProps()}>
+                            <tr {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => {
                                     return (
-                                        <th className={`${theme}-primary has-text-black is-size-4 has-text-centered`} {...column.getHeaderProps()}>{userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
-                                            <div>{userType === "Agent" && column.Header === "Feedback" ? null : column.canFilter ? column.render('Filter') : null}</div>
-                                        </th>
-                                    )
+                                    <th className={theme === 'light' ? `header-bold ${theme}-primary has-text-black is-size-4 has-text-centered` : `header-bold ${theme}-primary is-size-4 has-text-centered has-text-white`} {...column.getHeaderProps()}>{userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
+                                        <div>{userType === "Agent" && column.Header === "Feedback" ? null : column.canFilter ? column.render('Filter') : null}</div>
+                                    </th>
+                                )
                                 })}
                             </tr>
                         ))}

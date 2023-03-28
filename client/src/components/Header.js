@@ -17,7 +17,7 @@ const Header = () => {
     let location = useLocation();
     if (Auth.loggedIn()) {
         return (
-            <nav className={`${theme} navbar`}>
+            <nav className={`header ${theme} navbar`}>
                 <div className={`${theme} navbar-brand`}>
                     <h1 className={`${theme}-title is-size-1 has-text-weight-bold`}>Support Hero</h1>
                     <div role="button" className={isActive ? `${theme} is-active navbar-burger` : `${theme} navbar-burger`} onClick={toggleClass} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -27,18 +27,18 @@ const Header = () => {
                     </div>
                 </div>
 
-                <div className={`${isActive ? "is-active navbar-menu" : "navbar-menu"} ${theme}`}>
+                <div className={`header ${isActive ? "is-active navbar-menu" : "navbar-menu"} ${theme}`}>
                     <div className='navbar-end'>
                         {location.pathname !== '/' &&
                             <div className='navbar-item link-item' >
-                                <button className={`${theme}-tertiary button`} ><Link to='/'>Home</Link></button>
+                                <button className={`header-bold ${theme}-tertiary button`} ><Link to='/'>Home</Link></button>
                             </div>}
                             {location.pathname !== '/metrics' && <div className='navbar-item link-item' >
                             {Auth.getUser().data.type === "Agent" &&
-                            <button className={`${theme}-tertiary button`} ><Link to='/metrics'>Metrics</Link></button>}
+                            <button className={`header-bold ${theme}-tertiary button`} ><Link to='/metrics'>Metrics</Link></button>}
                         </div>}
                         <div className='navbar-item'>
-                            <button className={`button ${theme}-tertiary`} onClick={logout}>Logout</button>
+                            <button className={`header-bold button ${theme}-tertiary`} onClick={logout}>Logout</button>
                         </div>
                     </div>
                 </div>

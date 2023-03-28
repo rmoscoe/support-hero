@@ -41,7 +41,7 @@ const SubmitFeedback = (props) => {
     const { theme } = useTheme();
 
     return (
-        <div id="submit-feedback-form" className={`modal ${props.isActive ? "is-active" : ""}`}>
+        <div id="submit-feedback-form" className={`header modal ${props.isActive ? "is-active" : ""}`}>
             <div className="modal-background">
                 <div className={`modal-content ${theme}`}>
                     <header className={`${theme} modal-card-head title`}>
