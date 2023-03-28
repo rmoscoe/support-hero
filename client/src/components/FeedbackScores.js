@@ -4,7 +4,7 @@ import BarChart from './BarChart';
 
 function FeedbackScores({ metrics }) {
     const { theme } = useTheme();
-    let obj = [
+    let feedbackData = [
         { rating: 'Very Satisfied', count: 0 },
         { rating: 'Satisfied', count: 0 },
         { rating: 'Neutral', count: 0 },
@@ -15,17 +15,17 @@ function FeedbackScores({ metrics }) {
         if (metrics?.getTicketsByUserId[i].feedback) {
             // feedbackCount++
             let rating = metrics?.getTicketsByUserId[i].feedback.rating
-            for (let j = 0; j < obj.length; j++) {
-                if (obj[j].rating === rating) {
-                    obj[j].count = obj[j].count + 1
+            for (let j = 0; j < feedbackData.length; j++) {
+                if (feedbackData[j].rating === rating) {
+                    feedbackData[j].count = feedbackData[j].count + 1
                 }
             }
         }
     };
 
-    function checkData(obj) {
-        for (let i = 0; i < obj.length; i++) {
-            if (obj[i].count > 0) {
+    function checkData(data) {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].count > 0) {
                 return true
             }
             return false;
@@ -38,8 +38,8 @@ function FeedbackScores({ metrics }) {
             <div style={{border: 'none'}} className={`message-header ${theme}-primary ${theme}-border`}>
                 <p className={`${theme}-text header description`}>Feedback Scores</p>
             </div>
-                {checkData(obj) ?
-                    <BarChart data={obj} />
+                {checkData(feedbackData) ?
+                    <BarChart data={feedbackData} />
                     : <p className='body'>No Data Available in Table</p>}
             </div>
 
