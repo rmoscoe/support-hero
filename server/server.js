@@ -3,12 +3,15 @@ const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const { createTransporter } = require("./config/transporter");
+const socketio = require('socket.io');
 require("dotenv").config();
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
+const IOPORT = process.env.IOPORT || 3002;
+
 const app = express();
 const server = new ApolloServer({
     typeDefs,
@@ -52,6 +55,30 @@ const startApolloServer = async (typeDefs, resolvers) => {
         })
     })
 };
+
+const ioServer = app.listen(IOPORT, () => {
+    console.log(`IO Server listening on port ${IOPORT}`);
+});
+
+const io = socketio(ioServer);
+
+io.on('connection', (socket) => {
+    console.log('Connected to SocketIO server');
+
+    socket.on('joinRoom', (roomId) => {
+        socket.join(roomId);
+        console.log(`User joined room ${roomId}`);
+    });
+
+    socket.on('leaveRoom', (roomId) => {
+        socket.leave(roomId);
+        console.log(`User left room ${roomId}`);
+    });
+
+    socket.on('sendMessage', (message) => {
+        io.to(message.roomId).emit('message', message);
+    });
+});
 
 // Call the async function to start the server
 startApolloServer(typeDefs, resolvers);

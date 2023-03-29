@@ -10,7 +10,7 @@ const ChatForm = React.forwardRef((props, ref) => {
     };
 
     const { theme } = useTheme();
-    
+
     // const [ createChatMessage, { loading }] = useMutation(CREATE_CHAT_MESSAGE);
     const { register } = useForm({ defaultValues });
 
@@ -32,7 +32,7 @@ const ChatForm = React.forwardRef((props, ref) => {
     // };
 
     return (
-        <div className="body create-chat-message-form" style={{marginBottom: '35px'}}>
+        <div className="body create-chat-message-form" style={{marginBottom: '35px'}} ref={ref}>
             <form onSubmit={props.handleSubmit} >
                 <div className="field">
                     <label className={`header mt-5 ${theme} label`}>New message:</label>

@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { Navigate, useParams, useLocation } from 'react-router-dom';
+import { Navigate, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
 import { UPDATE_TICKET_STATUS } from '../utils/mutations';
 import CommentList from '../components/CommentList';
@@ -15,6 +15,7 @@ function TicketDetails() {
     const location = useLocation();
     const { theme } = useTheme();
     const [historyView, setHistoryView] = useState(false);
+    const navigate = useNavigate();
 
     const { ticketId, feedback } = useParams();
 
@@ -73,6 +74,10 @@ function TicketDetails() {
         setIsSubmitFeedback(false);
     }
 
+    const handleChatInitiate = () => {
+        console.log("starting chat");
+        navigate(`/chats/${ticketId}`);
+    };
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
     let customerId = data.getTicketById.users[0]._id;
@@ -83,6 +88,7 @@ function TicketDetails() {
             <div className="block">
                 {Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className={`${theme}-tertiary header-bold button close`} onClick={updateTicketStatus}>Close Ticket</button> : <label></label>}
                 {Auth.getUser().data.type === "Agent" && <button className={`${theme}-tertiary header-bold button close`} onClick={() => setHistoryView(true)}>Customer History</button>}
+                {Auth.getUser().data.type === "Customer" && <button className={`${theme}-tertiary header-bold button close`} onClick={() => handleChatInitiate()}>Chat with Agent</button>}
 
                 {historyView && <TicketHistory historyView={historyView} setHistoryView={setHistoryView} id={customerId} />}
                 <div className="columns is-multiline is-centered">

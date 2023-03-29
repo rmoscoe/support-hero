@@ -8,12 +8,12 @@ import { CREATE_CHAT_MESSAGE } from '../utils/mutations';
 import ChatHeader from '../components/ChatHeader';
 import ChatMessageList from '../components/ChatMessageList';
 import ChatForm from '../components/ChatForm';
-import { useTheme } from '../utils/ThemeContext';
+// import { useTheme } from '../utils/ThemeContext';
 
 function Chat() {
     const userId = Auth.getUser().data._id;
     const { ticketId } = useParams();
-    const { theme } = useTheme();
+    // const { theme } = useTheme();
     // const [socket, setSocket] = useState(null);
 
     const [message, setMessage] = useState('');
@@ -96,7 +96,7 @@ function Chat() {
             <div>
                 <ChatHeader roomName={data.getChatRoomByTicketId.roomName} />
                 <ChatMessageList messages={data.getChatRoomByTicketId.messages} id={userId}/>
-                <ChatForm handleSubmit={handleSubmit} roomId={data.getChatRoomByTicketId._id} userId={userId} message={message} setMessage={setMessage} ref={chatFormRef} />
+                <ChatForm handleSubmit={handleSubmit} setMessage={setMessage} roomId={data.getChatRoomByTicketId._id} userId={userId} ref={chatFormRef}/>
             </div>
         </div>
     );
