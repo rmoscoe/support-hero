@@ -32,16 +32,16 @@ const ChatForm = React.forwardRef((props, ref) => {
     // };
 
     return (
-        <div className="create-chat-message-form" ref={ref}>
+        <div className="body create-chat-message-form" style={{marginBottom: '35px'}}>
             <form onSubmit={props.handleSubmit} >
                 <div className="field">
-                    <label className={`${theme} label`}>New message:</label>
+                    <label className={`header mt-5 ${theme} label`}>New message:</label>
                     <div className="control">
-                    <input className={`${theme} input`} placeholder="Message..." type="text" {...register('message', { required: false })} value={props.message} onChange={(e) => props.setMessage(e.target.value)} />
+                        <input className={`body ${theme} input`} placeholder="Message..." type="text" {...register('message', { required: false })} value={props.message} onChange={(e) => props.setMessage(e.target.value)} />
                     </div>
                 </div>
                 <div className="buttons">
-                    <button className={`button ${theme}-primary`} type="submit">
+                    <button className={`header-bold button ${theme}-primary`} type="submit">
                         Send
                     </button>
                 </div>

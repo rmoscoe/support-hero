@@ -6,7 +6,7 @@ function ChatHeader(props) {
 
     return (
         <div className={`${theme} title has-text-centered`}>
-            <h2>{props.roomName}</h2>
+            <h2 className='header-bold'>{props.roomName}</h2>
         </div>
     );
 };
