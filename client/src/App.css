@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-svg {
+
 svg {
     margin-top: 7px;
     height: 200px !important;
@@ -10,25 +10,16 @@ svg {
 
 @media screen and (max-width: 820px) {
     .metrics>div {
-@media screen and (max-width: 820px) {
-    .metrics>div {
         flex: 100% !important;
     }
 }
 
-@media screen and (max-width: 390px) {
-    .time-metric {
 
 @media screen and (max-width: 390px) {
     .time-metric {
         font-size: 25px !important;
     }
 }
-
-.time-metric {
-    display: flex;
-    column-gap: 15px;
-    justify-content: space-evenly;
 
 .time-metric {
     display: flex;
@@ -45,25 +36,24 @@ svg {
     font-family: Open Sans, sans-serif;
 }
 
-.header {
 
 .header {
     font-family: Montserrat, sans-serif;
 }
 
-.header-bold {
+
 .header-bold {
     font-family: Montserrat, sans-serif;
     font-weight: 600;
 }
 
-.metric-card {
+
 
 .metric-card {
     height: 260px;
 }
 
-.metrics {
+
 .metrics {
     row-gap: 10px;
     column-gap: 10px;
@@ -73,15 +63,12 @@ svg {
     margin-right: auto;
 }
 
-.metrics>div {
+
 
 .metrics>div {
     flex: 40%;
 }
 
-g[aria-label="x-axis label"][transform="translate(0,27)"] text,
-g[aria-label="y-axis label"][transform="translate(-37,-27)"] text {
-    display: none;
 g[aria-label="y-axis label"][transform="translate(-37,-27)"] text {
     display: none;
 }
@@ -236,12 +223,12 @@ body {
     background-color: #313536;
 }
 
-.dark-text>a {
+
 .dark-text>a {
     color: white;
 }
 
-.dark-text>a:hover {
+
 .dark-text>a:hover {
     color: rgb(92, 92, 92);
 }
@@ -299,13 +286,12 @@ body {
     height: 40px;
 }
 
-.comment-header>p {
-    line-height: 13px;
+
 .comment-header>p {
     line-height: 13px;
 }
 
-.description {
+
 .description {
     font-size: 25px !important;
 }
@@ -396,13 +382,12 @@ body {
     border-radius: 5px;
 }
 
-.light-shadow {
 
 .light-shadow {
     box-shadow: 2px 2px 9px rgb(84, 84, 84);
 }
 
-.dark-shadow {
+
 
 .dark-shadow {
     box-shadow: 3px 3px 9px #000508;
@@ -472,10 +457,7 @@ input:checked+.toggle:before {
     transform: translateX(26px);
 }
 
-td,
-th {
-    border: 1px solid #DDD;
-    text-align: center;
+
 td,
 th {
     border: 1px solid #DDD;
@@ -483,7 +465,6 @@ th {
 }
 
 
-.table-container {
 .table-container {
     border-radius: 10px;
     text-align: center;
@@ -494,7 +475,7 @@ th {
     border-radius: 5px;
 }
 
-.dark-text {
+
 .dark-text {
     color: white;
 }
@@ -503,7 +484,7 @@ th {
     color: black;
 }
 
-.current-ticket {
+
 .current-ticket {
     background-color: rgba(123, 124, 167, 0.412) !important;
 }
