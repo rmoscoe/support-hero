@@ -642,52 +642,96 @@ th {
 
 .self{
     margin-left: 50%;
+    font-size: 1.1rem;
 }
 
 .other{
     margin-right: 40%;
+    font-size: 1.1rem;
 }
 
 @media screen and (max-width: 780px) {
     .light-chat-message-self {
-        width: 50%;
+        width: 52%;
+        border: 2px solid #219f81;
+        background-color: #28bc9956;
+        border-radius: 5px;
+        box-shadow: 3px 3px 8px #084b3b;
+        padding: 10px;
+    }
+    .dark-chat-message-self {
+        width: 55%;
+        border: 2px solid #035744;
+        background-color: #207f69bd;
+        border-radius: 5px;
+        box-shadow: 3px 3px 8px #033d2f;
+        padding: 10px;
+    }
+    
+    .light-chat-message-other {
+        width: 55%;
+        border: 2px solid #696868;
+        background-color: #8888882f;
+        border-radius: 5px;
+        box-shadow: 3px 3px 8px #0b0017;
+        padding: 10px;
+    }
+    .dark-chat-message-other {
+        width: 55%;
+        border: 2px solid #000000;
+        background-color: #0000002f;
+        border-radius: 5px;
+        box-shadow: 3px 3px 8px #000000;
+        padding: 10px;
+    }
+    .self{
+        margin-left: 45%;
+    }
+
+}
+
+@media screen and (max-width: 520px) {
+    .light-chat-message-self {
+        width: 70%;
         border: 2px solid #219f81;
         background-color: #28bc9956;
         border-radius: 5px;
         padding: 5px;
         box-shadow: 3px 3px 8px #084b3b;
-        padding: 10px;
-        font-size: 1.1rem;
     }
     .dark-chat-message-self {
-        width: 230px;
+        width: 70%;
         border: 2px solid #035744;
         background-color: #207f69bd;
         border-radius: 5px;
         padding: 5px;
         box-shadow: 3px 3px 8px #033d2f;
-        padding: 10px;
-        font-size: 1.1rem;
     }
     
     .light-chat-message-other {
-        width: 230px;
+        width: 70%;
         border: 2px solid #696868;
         background-color: #8888882f;
         border-radius: 5px;
         padding: 5px;
         box-shadow: 3px 3px 8px #0b0017;
-        padding: 10px;
-        font-size: 1.1rem;
     }
     .dark-chat-message-other {
-        width: 230px;
+        width: 70%;
         border: 2px solid #000000;
         background-color: #0000002f;
         border-radius: 5px;
         padding: 5px;
         box-shadow: 3px 3px 8px #000000;
-        padding: 10px;
-        font-size: 1.1rem;
+    }
+
+    .self{
+        margin-left: 34%;
+        font-size: .7rem;
+    }
+    
+    .other{
+        margin-right: 40%;
+        font-size: .7rem;
     }
 }
