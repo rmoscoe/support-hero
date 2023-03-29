@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Ticket, Comment, Feedback } = require('../models');
+const { User, Ticket, Comment, Feedback, ChatRoom, ChatMessage } = require('../models');
 const Email = require("../models/Email");
 const { signToken } = require('../utils/auth');
 const dateFormat = require("../utils/helpers");
@@ -205,6 +205,27 @@ const resolvers = {
             });
             return emails;
         },
+        getChatRoomByTicketId: async (parent, { ticketId }) => {
+            try {
+                const data = await ChatRoom.findOne({ ticketId })
+                    .populate("users")
+                    .populate({
+                        path: "messages", 
+                        populate: { 
+                            path: "userId", 
+                            model: "User"
+                        }
+                    });
+
+                if (!data) {
+                    console.log("No chat room with the given ticket ID");
+                } else {
+                    return data;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
     },
 
 
@@ -438,8 +459,28 @@ const resolvers = {
         deleteEmail: async (parent, { emailId }) => {
             const email = await Email.deleteOne({ _id: emailId });
             return email;
-        }
+        },
 
+        createChatMessage: async (parent, {roomId, userId, message}) => {
+            const chatRoom = await ChatRoom.findById(roomId);
+
+            if (!chatRoom) {
+                throw new Error("Room not found");
+            }
+
+            const newMessage = await new ChatMessage({
+                userId,
+                message
+            });
+            chatRoom.messages.push(newMessage);
+
+            await Promise.all([chatRoom.save(), newMessage.save()]);
+            return newMessage
+                .populate({ 
+                    path: "userId", 
+                    model: "User"
+                });
+        }
     }
 }
 

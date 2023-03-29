@@ -184,3 +184,18 @@ export const CREATE_FEEDBACK = gql`
         }
     }
 `;
+
+export const CREATE_CHAT_MESSAGE = gql`
+    mutation createChatMessage($roomId: ID!, $userId: ID!, $message: String!) {
+        createChatMessage(roomId: $roomId, userId: $userId, message: $message) {
+            _id
+            message
+            createdAt
+            userId {
+                _id
+                firstName
+                type
+            }
+        }
+    }
+`;
