@@ -47,7 +47,9 @@
 
 [Visit the Deployed Site](https://dry-fjord-88699.herokuapp.com/)
 
-Support Hero is a customer support ticketing system. Customers are able to sign up, create tickets, and correspond with agents on a given issue. Agents are able to correspond with customers as well as create notes on given comments. Since notes are only visible to agents, this allows agents to add important details related to the issue that they can refer back to later. Both agents and users are able to view the tickets they have either created or have assigned to them. Users can also toggle dark mode to change the color of the platform to a darker theme. 
+Support Hero is a customer support ticketing system. Customers are able to sign up, create tickets, and correspond with agents on a given issue. Agents are able to correspond with customers as well as create notes on given comments. Since notes are only visible to agents, this allows agents to add important details related to the issue that they can refer back to later. Both agents and users are able to view the tickets they have either created or have assigned to them. Users can also toggle dark mode to change the color of the platform to a darker theme. Customers can even chat live with agents!
+
+This application offers a stunning display of a variety of metrics to allow agents to track performance statistics and trends related to issue types. In addition, Support Hero automatically sends email notifications to agents and customers when a customer signs up, when a ticket is created, a comment is added to a ticket, or a ticket is closed. The Ticket Closed email includes a deep link requires the customer to log in and then redirects the customer to a feedback form. 
 
 ![Site Langing Page](/assets/images/support-hero.gif)
 
@@ -58,8 +60,8 @@ Support Hero is a customer support ticketing system. Customers are able to sign 
 ![Homepage](/assets/images/homepage.png)
 
 To explore this application, you may use the following credentials:
-* Agent Email: ```lillian.ferry@yahoo.com```
-* Customer Email: ```rosalyn_kassulke92@gmail.com```
+* Agent Email: ```jaqueline_feest34@supporthero.com```
+* Customer Email: ```cheyanne32@gmail.com```
 * Password (same for all users): ```Password1!```
 
 Once a user signs or logs in, they are directed to the Homepage. At the top of the Homepage is a navbar with a button to log out of the application. This navbar is present throughout the application. 

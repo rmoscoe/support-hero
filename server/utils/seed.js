@@ -233,7 +233,7 @@ const createChats = async (ticket) => {
     // };
 
     messageCreatedAt = createdAt;
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) {
         const message = faker.lorem.sentences(1);
         const userId = users[i % 2]._id;
 
@@ -310,7 +310,7 @@ connection.once("open", async () => {
 
         console.log('Creating feedback data...');
         for (let i = 0; i < tickets.length; i++) {
-            if (tickets[i].status === 'Closed' && Math.random() >= 1) {
+            if (tickets[i].status === 'Closed' && Math.random() >= 0.25) {
                 const earliestDate = tickets[i].comments.reduce((minDate, comment) => {
                     const currentDate = new Date(comment.createdAt);
                     return currentDate < minDate ? currentDate : minDate;
