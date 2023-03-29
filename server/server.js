@@ -56,29 +56,29 @@ const startApolloServer = async (typeDefs, resolvers) => {
     })
 };
 
-const ioServer = app.listen(IOPORT, () => {
-    console.log(`IO Server listening on port ${IOPORT}`);
-});
+// const ioServer = app.listen(IOPORT, () => {
+//     console.log(`IO Server listening on port ${IOPORT}`);
+// });
 
-const io = socketio(ioServer);
+// const io = socketio(ioServer);
 
-io.on('connection', (socket) => {
-    console.log('Connected to SocketIO server');
+// io.on('connection', (socket) => {
+//     console.log('Connected to SocketIO server');
 
-    socket.on('joinRoom', (roomId) => {
-        socket.join(roomId);
-        console.log(`User joined room ${roomId}`);
-    });
+//     socket.on('joinRoom', (roomId) => {
+//         socket.join(roomId);
+//         console.log(`User joined room ${roomId}`);
+//     });
 
-    socket.on('leaveRoom', (roomId) => {
-        socket.leave(roomId);
-        console.log(`User left room ${roomId}`);
-    });
+//     socket.on('leaveRoom', (roomId) => {
+//         socket.leave(roomId);
+//         console.log(`User left room ${roomId}`);
+//     });
 
-    socket.on('sendMessage', (message) => {
-        io.to(message.roomId).emit('message', message);
-    });
-});
+//     socket.on('sendMessage', (message) => {
+//         io.to(message.roomId).emit('message', message);
+//     });
+// });
 
 // Call the async function to start the server
 startApolloServer(typeDefs, resolvers);

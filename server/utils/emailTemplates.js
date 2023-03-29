@@ -168,7 +168,6 @@ const commentAddedByCustomerHtml = (firstName, ticketId, status, customerFirstNa
 }
 
 const ticketClosedHtml = (firstName, ticketId) => {
-    const encodedTicketId = encodeURIComponent(ticketId);
     return `${header}
     <main style="display: flex; flex-wrap: wrap; font-family: BlinkMacSystemFont, -apple-system, Segoe UI, 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 2rem;">
         <p>Hello ${firstName},</p>
@@ -178,7 +177,7 @@ const ticketClosedHtml = (firstName, ticketId) => {
         <p>Please click the button below to provide your feedback regarding the service you received.</p>
         <br/>
         <div style="display: flex; justify-content: center; margin: 1rem; width: 100%">
-            <button style="background-color: #9159cd; color: #fff; border: none; box-shadow: 3px 3px 8px #5e2798; vertical-align: middle !important; padding: 0rem 0.75rem 0rem 0.75rem; cursor: pointer; justify-content: center; text-align: center; white-space: nowrap; user-select: none; height: 2.5em; fint-size: 1rem;" href="https://dry-fjord-88699.com/login?redirect=/tickets/${encodedTicketId}&feedback=true}">Submit Feedback</button>
+            <a style="background-color: #9159cd; color: #fff; border: none; box-shadow: 3px 3px 8px #5e2798; vertical-align: middle !important; padding: 0.5em; 2em; cursor: pointer; justify-content: center; text-align: center; white-space: nowrap; user-select: none; height: 2.5em; font-size: 1rem; text-decoration: none" href="https://dry-fjord-88699.com/login?redirect=/tickets/${ticketId}&feedback=true}">Submit Feedback</a>
         </div>
         <br/>
         <p>Regards,</p>
