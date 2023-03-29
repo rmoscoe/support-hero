@@ -12,11 +12,6 @@ const chatMessageSchema = new Schema(
             required: true,
             ref: "User"
         },
-        roomId: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: "ChatRoom"
-        },
         createdAt: {
             type: Date,
             default: Date.now(),
@@ -30,6 +25,6 @@ const chatMessageSchema = new Schema(
     }
 );
 
-const ChatMessage = model("ChatRoom", chatMessageSchema);
+const ChatMessage = model("ChatMessage", chatMessageSchema);
 
 module.exports = ChatMessage;
