@@ -99,6 +99,7 @@ export const GET_CHATROOM_BY_TICKET_ID = gql`
                 message
                 createdAt
                 userId {
+                    _id
                     firstName
                     type
                 }

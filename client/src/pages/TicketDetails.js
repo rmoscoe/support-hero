@@ -73,6 +73,9 @@ function TicketDetails() {
         setIsSubmitFeedback(false);
     }
 
+    const handleChatInitiate = () => {
+        console.log("starting chat");
+    };
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
     let customerId = data.getTicketById.users[0]._id;
@@ -83,6 +86,7 @@ function TicketDetails() {
             <div className="block">
                 {Auth.getUser().data.type === "Agent" && data.getTicketById.status !== "Closed" ? <button className={`${theme}-tertiary header-bold button close`} onClick={updateTicketStatus}>Close Ticket</button> : <label></label>}
                 {Auth.getUser().data.type === "Agent" && <button className={`${theme}-tertiary header-bold button close`} onClick={() => setHistoryView(true)}>Customer History</button>}
+                {Auth.getUser().data.type === "Customer" && <button className={`${theme}-tertiary header-bold button close`} onClick={() => handleChatInitiate()}>Chat with Agent</button>}
 
                 {historyView && <TicketHistory historyView={historyView} setHistoryView={setHistoryView} id={customerId} />}
                 <div className="columns is-multiline is-centered">
