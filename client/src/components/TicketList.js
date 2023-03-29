@@ -102,8 +102,8 @@ const TicketList = ({ tickets, refetchTicketData, setHistoryView }) => {
                                 {headerGroup.headers.map((column) => {
                                     return (
                                         <th
-                                            className={theme === 'light' ? `table-head header-bold ${theme}-primary has-text-black is-size-4 has-text-centered` : `table-head header-bold ${theme}-primary is-size-4 has-text-centered has-text-white`}
-
+                                            className={theme === 'light' ? `table-head header-bold ${theme}-primary has-text-black is-size-4 has-text-centered` : `table-head header-bold ${theme}-primary is-size-4 has-text-centered has-text-white`} 
+                                            
                                             {...column.getHeaderProps()}
                                         >
                                             {userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
