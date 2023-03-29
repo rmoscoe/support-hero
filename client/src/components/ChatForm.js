@@ -32,16 +32,16 @@ const ChatForm = (props) => {
     };
 
     return (
-        <div className="create-chat-message-form">
+        <div className="body create-chat-message-form" style={{marginBottom: '35px'}}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="field">
-                    <label className={`${theme} label`}>Message:</label>
+                    <label className={`header mt-5 ${theme} label`}>Message:</label>
                     <div className="control">
-                        <input className={`${theme} input`} placeholder="Message..." type="text" {...register('message', { required: false })} />
+                        <input className={`body ${theme} input`} placeholder="Message..." type="text" {...register('message', { required: false })} />
                     </div>
                 </div>
                 <div className="buttons">
-                    <button className={`button ${theme}-primary`} type="submit" disabled={loading}>
+                    <button className={`header-bold button ${theme}-primary`} type="submit" disabled={loading}>
                         {loading ? 'Sending...' : 'Send'}
                     </button>
                 </div>

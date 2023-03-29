@@ -5,10 +5,12 @@ import { GET_CHATROOM_BY_TICKET_ID } from '../utils/queries';
 import ChatHeader from '../components/ChatHeader';
 import ChatMessageList from '../components/ChatMessageList';
 import ChatForm from '../components/ChatForm';
+import { useTheme } from '../utils/ThemeContext';
 
 function Chat() {
     const userId = Auth.getUser().data._id;
     const { ticketId } = useParams();
+    const { theme } = useTheme();
 
     const { loading, error, data } = useQuery(GET_CHATROOM_BY_TICKET_ID,
         {
@@ -25,10 +27,10 @@ function Chat() {
     console.log(userId);
 
     return (
-        <div className="chat columns is-centered">
-            <div className="column is-4">
+        <div className="body chat">
+            <div>
                 <ChatHeader roomName={data.getChatRoomByTicketId.roomName} />
-                <ChatMessageList messages={data.getChatRoomByTicketId.messages}/>
+                <ChatMessageList messages={data.getChatRoomByTicketId.messages} id={userId}/>
                 <ChatForm roomId={data.getChatRoomByTicketId._id} userId={userId}/>
             </div>
         </div>
