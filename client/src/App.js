@@ -92,6 +92,10 @@ function App() {
                                     path="/chats/:ticketId"
                                     element={<Chat />}
                                 />
+                                <Route
+                                    path="*"
+                                    element={<Login />}
+                                />
                             </Routes>
                     </StoreProvider>
                     <Footer />
