@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { Navigate, useParams, useLocation } from 'react-router-dom';
+import { Navigate, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { GET_TICKET_BY_ID } from '../utils/queries';
 import { UPDATE_TICKET_STATUS } from '../utils/mutations';
 import CommentList from '../components/CommentList';
@@ -15,6 +15,7 @@ function TicketDetails() {
     const location = useLocation();
     const { theme } = useTheme();
     const [historyView, setHistoryView] = useState(false);
+    const navigate = useNavigate();
 
     const { ticketId, feedback } = useParams();
 
@@ -75,6 +76,7 @@ function TicketDetails() {
 
     const handleChatInitiate = () => {
         console.log("starting chat");
+        navigate(`/chats/${ticketId}`);
     };
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
