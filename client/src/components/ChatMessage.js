@@ -3,10 +3,11 @@ import { useTheme } from '../utils/ThemeContext';
 
 function ChatMessage({ message, id }) {
     const { theme } = useTheme();
+    console.log("id: " + id);
+    console.log("userId: " + message.userId._id);
 
     return (
         <>
-
             <div className={ id === message.userId._id ? 'self header-bold' : 'header-bold other'}
             >{id === message.userId._id ? "You" : message.userId.firstName}</div>
 
@@ -17,8 +18,8 @@ function ChatMessage({ message, id }) {
             </div>
             <div className={ id === message.userId._id ? 'self' : 'other'} style={
                 id === message.userId._id
-                    ? {  marginTop: '10px' }
-                    : {marginTop: '10px' }
+                    ? { marginTop: '10px' }
+                    : { marginTop: '10px' }
             }>{message.createdAt}</div>
         </>
     );
