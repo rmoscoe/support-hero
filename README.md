@@ -4,6 +4,13 @@
 - [Technology Used](#technology-used)
 - [Description](#description)
 - [Usage](#usage)
+  - [Signup and Login](#signup-and-login)
+  - [Homepage/Tickets](#homepagetickets)
+  - [Ticket Details](#ticket-details)
+  - [Metrics](#metrics)
+  - [Dark Mode](#dark-mode)
+  - [Email Notifications](#email-notifications)
+  - [Feedback](#feedback)
 - [Learning Points](#learning-points)
 - [Author Info](#author-info)
   - [Ryan Moscoe](#ryan-moscoe)
@@ -40,6 +47,7 @@
 | React Toastify | [https://fkhadra.github.io/react-toastify/](https://fkhadra.github.io/react-toastify/introduction/) |
 | React Table | [https://react-table-v7.tanstack.com/](https://react-table-v7.tanstack.com/) |
 | Faker | [https://fakerjs.dev/guide/](https://fakerjs.dev/guide/) |
+| Nodemailer | [https://nodemailer.com/about/](https://nodemailer.com/about/) |
 
 <br />
 
@@ -51,7 +59,7 @@ Support Hero is a customer support ticketing system. Customers are able to sign 
 
 This application offers a stunning display of a variety of metrics to allow agents to track performance statistics and trends related to issue types. In addition, Support Hero automatically sends email notifications to agents and customers when a customer signs up, when a ticket is created, a comment is added to a ticket, or a ticket is closed. The Ticket Closed email includes a deep link requires the customer to log in and then redirects the customer to a feedback form. 
 
-![Site Langing Page](/assets/images/support-hero.gif)
+![Site Langing Page](/assets/images/application-tour.gif)
 
 <br/>
 
@@ -64,23 +72,99 @@ To explore this application, you may use the following credentials:
 * Customer Email: ```cheyanne32@gmail.com```
 * Password (same for all users): ```Password1!```
 
-Once a user signs or logs in, they are directed to the Homepage. At the top of the Homepage is a navbar with a button to log out of the application. This navbar is present throughout the application. 
+<br />
+
+### Signup and Login
+
+The landing page for the site is the login page for both customers and agents. As shown below, both types of users log in with an email address and a password.
+
+<br />
+
+![Login Page](/assets/imagea/Login.jpg)
+
+<br />
+
+Agent accounts are created by a data feed (such as from an HRIS or Active Directory system) or set up manually by an administrator. Customers can visit the Signup page from a link on the login page to create an account. Agents and customers have different permissions in the Support Hero system.
+
+<br />
+
+### Homepage/Tickets
+
+Once a user signs up or logs in, they are directed to the Homepage. At the top of the Homepage is a navbar with a button to log out of the application. This navbar is present throughout the application. Users can also toggle between dark theme (shown below) and light theme.
 
 Below the navbar is a table with the user's tickets. The table contains columns for ticket ID, title, created on date, and status. When a user clicks on a ticket, they are taken to the Detailed Ticket view for the given ticket. 
 
+Customers can perform additional actions on the homepage:
+* Create a new ticket
+* Provide feedback regarding the handling of a closed ticket
+
+<br />
+
+![Dark themed customer homepage](/assets/images/Customer%20Home.jpg)
+
+<br />
+
+Clicking the Create Ticket button opens a modal with a form for creating a new ticket (see below).
+
+<br />
+
 ![Create Ticket Form](/assets/images/detailed-ticket.png)
 
-If a user is a customer, they will also have a "Create Ticket" button on their homepage. When this button is clicked, a ticket form modal appears where the customer can input information about their issue. 
+<br />
 
-![Detailed Ticket View](/assets/images/detailed-ticket.png)
+### Ticket Details
 
-On the detailed ticket view page, the title of the ticket, status, priority, description, and comment history are all displayed. At the bottom of the page is a form to add a new comment. When the user clicks the submit button, the comment is added to the comment history. If a user is an agent, they are able to add a note to a comment. The agent can then update or delete that note.
+The Ticket Details page shows the title, status, priority, issue type, and description for the ticket. The comment history shows a chronological record of comments posted to the ticket by the customer and the agent assigned to handle the case. A form at the bottom of the page allows customers and agents to add new comments. The image below shows an agent view of the Ticket Details page, which incluses several components not available to customers:
+* A Metrics button to display performance and issue-related statistics
+* A Close Ticket button to close out the ticket when the issue is resolved
+* A Customer History button that shows all tickets the customer has ever opened.
+* Internal notes attached to each comment, which the agent can add, edit, and delete.
 
-On the detailed ticket view, the navbar has a Home button to take them back to the Homepage. 
+<br />
+
+![Detailed Ticket View](/assets/images/Agent%20Ticket%20Details.jpg)
+
+<br />
+
+### Metrics
+
+The Metrics page shows performance statistics and issue trends using responsive and visually appealing charts.
+
+<br />
+
+![Metrics page with bar charts](assets/images/Metrics.jpg)
+
+<br />
+
+### Dark Mode
+
+While a user is logged in, a toggle is accessible at the top of the page. When a user clicks the toggle, the page will change to 'dark mode'. This will change the background and the colors to darker, more muted colors. When the toggle is clicked again, the page will change back to 'light mode'. If the user logs out and back into the platform, the mode settings will be saved.
+
+<br />
 
 ![Toggle Dark Mode](/assets/images/dark-mode.gif)
 
-While a user is logged in, a toggle is accessible at the top of the page. When a user clicks the toggle, the page will change to 'dark mode'. This will change the background and the colors to darker, more muted colors. When the toggle is clicked again, the page will change back to 'light mode'. If the user logs out and back into the platform, the mode settings will be saved.
+<br />
+
+### Email Notifications
+
+Support Hero sends email notifications to customers and agents for various triggers. For example, when a customer signs up for an account, the customer automatically receives an email notification. In the future, this notification will be used to require an email confirmation before the customer gains full access to the system.
+
+The example below shows an email that was sent to a customer when an agent closed a ticket. The customer can click the button in the email (or log in and navigate to the Home page or Ticket Details page) to complete a feedback survey.
+
+<br />
+
+![Email message](/assets/images/Email.jpg)
+
+<br />
+
+### Feedback
+
+Whether by clicking the button in the ticket closed email or by navigating manually, customers can complete a feedback survey when a ticket is closed. The system allows the customer to complete the survey only once for each ticket and only when the ticket is closed.
+
+<br />
+
+![Feedback survey modal](/assets/images/Feedback.jpg)
 
 <br />
 
@@ -90,6 +174,8 @@ While a user is logged in, a toggle is accessible at the top of the page. When a
 * React Hook Form to create forms with validation with minimal code.
 * React Toastify to create pop-up 'toast' notifications.
 * React Table to create tables with filtering capabilities.
+* Nodemailer to send emails
+* React routing with query parameters
 
 <br />
 
@@ -97,7 +183,7 @@ While a user is logged in, a toggle is accessible at the top of the page. When a
 
 ### Ryan Moscoe 
 
-* [Portfolio](https://rmoscoe.github.io/portfolio/)
+* [Portfolio](https://rmoscoe.github.io/my-portfolio/)
 * [LinkedIn](https://www.linkedin.com/in/ryan-moscoe-8652973/)
 * [Github](https://github.com/rmoscoe)
 
