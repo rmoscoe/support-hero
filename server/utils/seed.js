@@ -2,7 +2,7 @@ const MAX_DATE_RANGE = 5 * 24 * 60 * 60 * 1000;  // 5 days
 const fs = require('fs').promises;
 const { faker } = require('@faker-js/faker');
 const connection = require("../config/connection");
-const { Comment, Ticket, User, Feedback } = require("../models");
+const { Comment, Ticket, User, Feedback, ChatRoom, ChatMessage } = require("../models");
 const Email = require("../models/Email");
 const dateFormat = require("./helpers");
 const { customerSignupHtml, ticketCreatedHtml, commentAddedByAgentHtml, commentAddedByCustomerHtml, ticketClosedHtml } = require("./emailTemplates");
@@ -218,7 +218,45 @@ const createFeedback = async (ticketId, minDate) => {
     });
 
     return await feedback.save();
-}
+};
+
+const createChats = async (ticket) => {
+    const currentDate = new Date();
+    const ticketId = ticket._id;
+    const roomName = ticket.title;
+    const createdAt = ticket.createdAt;
+    const messages = [];
+    const users = ticket.users;
+
+    // for (let i = 0; i < ticket.users.length; i++) {
+    //     users.push(ticket.users[i]._id);
+    // };
+
+    messageCreatedAt = createdAt;
+    for (let i = 0; i < 20; i++) {
+        const message = faker.lorem.sentences(1);
+        const userId = users[i % 2]._id;
+
+        chatMessage = new ChatMessage({
+            message,
+            userId,
+            messageCreatedAt
+        });
+
+        messages.push(await chatMessage.save());
+        messaageCreatedAt = faker.datatype.datetime({ min: messageCreatedAt, max: currentDate });
+    };
+    
+    const chatRoom = new ChatRoom({
+        ticketId,
+        roomName,
+        users,
+        createdAt,
+        messages
+    });
+
+    return await chatRoom.save();
+};
 
 connection.once("open", async () => {
     try {
@@ -230,6 +268,8 @@ connection.once("open", async () => {
         await Comment.deleteMany({});
         await Feedback.deleteMany({});
         await Email.deleteMany({});
+        await ChatRoom.deleteMany({});
+        await ChatMessage.deleteMany({});
         console.log("Existing data dropped.\n--------------------\n");
 
         const agents = [];
@@ -281,6 +321,12 @@ connection.once("open", async () => {
             }
         }
         console.log('Feedback data created!\n--------------------\n');
+
+        console.log('Creating chat data...');
+        for (let i = 0; i < tickets.length; i++) {
+            await createChats(tickets[i]);
+        };
+        console.log('Chat data created!\n--------------------\n');
 
         // Write agent data for reference and close db connection
         await fs.writeFile('userData.json', JSON.stringify([...agents, ...customers], null, 4), (err) => {
