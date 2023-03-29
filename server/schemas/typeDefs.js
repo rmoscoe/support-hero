@@ -57,13 +57,30 @@ const typeDefs = gql`
         subject: String
         body: String
     }
+    type ChatMessage {
+        _id: ID!
+        message: String
+        userId: User
+        createdAt: String
+    }
+    type ChatRoom {
+        _id: ID!
+        ticketId: Ticket
+        roomName: String
+        users: [User]
+        createdAt: String
+        messages: [ChatMessage]
+    }
+    
     type Query {
         getTicketById(ticketId: ID!, userType: String!): Ticket
         getTicketsByUserId(userId: ID, status: String): [Ticket]
         getEmailById(emailId: ID!): Email
         getEmailsByTrigger(trigger: String!, start: String, end: String): [Email]
         getEmailsByDate(start: String, end: String): [Email]
+        getChatRoomByTicketId(ticketId: ID!): ChatRoom
     }
+
     type Mutation {
         createTicket(title: String!, description: String!, issueType: String!, priority: String!): Ticket
         updateTicketStatus(ticketId: ID!, status: String!, closedAt: String): Ticket
@@ -73,11 +90,10 @@ const typeDefs = gql`
         deleteNote(commentId: ID!, notes: String!): Comment
         login(email: String!, password: String!, redirectUrl: String, feedback: Boolean): Auth
         createUser(firstName: String, lastName: String, password: String, email: String): Auth
-
         createFeedback(ticketId: ID!,rating: String!,feedbackText: String!): Feedback
-
         createEmail(trigger: String!, sentTo: String!, sentToUser: ID!, accepted: Boolean!, response: String!, messageId: String!, messageURL: String!, subject: String!, body: String!): Email
         deleteEmail(emailId: String!): Email
+        createChatMessage(roomId: ID!, userId: ID!, message: String!) : ChatMessage
     }
 `
 
