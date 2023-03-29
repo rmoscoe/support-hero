@@ -17,8 +17,9 @@ function Chat() {
     // const [socket, setSocket] = useState(null);
 
     const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
 
-    const { loading, error, data, refetch } = useQuery(GET_CHATROOM_BY_TICKET_ID,
+    const { loading, error, data } = useQuery(GET_CHATROOM_BY_TICKET_ID,
     {
             variables: { ticketId }
     });
@@ -37,6 +38,11 @@ function Chat() {
         scrollToBottom();
     }, [data]);
 
+    useEffect(() => {
+        if (data) {
+            setMessages(data.getChatRoomByTicketId.messages);
+        }
+    }, [data]);
     // useEffect(() => {
     //     const newSocket = io('http://localhost:3002');
     //     setSocket(newSocket);
@@ -64,12 +70,14 @@ function Chat() {
     //     }
     // }, [socket, ticketId, subscribeToMore]);
 
-    const sendMesssage = (messageToSend) => {
-        if (message.trim !== '') {
-            createChatMessage({ variables: { roomId: data.getChatRoomByTicketId._id, userId, message: messageToSend }});
+    const sendMessage = async (messageToSend) => {
+        if (messageToSend.trim !== '') {
+            const { data: newMessageData } = await createChatMessage({ variables: { roomId: data.getChatRoomByTicketId._id, userId, message: messageToSend }});
+            const newMessage = newMessageData.createChatMessage;
+            setMessages([...messages, newMessage]);
+            setMessage('');
             // socket.emit('sendMessage', { roomId: data.getChatRoomByTicketId._id, userId, message });
             // refetch();
-            setMessage('');
         }
     };
 
@@ -78,10 +86,9 @@ function Chat() {
         const formData = new FormData(event.target);
         setMessage(formData.get("message"));
         if (formData.get("message")) {
-            sendMesssage(formData.get("message"));
+            sendMessage(formData.get("message"));
         }
         event.target.reset();
-        refetch();
     };
 
     if (!Auth.loggedIn()) {
@@ -95,7 +102,7 @@ function Chat() {
         <div className="body chat">
             <div>
                 <ChatHeader roomName={data.getChatRoomByTicketId.roomName} />
-                <ChatMessageList messages={data.getChatRoomByTicketId.messages} id={userId}/>
+                <ChatMessageList messages={messages} id={userId}/>
                 <ChatForm handleSubmit={handleSubmit} setMessage={setMessage} roomId={data.getChatRoomByTicketId._id} userId={userId} ref={chatFormRef}/>
             </div>
         </div>
