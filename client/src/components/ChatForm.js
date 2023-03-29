@@ -41,7 +41,7 @@ const ChatForm = React.forwardRef((props, ref) => {
                     </div>
                 </div>
                 <div className="buttons">
-                    <button className={`header-bold button ${theme}-primary`} type="submit" >
+                    <button className={`header-bold button ${theme}-primary`} type="submit">
                         Send
                     </button>
                 </div>
