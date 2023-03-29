@@ -94,7 +94,7 @@ const TicketList = ({ tickets, refetchTicketData, setHistoryView }) => {
     return (
         <>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-            <div className={`${theme}-border table-container`}>
+            <div className={`${theme}-border-table table-container`}>
                 <table {...getTableProps()} className={`table is-narrow  is-fullwidth is-responsive hscroll`}>
                     <thead>
                         {headerGroups.map((headerGroup) => (
@@ -102,8 +102,8 @@ const TicketList = ({ tickets, refetchTicketData, setHistoryView }) => {
                                 {headerGroup.headers.map((column) => {
                                     return (
                                         <th
-                                            className={theme === 'light' ? `table-head header-bold ${theme}-primary has-text-black is-size-4 has-text-centered` : `table-head header-bold ${theme}-primary is-size-4 has-text-centered has-text-white`} 
-                                            
+                                            className={theme === 'light' ? `table-head header-bold ${theme}-primary has-text-black is-size-4 has-text-centered` : `table-head header-bold ${theme}-primary is-size-4 has-text-centered has-text-white`}
+
                                             {...column.getHeaderProps()}
                                         >
                                             {userType === "Agent" && column.Header === "Feedback" ? null : column.render('Header')}
@@ -123,8 +123,22 @@ const TicketList = ({ tickets, refetchTicketData, setHistoryView }) => {
                             return (
                                 <tr {...row.getRowProps()}>
                                     {row.cells.map((cell) => {
-                                        return <td className={window.location.href.split('/').pop() === cell.row.original._id ? `current-ticket ${theme}-text` : `${theme}-text `} {...cell.getCellProps()}><Link className={window.location.href.split('/') === cell.row.original._id ? 'is-selected' : ''} onClick={() => setHistoryView(false)} to={`/tickets/${cell.row.original._id}`}>{cell.column.Header !== "Feedback" && cell.render('Cell')}</Link>
-                                            {cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && !cell.value && Auth.getUser()?.data.type === "Customer" ? <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-ticket-id={cell.row.values._id} data-target="submit-feedback-form">Submit Feedback</button> : Auth.getUser()?.data.type === "Customer" && cell.column.Header === "Feedback" && cell.row.values.status === "Closed" && <label style={{ color: 'Red' }}>Feedback Submitted</label>}
+                                        return <td className={window.location.href.split('/').pop() === cell.row.original._id ? `current-ticket ${theme}-text` : `${theme}-text `} {...cell.getCellProps()} data-label={Auth.getUser()?.data.type === "Agent" && cell.column.Header === 'Feedback' ? '' : cell.column.Header}>
+                                            <Link className={window.location.href.split('/') === cell.row.original._id ? 'is-selected' : ''} onClick={() => setHistoryView(false)} to={`/tickets/${cell.row.original._id}`}>
+                                                {cell.column.Header !== "Feedback" && cell.render('Cell')}
+                                            </Link>
+                                            {Auth.getUser()?.data.type === "Customer" &&
+                                                cell.column.Header === "Feedback" &&
+                                                cell.row.values.status === "Closed" &&
+                                                !cell.value &&
+                                                <button className={`${theme}-tertiary button`} onClick={handleSubmitFeedback} data-ticket-id={cell.row.values._id} data-target="submit-feedback-form">Submit Feedback</button>
+                                            }
+                                            {Auth.getUser()?.data.type === "Customer" &&
+                                                cell.column.Header === "Feedback" &&
+                                                cell.row.values.status === "Closed" &&
+                                                cell.value &&
+                                                <label style={{ color: 'Red' }}>Feedback Submitted</label>
+                                            }
                                         </td>
                                     })}
                                 </tr>
