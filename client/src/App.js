@@ -19,6 +19,7 @@ import { StoreProvider } from './utils/GlobalState';
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
 import TicketDetails from './pages/TicketDetails';
+import Chat from './pages/Chat';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Signup from './pages/Signup';
@@ -86,6 +87,10 @@ function App() {
                                 <Route
                                     path="/tickets/:ticketId/:feedback"
                                     element={<TicketDetails />}
+                                />
+                                <Route
+                                    path="/chats/:ticketId"
+                                    element={<Chat />}
                                 />
                             </Routes>
                     </StoreProvider>
