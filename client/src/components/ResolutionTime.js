@@ -30,9 +30,9 @@ function ResolutionTime({ metrics }) {
     }
 
     function checkData(average) {
-        if(average === 0){
+        if (isNaN(average) || closeCount === 0) {
             return false
-        } 
+        }
         return true
     };
 
