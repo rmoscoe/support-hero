@@ -6,7 +6,7 @@ export const GlobalFilter = ({ filter, setFilter }) => {
     return (
         <span >
             <strong className={`header ${theme}-text`}>Search Ticket: </strong>{' '}
-            <input className="body m-5" size="50" value={filter || ''}
+            <input style={{border: '2px solid black', borderRadius: '5px'}} className="body m-5" size="50" value={filter || ''}
                 onChange={e => setFilter(e.target
                     .value)} />
 
