@@ -14,7 +14,7 @@ function ResolutionTime({ metrics }) {
         if (metrics?.getTicketsByUserId[i].status === 'Closed') closeCount++;
         total += isNaN(timeInQueue) ? 0 : timeInQueue;
     }
-
+    // console.log('total', total, 'closeCount', closeCount)
     let average = total / closeCount;
     // formats average in day/hour/minute/second format
     function formatTime(time) {
@@ -30,9 +30,9 @@ function ResolutionTime({ metrics }) {
     }
 
     function checkData(average) {
-        if(average === 0){
+        if (isNaN(average) || closeCount === 0) {
             return false
-        } 
+        }
         return true
     };
 
