@@ -1,10 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@apollo/client';
-import { CREATE_CHAT_MESSAGE } from '../utils/mutations';
 import { useTheme } from "../utils/ThemeContext";
 
-const ChatForm = (props) => {
+const ChatForm = React.forwardRef((props, ref) => {
     const defaultValues = {
         roomId: props.roomId,
         message: "",
@@ -12,42 +10,44 @@ const ChatForm = (props) => {
     };
 
     const { theme } = useTheme();
-    const [ createChatMessage, { loading }] = useMutation(CREATE_CHAT_MESSAGE);
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({ defaultValues });
+    
+    // const [ createChatMessage, { loading }] = useMutation(CREATE_CHAT_MESSAGE);
+    const { register } = useForm({ defaultValues });
 
-    const onSubmit = async (formData) => {
-        try {
-            console.log(formData);
-            const newMessage = await createChatMessage({
-                variables: { 
-                    message: formData.message,
-                    roomId: defaultValues.roomId,
-                    userId: defaultValues.userId
-                }
-            });
-            console.log(newMessage);
-        } catch (error) {
-            console.log(error);
-        };
-    };
+    // const onSubmit = async (formData) => {
+    //     try {
+    //         console.log(formData);
+    //         props.handleSubmit(formData);
+    //         reset();
+    //         const newMessage = await createChatMessage({
+    //             variables: { 
+    //                 message: formData.message,
+    //                 roomId: defaultValues.roomId,
+    //                 userId: defaultValues.userId
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.log(error);
+    //     };
+    // };
 
     return (
-        <div className="create-chat-message-form">
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="create-chat-message-form" ref={ref}>
+            <form onSubmit={props.handleSubmit} >
                 <div className="field">
-                    <label className={`${theme} label`}>Message:</label>
+                    <label className={`${theme} label`}>New message:</label>
                     <div className="control">
-                        <input className={`${theme} input`} placeholder="Message..." type="text" {...register('message', { required: false })} />
+                    <input className={`${theme} input`} placeholder="Message..." type="text" {...register('message', { required: false })} value={props.message} onChange={(e) => props.setMessage(e.target.value)} />
                     </div>
                 </div>
                 <div className="buttons">
-                    <button className={`button ${theme}-primary`} type="submit" disabled={loading}>
-                        {loading ? 'Sending...' : 'Send'}
+                    <button className={`button ${theme}-primary`} type="submit">
+                        Send
                     </button>
                 </div>
             </form>
         </div>
     );
-}
+});
 
 export default ChatForm;
