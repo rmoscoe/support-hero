@@ -3,14 +3,14 @@ const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const { createTransporter } = require("./config/transporter");
-const socketio = require('socket.io');
+// const socketio = require('socket.io');
 require("dotenv").config();
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
-const IOPORT = process.env.IOPORT || 3002;
+// const IOPORT = process.env.IOPORT || 3002;
 
 const app = express();
 const server = new ApolloServer({
